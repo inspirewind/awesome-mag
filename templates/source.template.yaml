@@ -1,0 +1,22 @@
+slug: example-source
+name: Example Source
+homepage: https://example.org
+summary: One-sentence description of the MAG resource.
+categories:
+  - general-catalog
+biomes: []
+source_type:
+  - dataset
+release: null
+updated_at: null
+license: unknown
+access:
+  method: browser
+  automation: none
+  restrictions: []
+download:
+  landing_page: https://example.org/download
+  direct_urls: []
+  notes: []
+tags: []
+status: active
