@@ -47,7 +47,9 @@ As the list grows, the main `README.md` should stay concise and group links by u
 
 ### General MAG Catalogs and Database Portals
 
-- [MAGdb](https://magdb.nanhulab.ac.cn/) - A curated MAG database from Nanhu Laboratory covering clinical, environmental, and animal collections. The public download page exposes article lists via category spreadsheets, while archive downloads are triggered through a manual-click UI and require an authenticated session. See [source notes](sources/magdb/download.md) and the [automation script](scripts/magdb/README.md).
+| Resource | Scope | Type | Access | Automation | Notes |
+| --- | --- | --- | --- | --- | --- |
+| [MAGdb](https://magdb.nanhulab.ac.cn/) | Clinical, Environment, Animal | Database portal | Public listings; cookie-gated archive downloads | [Download script](scripts/magdb/README.md) | Per-study `data.tar.gz`; 74 study packages downloaded; see [notes](sources/magdb/download.md) |
 
 ## Repository Layout
 

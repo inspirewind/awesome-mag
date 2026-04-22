@@ -1,0 +1,41 @@
+slug: magdb
+name: MAGdb
+homepage: https://magdb.nanhulab.ac.cn/
+download_page: https://magdb.nanhulab.ac.cn/download
+summary: Curated MAG portal from Nanhu Laboratory with clinical, environmental, and animal MAG collections.
+categories:
+  - general-catalog
+  - human-associated
+  - environmental
+  - animal-associated
+biomes:
+  - clinical
+  - environment
+  - animal
+source_type:
+  - database
+  - dataset-portal
+release: HAMG_20240130
+website_version: v1.0
+license: unknown
+access:
+  method: browser-plus-script
+  automation: scripts/magdb/download.py
+  restrictions:
+    - Public article lists are downloadable without login.
+    - Archive downloads return a JSON login error unless an authenticated session cookie is present.
+download:
+  landing_page: https://magdb.nanhulab.ac.cn/download
+  listing_workbooks:
+    Clinical: https://magdb.nanhulab.ac.cn/biobank/v1/getDirectoryByPath/620a0f2a40da9762bca509bc/group/preview/params%3D/MAG/Clinical.xlsx?token=Dyw639DrEpz3VdBS2wCshX
+    Environment: https://magdb.nanhulab.ac.cn/biobank/v1/getDirectoryByPath/620a0f2a40da9762bca509bc/group/preview/params%3D/MAG/Environment.xlsx?token=Dyw639DrEpz3VdBS2wCshX
+    Animal: https://magdb.nanhulab.ac.cn/biobank/v1/getDirectoryByPath/620a0f2a40da9762bca509bc/group/preview/params%3D/MAG/Animal.xlsx?token=Dyw639DrEpz3VdBS2wCshX
+  archive_template: https://magdb.nanhulab.ac.cn/biobank/v1/getDirectoryByPath/620a0f2a40da9762bca509bc/group/preview/params%3D/HAMG_20240130/{index}_{category}_result/{title}/data.tar.gz
+  notes:
+    - The archive path is assembled client-side from the selected tab and article title.
+    - Login is enforced by session cookie rather than by a token embedded in the archive URL.
+tags:
+  - mag
+  - curated-metadata
+  - nanhu-laboratory
+status: active
