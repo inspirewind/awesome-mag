@@ -1,0 +1,23 @@
+name: gcMeta
+homepage: https://gcmeta.wdcm.org/
+download_page: https://gcmeta.wdcm.org/download
+summary: Global Catalogue of Metagenomics download page for public habitat MAG catalogues.
+scope:
+  - multi-biome
+  - environment
+  - host-associated
+type: database portal
+access:
+  listing: public
+  downloads: public
+download:
+  list_api: https://gcmeta.wdcm.org/gcmetaapi/down/list
+  catalogue_tree_api: https://gcmeta.wdcm.org/gcmetaapi/catalogue/catalogueTree
+  catalogue_name_list_api: https://gcmeta.wdcm.org/gcmetaapi/home/catalogueNameList
+  archive_base: https://open.nmdc.cn/specail_data/gcmeta/Mags/Archive/
+automation:
+  script: scripts/gcmeta/download.py
+  mode: public catalogue enumeration plus derived file names
+notes:
+  - The script reads public catalogue names from catalogueTree and catalogueNameList instead of replaying encrypted pagination requests.
+  - Archive, md5, and metadata files are derived from the public naming pattern used on the gcMeta download page.

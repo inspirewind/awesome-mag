@@ -50,6 +50,7 @@ As the list grows, the main `README.md` should stay concise and group links by u
 | Resource | Scope | Type | Access | Automation | Notes |
 | --- | --- | --- | --- | --- | --- |
 | [MAGdb](https://magdb.nanhulab.ac.cn/) | Clinical, Environment, Animal | Database portal | Public listings; cookie-gated archive downloads | [Download script](scripts/magdb/README.md) | Per-study `data.tar.gz`; 74 study packages downloaded; see [notes](sources/magdb/download.md) |
+| [gcMeta](https://gcmeta.wdcm.org/) | Multi-biome catalogues | Database portal | Public catalogue APIs; public direct archive files | [Download script](scripts/gcmeta/README.md) | 50 catalogue bundles; public `catalogueTree` and `catalogueNameList` enumeration plus derived direct files on `open.nmdc.cn`; see [notes](sources/gcmeta/download.md) |
 
 ## Repository Layout
 
@@ -61,12 +62,19 @@ awesome-mag/
 │   └── README.md
 ├── sources/
 │   ├── README.md
+│   ├── gcmeta/
+│   │   ├── download.md
+│   │   ├── metadata.yaml
+│   │   └── notes.md
 │   └── magdb/
 │       ├── download.md
 │       ├── metadata.yaml
 │       └── notes.md
 ├── scripts/
 │   ├── README.md
+│   ├── gcmeta/
+│   │   ├── README.md
+│   │   └── download.py
 │   └── magdb/
 │       ├── README.md
 │       └── download.py
