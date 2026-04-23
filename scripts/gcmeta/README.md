@@ -37,6 +37,41 @@ The script derives filenames using the same stable naming convention visible on 
 - `*_species-level_representative_MAGs.tar.gz.md5`
 - `*_species-level_representative_MAGs.metainfo.txt`
 
+## Commands and Parameters
+
+The script has three subcommands:
+
+- `list`: enumerate catalogue entries and show the derived archive names.
+- `url`: print direct URLs without downloading files.
+- `download`: download selected files from the public `open.nmdc.cn` archive host.
+
+Common selection parameters:
+
+- `--catalogue NAME`: exact catalogue-name match, for example `Acid Habitat`.
+- `--group NAME`: exact catalogue-group match, for example `Large Livestock`.
+- `--contains TEXT`: substring match against catalogue group or catalogue name.
+- `--all-matches`: allow multiple matches for `url` or `download`; without this flag, those commands require a single resolved entry.
+- `--json`: emit JSON output for `list` and `url`, useful for piping into other tools.
+
+Asset selection parameters:
+
+- `--bundle total`: select only `*_all_MAGs.tar.gz`; this is the default.
+- `--bundle species`: select only `*_species-level_representative_MAGs.tar.gz`.
+- `--bundle both`: select both `total` and `species` bundles.
+- `--include-md5`: also include the `.md5` sidecar file.
+- `--include-metadata`: also include the `.metainfo.txt` metadata file.
+
+Download parameters:
+
+- `--output-dir DIR`: write files under this directory. The default is `downloads/gcmeta`.
+- `--skip-existing`: skip a target file when it already exists and is non-empty.
+- `--resume`: resume from an existing `.part` file when the server accepts range requests.
+- `--retries N`: retry each failed file `N` additional times.
+- `--continue-on-error`: continue downloading other files after one file fails.
+- `--no-progress`: disable per-file `START` and byte-count progress messages.
+
+Download progress is shown on stderr so stdout remains usable for final status lines or shell redirection. The script reports catalogue resolution, selected entry count, a `START` line for each file, periodic byte progress, and then the existing `OK`, `SKIP`, or `FAIL` status.
+
 ## Examples
 
 List all catalogue entries:
@@ -90,6 +125,16 @@ python3 scripts/gcmeta/download.py download \
   --skip-existing \
   --resume \
   --retries 3 \
+  --continue-on-error
+```
+
+Download only `*_all_MAGs.tar.gz` for every catalogue:
+
+```bash
+python3 scripts/gcmeta/download.py download \
+  --bundle total \
+  --all-matches \
+  --skip-existing \
   --continue-on-error
 ```
 

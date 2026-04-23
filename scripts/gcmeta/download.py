@@ -18,6 +18,7 @@ CATALOGUE_TREE_API = "https://gcmeta.wdcm.org/gcmetaapi/catalogue/catalogueTree"
 CATALOGUE_NAME_LIST_API = "https://gcmeta.wdcm.org/gcmetaapi/home/catalogueNameList"
 ARCHIVE_BASE = "https://open.nmdc.cn/specail_data/gcmeta/Mags/Archive"
 USER_AGENT = "awesome-mag/0.1 (+https://github.com/)"
+PROGRESS_INTERVAL_SECONDS = 2.0
 
 FIELD_MAP = {
     "total": {
@@ -368,14 +369,74 @@ def temporary_destination(destination: Path) -> Path:
     return destination.with_suffix(destination.suffix + ".part")
 
 
-def copy_response_to_file(response, handle) -> int:
+def format_bytes(size: int | None) -> str:
+    if size is None:
+        return "unknown"
+    value = float(size)
+    for unit in ("B", "KiB", "MiB", "GiB", "TiB"):
+        if value < 1024 or unit == "TiB":
+            if unit == "B":
+                return f"{int(value)} {unit}"
+            return f"{value:.1f} {unit}"
+        value /= 1024
+    return f"{value:.1f} TiB"
+
+
+def parse_content_length(response) -> int | None:
+    value = response.headers.get("Content-Length")
+    if not value:
+        return None
+    try:
+        return int(value)
+    except ValueError:
+        return None
+
+
+def render_progress(label: str, current: int, total: int | None) -> str:
+    if total and total > 0:
+        percent = min(current / total * 100, 100.0)
+        return f"{label}: {percent:5.1f}% ({format_bytes(current)} / {format_bytes(total)})"
+    return f"{label}: {format_bytes(current)}"
+
+
+def emit_progress(label: str, current: int, total: int | None, *, final: bool = False) -> None:
+    message = render_progress(label, current, total)
+    if sys.stderr.isatty() and not final:
+        sys.stderr.write(f"\r{message}")
+        sys.stderr.flush()
+        return
+    if sys.stderr.isatty() and final:
+        sys.stderr.write(f"\r{message}\n")
+    else:
+        sys.stderr.write(f"{message}\n")
+    sys.stderr.flush()
+
+
+def copy_response_to_file(
+    response,
+    handle,
+    *,
+    label: str,
+    initial_bytes: int = 0,
+    total_bytes: int | None = None,
+    show_progress: bool = True,
+) -> int:
     total = 0
+    last_report = time.monotonic()
+    if show_progress:
+        emit_progress(label, initial_bytes, total_bytes)
     while True:
         chunk = response.read(1024 * 1024)
         if not chunk:
             break
         handle.write(chunk)
         total += len(chunk)
+        now = time.monotonic()
+        if show_progress and now - last_report >= PROGRESS_INTERVAL_SECONDS:
+            emit_progress(label, initial_bytes + total, total_bytes)
+            last_report = now
+    if show_progress:
+        emit_progress(label, initial_bytes + total, total_bytes, final=True)
     return total
 
 
@@ -388,6 +449,7 @@ def download_asset(
     *,
     skip_existing: bool = False,
     resume: bool = False,
+    show_progress: bool = True,
 ) -> tuple[str, Path]:
     filename = entry.file_name(bundle, artifact)
     destination = output_dir / bundle / filename
@@ -407,6 +469,10 @@ def download_asset(
             headers["Range"] = f"bytes={range_start}-"
             mode = "ab"
 
+    label = f"{entry.catalogue_name} [{bundle} {artifact}]"
+    if show_progress:
+        print(f"START {label} -> {destination}", file=sys.stderr)
+
     req = urllib.request.Request(entry.download_url(bundle, artifact), headers=headers)
     try:
         with opener.open(req) as response:
@@ -415,12 +481,21 @@ def download_asset(
                 raise DownloadError(
                     f"gcMeta returned 204 No Content for '{entry.catalogue_name}' {bundle} {artifact}."
                 )
+            content_length = parse_content_length(response)
             if range_start and status != 206:
                 range_start = 0
                 mode = "wb"
+            total_bytes = content_length + range_start if content_length is not None else None
 
             with partial.open(mode) as handle:
-                bytes_written = copy_response_to_file(response, handle)
+                bytes_written = copy_response_to_file(
+                    response,
+                    handle,
+                    label=label,
+                    initial_bytes=range_start,
+                    total_bytes=total_bytes,
+                    show_progress=show_progress,
+                )
             if bytes_written == 0:
                 raise DownloadError(
                     f"gcMeta returned an empty body for '{entry.catalogue_name}' {bundle} {artifact}."
@@ -445,6 +520,7 @@ def download_with_retries(
     skip_existing: bool,
     resume: bool,
     retries: int,
+    show_progress: bool,
 ) -> tuple[str, Path]:
     attempts = retries + 1
     last_error: DownloadError | None = None
@@ -458,6 +534,7 @@ def download_with_retries(
                 output_dir,
                 skip_existing=skip_existing,
                 resume=resume,
+                show_progress=show_progress,
             )
         except DownloadError as exc:
             last_error = exc
@@ -540,6 +617,8 @@ def command_url(args: argparse.Namespace) -> int:
 
 def command_download(args: argparse.Namespace) -> int:
     opener = build_opener()
+    if not args.no_progress:
+        print("Resolving gcMeta catalogues from public APIs...", file=sys.stderr)
     entries = fetch_all_entries()
     matches = ensure_match_constraints(
         select_entries(
@@ -550,6 +629,8 @@ def command_download(args: argparse.Namespace) -> int:
         ),
         allow_many=args.all_matches,
     )
+    if not args.no_progress:
+        print(f"Selected {len(matches)} catalogue entr{'y' if len(matches) == 1 else 'ies'}.", file=sys.stderr)
 
     output_dir = Path(args.output_dir).expanduser().resolve()
     failures: list[tuple[str, str]] = []
@@ -569,6 +650,7 @@ def command_download(args: argparse.Namespace) -> int:
                     skip_existing=args.skip_existing,
                     resume=args.resume,
                     retries=args.retries,
+                    show_progress=not args.no_progress,
                 )
                 if status == "skipped":
                     print(f"SKIP {destination}")
@@ -648,6 +730,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--output-dir",
         default="downloads/gcmeta",
         help="Directory for downloaded gcMeta files. Defaults to downloads/gcmeta.",
+    )
+    download_parser.add_argument(
+        "--no-progress",
+        action="store_true",
+        help="Disable per-file download progress messages.",
     )
     add_compatibility_arguments(download_parser)
     download_parser.set_defaults(func=command_download)
