@@ -1,0 +1,51 @@
+slug: spire
+name: SPIRE
+homepage: https://spire.embl.de/
+download_page: https://spire.embl.de/downloads
+summary: EMBL SPIRE collection of metagenome assemblies, MAGs, marker genes, mOTUs resources, representative genomes, and metadata.
+categories:
+  - general-catalog
+  - multi-biome
+  - metagenome-assembled-genomes
+biomes:
+  - human-associated
+  - animal-associated
+  - marine
+  - freshwater
+  - soil
+  - engineered
+  - multi-biome
+source_type:
+  - dataset
+  - database-portal
+release: SPIRE v1
+license: unknown
+access:
+  method: public-direct-urls
+  automation: scripts/spire/download.py
+  restrictions:
+    - Static archive files are public direct URLs on swifter.embl.de.
+    - Per-study profile TSV files are served through dynamic spire.embl.de endpoints.
+    - The helper script prints URLs only and does not download data.
+download:
+  landing_page: https://spire.embl.de/downloads
+  swifter_base: https://swifter.embl.de/~fullam/spire/
+  marker_genes_base: https://swifter.embl.de/~fullam/census_marker_genes/
+  sections:
+    metadata: https://swifter.embl.de/~fullam/spire/metadata/
+    study_compiled_archives: https://swifter.embl.de/~fullam/spire/compiled/
+    per_study_gene_calls: https://swifter.embl.de/~fullam/spire/genes_per_study/
+    full_gene_shards: https://swifter.embl.de/~fullam/spire/genes/
+    representatives: https://swifter.embl.de/~fullam/spire/representatives/
+    spire_motus_db: https://swifter.embl.de/~fullam/spire/spire_motus/
+  notes:
+    - The downloads page embeds a JavaScript studyDownloadsData object with 714 unique study names.
+    - Per-study static assets include assemblies, MAGs, gene-call FNA archives, and gene-call FAA archives.
+    - Apache directory indexes expose extra files such as full-gene shards and .md5 sidecars.
+tags:
+  - mag
+  - metagenomics
+  - spire
+  - embl
+  - direct-urls
+status: active
