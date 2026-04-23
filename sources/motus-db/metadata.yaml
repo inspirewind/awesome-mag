@@ -1,0 +1,63 @@
+slug: motus-db
+name: mOTUs DB
+homepage: https://motus-db.org/
+download_page: https://sunagawalab.ethz.ch/share/MOTUS/motus-tool/v4.0.0a/downloads.html
+summary: Sunagawa Lab mOTUs genome database, an open multi-biome prokaryotic genome collection underlying the mOTUs profiler.
+categories:
+  - general-catalog
+  - multi-biome
+  - metagenome-assembled-genomes
+  - marker-gene-profiling
+biomes:
+  - human-associated
+  - animal-associated
+  - marine
+  - freshwater
+  - soil
+  - engineered
+  - multi-biome
+source_type:
+  - database
+  - dataset-portal
+  - tool-backed-access
+release: mOTUs DB v4.0
+updated_at: 2025-10-03
+license: CC BY 4.0
+access:
+  method: public-direct-urls-plus-motus-tool
+  automation: motus-tool
+  restrictions:
+    - Full genome sequence archive is public but very large, approximately 2.7 TB.
+    - Browser-based genome sequence downloads are intended for small selections and are capped at 200 genomes.
+    - Targeted genome discovery by taxonomy, mOTU, or function should use motus-tool commands.
+    - Current documentation also mentions v4.1, but the checked v4.1 bulk FTP path was not publicly accessible.
+download:
+  landing_page: https://sunagawalab.ethz.ch/share/MOTUS/motus-tool/v4.0.0a/downloads.html
+  data_root_v4_0: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/
+  full_genome_archive: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/mOTUs4.genomes.tar
+  genome_file_manifest: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/genomes/genome_files
+  genome_metadata: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/mOTUs4.0_genome-metadata-20250702.alpha.tsv.gz
+  genome_directory: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/genomes/
+  marker_gene_db:
+    v4_0_public_file_host: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/mOTUS-MGDB/current/db_mOTU.tar.gz
+    v4_0_public_md5: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/mOTUS-MGDB/current/db_mOTU.tar.gz.md5
+    current_tool_zenodo: "https://zenodo.org/records/17668622/files/db_mOTU.tar.gz?download=1"
+  annotation_db:
+    current_tool_zenodo: "https://zenodo.org/records/17669279/files/mOTUsv4.0.annotation.db?download=1"
+  supplementary_tables:
+    landing_page: https://zenodo.org/records/13325008
+    file_host_directory: https://sunagawalab.ethz.ch/share/MOTUS/database/4.0/data/Supplementary_Tables/
+  notes:
+    - Use direct URLs for full archive, full metadata, supplementary tables, and the file manifest.
+    - Use motus-tool for query-driven retrieval by mOTU ID, genome ID, GTDB taxonomy, KEGG, PFAM, or eggNOG.
+    - motus-tool first downloads the marker-gene DB and, for motus genomes, the annotation DB.
+tags:
+  - mag
+  - metagenomics
+  - motus
+  - gtdb
+  - kegg
+  - pfam
+  - eggnog
+  - direct-urls
+status: active
