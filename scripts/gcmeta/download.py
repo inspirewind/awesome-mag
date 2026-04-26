@@ -5,6 +5,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import shlex
+import shutil
+import subprocess
 import sys
 import time
 import urllib.error
@@ -19,6 +22,7 @@ CATALOGUE_NAME_LIST_API = "https://gcmeta.wdcm.org/gcmetaapi/home/catalogueNameL
 ARCHIVE_BASE = "https://open.nmdc.cn/specail_data/gcmeta/Mags/Archive"
 USER_AGENT = "awesome-mag/0.1 (+https://github.com/)"
 PROGRESS_INTERVAL_SECONDS = 2.0
+DOWNLOADER_CHOICES = ("python", "curl", "wget", "aria2c")
 
 FIELD_MAP = {
     "total": {
@@ -440,6 +444,106 @@ def copy_response_to_file(
     return total
 
 
+def build_external_downloader_command(
+    downloader: str,
+    executable: str,
+    *,
+    url: str,
+    partial: Path,
+    resume: bool,
+    show_progress: bool,
+) -> list[str]:
+    if downloader == "curl":
+        command = [
+            executable,
+            "--location",
+            "--fail",
+            "--user-agent",
+            USER_AGENT,
+            "--output",
+            str(partial),
+        ]
+        if resume:
+            command.extend(["--continue-at", "-"])
+        if not show_progress:
+            command.extend(["--silent", "--show-error"])
+        command.append(url)
+        return command
+
+    if downloader == "wget":
+        command = [
+            executable,
+            "--tries=1",
+            f"--user-agent={USER_AGENT}",
+            "--output-document",
+            str(partial),
+        ]
+        if resume:
+            command.append("--continue")
+        if not show_progress:
+            command.append("--quiet")
+        command.append(url)
+        return command
+
+    if downloader == "aria2c":
+        command = [
+            executable,
+            "--allow-overwrite=true",
+            "--auto-file-renaming=false",
+            "--file-allocation=none",
+            "--max-connection-per-server=1",
+            "--split=1",
+            f"--user-agent={USER_AGENT}",
+            f"--dir={partial.parent}",
+            f"--out={partial.name}",
+            f"--continue={'true' if resume else 'false'}",
+        ]
+        if show_progress:
+            command.append("--summary-interval=5")
+        else:
+            command.extend(["--quiet=true", "--summary-interval=0"])
+        command.append(url)
+        return command
+
+    raise DownloadError(f"Unsupported downloader: {downloader}")
+
+
+def run_external_downloader(
+    downloader: str,
+    *,
+    url: str,
+    partial: Path,
+    resume: bool,
+    show_progress: bool,
+) -> None:
+    executable = shutil.which(downloader)
+    if not executable:
+        raise DownloadError(
+            f"Downloader '{downloader}' was not found on PATH. "
+            "Install it or choose '--downloader python'."
+        )
+
+    command = build_external_downloader_command(
+        downloader,
+        executable,
+        url=url,
+        partial=partial,
+        resume=resume,
+        show_progress=show_progress,
+    )
+    stdout = sys.stderr if show_progress else subprocess.DEVNULL
+    stderr = None if show_progress else subprocess.PIPE
+    result = subprocess.run(command, stdout=stdout, stderr=stderr, text=True)
+    if result.returncode != 0:
+        rendered = " ".join(shlex.quote(part) for part in command)
+        detail = ""
+        if result.stderr:
+            detail = "\n" + result.stderr.strip()
+        raise DownloadError(
+            f"Downloader '{downloader}' failed with exit code {result.returncode}.\n{rendered}{detail}"
+        )
+
+
 def download_asset(
     opener: urllib.request.OpenerDirector,
     entry: Entry,
@@ -450,6 +554,7 @@ def download_asset(
     skip_existing: bool = False,
     resume: bool = False,
     show_progress: bool = True,
+    downloader: str = "python",
 ) -> tuple[str, Path]:
     filename = entry.file_name(bundle, artifact)
     destination = output_dir / bundle / filename
@@ -472,6 +577,22 @@ def download_asset(
     label = f"{entry.catalogue_name} [{bundle} {artifact}]"
     if show_progress:
         print(f"START {label} -> {destination}", file=sys.stderr)
+
+    if downloader != "python":
+        run_external_downloader(
+            downloader,
+            url=entry.download_url(bundle, artifact),
+            partial=partial,
+            resume=resume,
+            show_progress=show_progress,
+        )
+        if not partial.exists() or partial.stat().st_size == 0:
+            raise DownloadError(
+                f"Downloader '{downloader}' did not create a non-empty file for "
+                f"'{entry.catalogue_name}' {bundle} {artifact}."
+            )
+        partial.replace(destination)
+        return ("downloaded", destination)
 
     req = urllib.request.Request(entry.download_url(bundle, artifact), headers=headers)
     try:
@@ -521,6 +642,7 @@ def download_with_retries(
     resume: bool,
     retries: int,
     show_progress: bool,
+    downloader: str,
 ) -> tuple[str, Path]:
     attempts = retries + 1
     last_error: DownloadError | None = None
@@ -535,6 +657,7 @@ def download_with_retries(
                 skip_existing=skip_existing,
                 resume=resume,
                 show_progress=show_progress,
+                downloader=downloader,
             )
         except DownloadError as exc:
             last_error = exc
@@ -617,6 +740,11 @@ def command_url(args: argparse.Namespace) -> int:
 
 def command_download(args: argparse.Namespace) -> int:
     opener = build_opener()
+    if args.downloader != "python" and not shutil.which(args.downloader):
+        raise SystemExit(
+            f"Downloader '{args.downloader}' was not found on PATH. "
+            "Install it or choose '--downloader python'."
+        )
     if not args.no_progress:
         print("Resolving gcMeta catalogues from public APIs...", file=sys.stderr)
     entries = fetch_all_entries()
@@ -651,6 +779,7 @@ def command_download(args: argparse.Namespace) -> int:
                     resume=args.resume,
                     retries=args.retries,
                     show_progress=not args.no_progress,
+                    downloader=args.downloader,
                 )
                 if status == "skipped":
                     print(f"SKIP {destination}")
@@ -724,7 +853,16 @@ def build_parser() -> argparse.ArgumentParser:
     download_parser.add_argument(
         "--resume",
         action="store_true",
-        help="Resume from an existing .part file when the server supports range requests.",
+        help="Resume from an existing .part file when the selected downloader supports it.",
+    )
+    download_parser.add_argument(
+        "--downloader",
+        choices=DOWNLOADER_CHOICES,
+        default="python",
+        help=(
+            "Downloader backend for file transfers. Defaults to python; "
+            "use curl, wget, or aria2c for mature resume support."
+        ),
     )
     download_parser.add_argument(
         "--output-dir",
