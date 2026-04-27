@@ -1,0 +1,65 @@
+slug: smag
+name: SMAG
+homepage: https://microbma.github.io/project/SMAG.html
+download_page: https://zenodo.org/records/8223844
+summary: Global Soil MAGs Project catalog reconstructed from 3,304 soil metagenomes, with 40,039 MAG bins, 21,077 species-level genome bins, SNV data, and virus sequences.
+categories:
+  - soil-terrestrial
+  - metagenome-assembled-genomes
+  - project-portal
+  - supplementary-data
+biomes:
+  - soil
+  - terrestrial
+source_type:
+  - dataset
+  - project-portal
+  - zenodo-record
+  - code-repository
+release: v1.0
+updated_at: 2025-06-05
+license: CC BY 4.0
+access:
+  method: public-zenodo-files-plus-mirrors
+  automation: none
+  restrictions:
+    - The stable checked download endpoint is the Zenodo record, where the main MAG archive is split into many `mag.tar.gz.*` parts.
+    - The official CyVerse links redirected to `https://unblockme.cyverse.org/` when checked on 2026-04-27.
+    - The official China-region S3 links for MAG40039 and dereplicated MAG archives returned 404 when checked on 2026-04-27.
+    - The former SMAG web interface is marked as under website maintenance on the project page.
+download:
+  landing_page: https://microbma.github.io/project/SMAG.html
+  zenodo_record: https://zenodo.org/records/8223844
+  zenodo_record_api: https://zenodo.org/api/records/8223844
+  zenodo_files_api: https://zenodo.org/api/records/8223844/files
+  doi: https://doi.org/10.5281/zenodo.8223844
+  concept_doi: https://doi.org/10.5281/zenodo.7341719
+  code_repository: https://github.com/Caiyulu-818/SMAG
+  pipeline_repository_path: https://github.com/Caiyulu-818/SMAG/tree/main/Pipeline
+  figure_code_repository_path: https://github.com/Caiyulu-818/SMAG/tree/main/scripts
+  publication: https://doi.org/10.1038/s41467-023-43000-z
+  figshare_source_data: https://doi.org/10.6084/m9.figshare.23298791
+  mirrors:
+    cyverse_dereplicated_mags: https://data.cyverse.org/dav-anon/iplant/home/lucyzju/Caiyu_SMAG_catalog_2023/MAGdrep.tar.gz
+    cyverse_all_mags: https://data.cyverse.org/dav-anon/iplant/home/lucyzju/Caiyu_SMAG_catalog_2023/MAG.tar.gz
+    s3_all_mags: https://bma-smag.s3.cn-northwest-1.amazonaws.com.cn/SMAG/MAG40039.tar.gz
+    s3_dereplicated_mags: https://bma-smag.s3.cn-northwest-1.amazonaws.com.cn/SMAG/magdrep.tar.gz
+    s3_unknown_sgbs: https://bma-smag.s3.cn-northwest-1.amazonaws.com.cn/SMAG/mag16530.tar.gz
+    s3_virus_sequences: https://bma-smag.s3.cn-northwest-1.amazonaws.com.cn/SMAG/magvirus.fa
+  notes:
+    - Prefer Zenodo for reproducible downloads and metadata because it exposes checksums and file metadata.
+    - Reassemble the split MAG archive after downloading all `mag.tar.gz.*` parts.
+    - Record mirror behavior before relying on CyVerse or S3 links for automation.
+tags:
+  - mag
+  - soil
+  - metagenomics
+  - smag
+  - sgbs
+  - usgbs
+  - bgc
+  - crispr-cas
+  - viruses
+  - zenodo
+  - cyverse
+status: active
