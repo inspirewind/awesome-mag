@@ -1,0 +1,43 @@
+name: GEM
+homepage: https://genome.jgi.doe.gov/portal/GEMs/GEMs.home.html
+download_page: https://portal.nersc.gov/GEM/
+summary: JGI Genomes from Earth's Microbiomes catalogue of bacterial and archaeal MAGs from diverse global habitats.
+scope:
+  - multi-biome
+  - environment
+  - host-associated
+  - engineered
+type: static dataset portal
+release: 2020-01-07
+access:
+  listing: public
+  downloads: public
+download:
+  root_index: https://portal.nersc.gov/GEM/
+  readme: https://portal.nersc.gov/GEM/README.md
+  genomes_index: https://portal.nersc.gov/GEM/genomes/
+  genome_metadata: https://portal.nersc.gov/GEM/genomes/genome_metadata.tsv
+  genome_fna_tar: https://portal.nersc.gov/GEM/genomes/fna.tar
+  genome_faa_tar: https://portal.nersc.gov/GEM/genomes/faa.tar
+  genome_ffn_tar: https://portal.nersc.gov/GEM/genomes/ffn.tar
+  genome_fna_index: https://portal.nersc.gov/GEM/genomes/fna/
+  otus_index: https://portal.nersc.gov/GEM/otus/
+  bgcs_index: https://portal.nersc.gov/GEM/bgcs/
+  prophages_index: https://portal.nersc.gov/GEM/prophages/
+  protein_clusters_index: https://portal.nersc.gov/GEM/protclusts/
+  tree_index: https://portal.nersc.gov/GEM/tree/
+automation:
+  script: none
+  mode: public static indexes and direct files
+notes:
+  - The JGI project page identifies GEM as a catalogue of 52,515 MAGs from over 10,450 metagenomes.
+  - MAGs meet at least medium-quality MIMAG criteria; the JGI page reports mean completeness of 83%, mean contamination of 1.3%, and 9,143 high-quality MAGs.
+  - NERSC hosts the reproducible public data root, including genome FASTA, CDS nucleotide and protein tar files, metadata, OTU tables, antiSMASH BGC files, VirSorter prophage calls, MMseqs2 protein clusters, and marker-gene trees.
+  - The Genome Portal page displayed an end-of-life notice on 2026-04-27; keep the NERSC data root as the primary download reference.
+tags:
+  - metagenome-assembled-genomes
+  - microbial-genomes
+  - jgi
+  - nersc
+  - metagenomics
+status: active
