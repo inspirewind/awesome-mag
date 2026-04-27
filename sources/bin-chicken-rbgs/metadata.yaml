@@ -1,0 +1,91 @@
+slug: bin-chicken-rbgs
+name: Bin Chicken Rare Biosphere Genomes
+homepage: https://zenodo.org/records/15220963
+download_page: https://zenodo.org/records/15220963
+summary: Supplementary Rare Biosphere Genomes recovered with the Bin Chicken targeted metagenomic coassembly assembler from public metagenomes.
+categories:
+  - general-catalog
+  - multi-biome
+  - metagenome-assembled-genomes
+  - supplementary-data
+biomes:
+  - aquatic
+  - terrestrial
+  - engineered
+  - host-associated
+  - multi-biome
+source_type:
+  - dataset
+  - zenodo-record
+  - method-output
+release: Revised metadata
+updated_at: 2025-04-15
+license: CC BY 4.0
+access:
+  method: public-direct-zenodo-urls
+  automation: none
+  restrictions:
+    - The Zenodo concept DOI resolves to the latest version, which currently contains only revised metadata.
+    - MAG sequence archives are stored in earlier explicit Zenodo record versions and should be downloaded by record ID.
+download:
+  landing_page: https://zenodo.org/records/15220963
+  concept_doi: https://doi.org/10.5281/zenodo.14889982
+  latest_record: https://zenodo.org/records/15220963
+  latest_record_api: https://zenodo.org/api/records/15220963
+  related:
+    code_repository: https://github.com/AroneyS/binchicken/
+    preprint: https://doi.org/10.1101/2024.11.24.625082
+  files:
+    revised_metadata:
+      record: https://zenodo.org/records/15220963
+      record_api: https://zenodo.org/api/records/15220963
+      doi: https://doi.org/10.5281/zenodo.15220963
+      version: Revised metadata
+      file_name: binchicken_RBGs_metadata.tar.gz
+      size: 961941196
+      size_human: 961.9 MB
+      checksum: md5:e48d69228091604aa1bdfda215bbe24f
+      url: https://zenodo.org/records/15220963/files/binchicken_RBGs_metadata.tar.gz?download=1
+    aquatic_mags:
+      record: https://zenodo.org/records/14890002
+      record_api: https://zenodo.org/api/records/14890002
+      doi: https://doi.org/10.5281/zenodo.14890002
+      version: aquatic_mags
+      file_name: binchicken_RBGs_aquatic.tar.gz
+      size: 33823795732
+      size_human: 33.8 GB
+      checksum: md5:88a477f645d857c12d160d262e1ca383
+      url: https://zenodo.org/records/14890002/files/binchicken_RBGs_aquatic.tar.gz?download=1
+    terrestrial_engineered_host_mags:
+      record: https://zenodo.org/records/14915155
+      record_api: https://zenodo.org/api/records/14915155
+      doi: https://doi.org/10.5281/zenodo.14915155
+      version: terrestrial_engineered_host_mags
+      file_name: binchicken_RBGs_terrestrial_engineered_host.tar.gz
+      size: 33499575163
+      size_human: 33.5 GB
+      checksum: md5:2fcd0dd7c4359e542ddeccf291f3102c
+      url: https://zenodo.org/records/14915155/files/binchicken_RBGs_terrestrial_engineered_host.tar.gz?download=1
+    original_metadata:
+      record: https://zenodo.org/records/14889983
+      record_api: https://zenodo.org/api/records/14889983
+      doi: https://doi.org/10.5281/zenodo.14889983
+      version: metadata
+      file_name: binchicken_RBGs_metadata.tar.gz
+      size: 738379836
+      size_human: 738.4 MB
+      checksum: md5:21b0d65f3b819b90f60b5fa3713c7155
+      url: https://zenodo.org/records/14889983/files/binchicken_RBGs_metadata.tar.gz?download=1
+  notes:
+    - Use the revised metadata record for current metadata.
+    - Use explicit sequence archive records for aquatic and terrestrial/engineered/host MAG FASTA archives.
+    - Do not rely on the concept DOI alone for whole-dataset downloads because the latest version is metadata-only.
+tags:
+  - mag
+  - metagenomics
+  - bin-chicken
+  - rare-biosphere
+  - coassembly
+  - zenodo
+  - direct-urls
+status: active

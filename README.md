@@ -43,9 +43,7 @@ As the list grows, the main `README.md` should stay concise and group links by u
 - Download notes, mirrors, and access restrictions
 - Deprecated, moved, or archived resources
 
-## Current Entries
-
-### General MAG Catalogs and Database Portals
+## General MAG Catalogs and Database Portals
 
 | Resource | Scope | Type | Access | Automation | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -54,54 +52,7 @@ As the list grows, the main `README.md` should stay concise and group links by u
 | [SPIRE](https://spire.embl.de/) | Multi-biome MAGs and assemblies | Dataset portal | Public direct URLs; Apache indexes | [URL helper](scripts/spire/README.md) | 714 page-listed studies; script prints URLs only for use with `wget`, `aria2c`, or other tools; see [notes](sources/spire/download.md) |
 | [mOTUs DB](https://motus-db.org/) | Multi-biome prokaryotic genomes and mOTUs | Database portal and tool-backed dataset | Public bulk 4.0 file host; targeted access through `motus-tool` | Official `motus-tool` | 2.7T all-genomes tar, full metadata, supplementary tables, and marker/annotation DBs; see [notes](sources/motus-db/download.md) |
 | [Microbiome Datahub](https://mdatahub.org/) | Multi-biome MAG metadata, annotations, and sequences | Database portal and API-backed dataset | Public Zenodo metadata; public NIG bulk sequence files; targeted download API | [Download helper](scripts/mdatahub/README.md) | 218,653 MAGs in site docs; 146G all-contig FASTA, 79G all-protein FASTA, Zenodo metadata/matrix files, and targeted URL APIs; see [notes](sources/mdatahub/download.md) |
-
-## Repository Layout
-
-```text
-awesome-mag/
-├── README.md
-├── CONTRIBUTING.md
-├── docs/
-│   └── README.md
-├── sources/
-│   ├── README.md
-│   ├── gcmeta/
-│   │   ├── download.md
-│   │   ├── metadata.yaml
-│   │   └── notes.md
-│   ├── motus-db/
-│   │   ├── download.md
-│   │   ├── metadata.yaml
-│   │   └── notes.md
-│   ├── mdatahub/
-│   │   ├── download.md
-│   │   ├── metadata.yaml
-│   │   └── notes.md
-│   ├── spire/
-│   │   ├── download.md
-│   │   ├── metadata.yaml
-│   │   └── notes.md
-│   └── magdb/
-│       ├── download.md
-│       ├── metadata.yaml
-│       └── notes.md
-├── scripts/
-│   ├── README.md
-│   ├── gcmeta/
-│   │   ├── README.md
-│   │   └── download.py
-│   ├── spire/
-│   │   ├── README.md
-│   │   └── download.py
-│   ├── mdatahub/
-│   │   ├── README.md
-│   │   └── download.py
-│   └── magdb/
-│       ├── README.md
-│       └── download.py
-└── templates/
-    └── source.template.yaml
-```
+| [Bin Chicken Rare Biosphere Genomes](https://zenodo.org/records/15220963) | Multi-biome rare biosphere MAGs | Zenodo supplementary dataset | Public direct Zenodo files; latest record is metadata-only | None | 77,562 Bin Chicken-recovered genomes; MAG archives are earlier explicit Zenodo versions, while latest record is revised metadata; see [notes](sources/bin-chicken-rbgs/download.md) |
 
 ## Directory Design
 
@@ -148,24 +99,6 @@ Holds repository conventions that should not clutter the front page, such as sty
 
 Contains reusable starter files for adding new sources consistently.
 
-## How `awesome` Repositories Usually Stay Maintainable
-
-In practice, strong `awesome` repositories follow a few simple rules:
-
-- the main list is curated and human-readable
-- entries are grouped by clear categories rather than chronology
-- each entry has a short, consistent description
-- detailed operational notes live outside the front page
-- contribution rules are explicit
-- bulk data and generated artifacts are kept out of Git
-
-For this project specifically, that means:
-
-- `README.md` should remain the discovery layer
-- `sources/` should hold deeper structured metadata
-- `scripts/` should hold automation, not curation prose
-- downloaded data should stay outside the repository
-
 ## Suggested Entry Fields
 
 Each source should eventually capture as many of the following fields as practical:
@@ -197,3 +130,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 Add a repository license for the curation text and scripts, while respecting the original licenses and terms attached to each upstream dataset or database.
+
+## Disclaimer
+
+This repository contains automated download scripts designed to simplify the retrieval of public data. Please note:
+
+- **Compliance & Fair Use**: All scripts provided in this repository are simple wrappers that interact exclusively with publicly available APIs, direct download links, or standard web endpoints as intended by the data providers.
+- **No Malicious Activity**: These scripts do not perform aggressive scraping, bypass access controls, or cause malicious intrusion to the host servers. They typically include built-in rate-limiting (e.g., delays between requests) to respect server workloads.
+- **User Responsibility**: Users of these scripts are responsible for ensuring that their data retrieval complies with the specific terms of service, data usage policies, and licensing requirements of each respective database or dataset provider.
+- **Takedown Requests**: If any database maintainer or data provider believes that a script in this repository infringes upon their rights or violates their policies, please open an issue. We will promptly review and remove the relevant scripts.
