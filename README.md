@@ -53,6 +53,7 @@ As the list grows, the main `README.md` should stay concise and group links by u
 | [gcMeta](https://gcmeta.wdcm.org/) | Multi-biome catalogues | Database portal | Public catalogue APIs; public direct archive files | [Download script](scripts/gcmeta/README.md) | 50 catalogue bundles; public `catalogueTree` and `catalogueNameList` enumeration plus derived direct files on `open.nmdc.cn`; see [notes](sources/gcmeta/download.md) |
 | [SPIRE](https://spire.embl.de/) | Multi-biome MAGs and assemblies | Dataset portal | Public direct URLs; Apache indexes | [URL helper](scripts/spire/README.md) | 714 page-listed studies; script prints URLs only for use with `wget`, `aria2c`, or other tools; see [notes](sources/spire/download.md) |
 | [mOTUs DB](https://motus-db.org/) | Multi-biome prokaryotic genomes and mOTUs | Database portal and tool-backed dataset | Public bulk 4.0 file host; targeted access through `motus-tool` | Official `motus-tool` | 2.7T all-genomes tar, full metadata, supplementary tables, and marker/annotation DBs; see [notes](sources/motus-db/download.md) |
+| [Microbiome Datahub](https://mdatahub.org/) | Multi-biome MAG metadata, annotations, and sequences | Database portal and API-backed dataset | Public Zenodo metadata; public NIG bulk sequence files; targeted download API | [Download helper](scripts/mdatahub/README.md) | 218,653 MAGs in site docs; 146G all-contig FASTA, 79G all-protein FASTA, Zenodo metadata/matrix files, and targeted URL APIs; see [notes](sources/mdatahub/download.md) |
 
 ## Repository Layout
 
@@ -72,6 +73,10 @@ awesome-mag/
 │   │   ├── download.md
 │   │   ├── metadata.yaml
 │   │   └── notes.md
+│   ├── mdatahub/
+│   │   ├── download.md
+│   │   ├── metadata.yaml
+│   │   └── notes.md
 │   ├── spire/
 │   │   ├── download.md
 │   │   ├── metadata.yaml
@@ -86,6 +91,9 @@ awesome-mag/
 │   │   ├── README.md
 │   │   └── download.py
 │   ├── spire/
+│   │   ├── README.md
+│   │   └── download.py
+│   ├── mdatahub/
 │   │   ├── README.md
 │   │   └── download.py
 │   └── magdb/

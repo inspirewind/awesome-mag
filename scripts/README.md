@@ -1,6 +1,6 @@
 # Scripts
 
-This directory contains automation helpers for sources that are difficult to download directly.
+This directory contains automation helpers for sources that are difficult to download directly or that benefit from a reproducible command-line manifest.
 
 Recommended future pattern:
 

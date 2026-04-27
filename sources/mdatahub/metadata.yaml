@@ -1,0 +1,97 @@
+slug: mdatahub
+name: Microbiome Datahub
+homepage: https://mdatahub.org/
+download_page: https://mdatahub.org/document
+summary: National Institute of Genetics metagenome database focused on MAG metadata, annotations, phenotypes, and bulk MAG/protein sequence files.
+categories:
+  - general-catalog
+  - multi-biome
+  - metagenome-assembled-genomes
+  - functional-annotation
+biomes:
+  - human-associated
+  - animal-associated
+  - environmental
+  - multi-biome
+source_type:
+  - database
+  - dataset-portal
+  - api-backed-access
+release: Microbiome Datahub v1.2
+updated_at: 2025-08-29
+license: CC BY 4.0
+access:
+  method: public-direct-urls-plus-download-api
+  automation: scripts/mdatahub/download.py
+  restrictions:
+    - Bulk DNA and protein sequence files are public but very large, up to 146 GB for all MAG contigs and 79 GB for all proteins.
+    - Bulk sequence files are served from the NIG download web server over HTTP.
+    - Metadata, Bac2Feature results, and KEGG module matrix files are public on Zenodo.
+    - Download API is useful for targeted project metadata, genome sequences, CDS, protein sequences, and per-genome KEGG module JSON.
+    - The documented genome metadata API returned HTTP 500 for tested examples during curation on 2026-04-25.
+download:
+  landing_page: https://mdatahub.org/document
+  api_manual: https://mdatahub.org/apimanual
+  docs_source:
+    about: https://raw.githubusercontent.com/microbiomedatahub/microbiome-datahub/main/docs/about.md
+    api_manual: https://raw.githubusercontent.com/microbiomedatahub/microbiome-datahub/main/docs/apimanual.md
+  bulk_data_root: http://palaeo.nig.ac.jp/Resources/MDatahub/2025/
+  bulk_files:
+    all_mag_dna:
+      url: http://palaeo.nig.ac.jp/Resources/MDatahub/2025/20250810AllMAG.fasta.gz
+      size: 146 GB
+      description: All MAG contig DNA sequences for 218653 MAGs.
+    all_mag_contig_map:
+      url: http://palaeo.nig.ac.jp/Resources/MDatahub/2025/20250810AllMAG.rm.tsv.gz
+      size: 287 MB
+      description: Contig to MAG GCA ID mapping table.
+    all_protein:
+      url: http://palaeo.nig.ac.jp/Resources/MDatahub/2025/AllMergedMDatahubProtein.faa.gz
+      size: 79 GB
+      description: All predicted protein sequences for 454799231 proteins.
+    all_protein_map:
+      url: http://palaeo.nig.ac.jp/Resources/MDatahub/2025/AllMergedMDatahubProtein.rm.tsv.gz
+      size: 7 GB
+      description: Protein to MAG GCA ID mapping table.
+    protein_cluster_40_representatives:
+      url: http://palaeo.nig.ac.jp/Resources/MDatahub/2025/cluster40Res_rep_seq.fasta.gz
+      size: 11 GB
+      description: LinClust 40 percent protein cluster representative sequences.
+    protein_cluster_90_representatives:
+      url: http://palaeo.nig.ac.jp/Resources/MDatahub/2025/clusterRes_rep_seq.fasta.gz
+      size: 33 GB
+      description: LinClust 90 percent protein cluster representative sequences.
+  zenodo:
+    concept_doi: https://doi.org/10.5281/zenodo.16963985
+    latest_record: https://zenodo.org/records/18073262
+    latest_record_api: https://zenodo.org/api/records/18073262
+    files:
+      - ModuleListName.tsv
+      - MicrobiomeDatahub_MAGData_20251228.xlsx
+      - MicrobiomeDatahub_MAGBac2Feature_20250827.xlsx
+      - MicrobiomeDatahubMAGModuleComposition.tsv.gz
+  api:
+    project_metadata: https://mdatahub.org/api/dl/project/metadata/<BIOPROJECT[,BIOPROJECT...]>
+    genome_metadata: https://mdatahub.org/api/dl/genome/metadata/<GCA[,GCA...]>
+    genome_sequence: https://mdatahub.org/api/dl/sequence/genome/<GCA[,GCA...]>
+    cds_sequence: https://mdatahub.org/api/dl/sequence/cds/<GCA[,GCA...]>
+    protein_sequence: https://mdatahub.org/api/dl/sequence/protein/<GCA[,GCA...]>
+    kegg_modules_json: https://mdatahub.org/api/genome/mbgd/<GCA>
+  notes:
+    - Prefer bulk files for whole-database sequence acquisition.
+    - Prefer Zenodo for whole-database metadata, Bac2Feature, and KEGG module matrix files.
+    - Prefer API endpoints for targeted IDs and small sequence subsets.
+tags:
+  - mag
+  - metagenomics
+  - dfast
+  - dfast-qc
+  - checkm
+  - gtdb-tk
+  - mbgd
+  - kegg
+  - bac2feature
+  - meo
+  - direct-urls
+  - api
+status: active
