@@ -1,0 +1,86 @@
+slug: gomc
+name: GOMC
+homepage: https://db.cngb.org/maya/datasets/MDB0000002
+project_page: https://db.cngb.org/data_resources/project/CNP0004049
+download_page: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/
+summary: Global Ocean Microbiome Catalogue of marine microbial genomes, including newly recovered MAGs and a non-redundant species-level catalogue for global ocean microbiome mining.
+categories:
+  - marine
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - bioprospecting
+biomes:
+  - marine
+  - ocean
+  - deep-sea
+  - hydrothermal-vents
+source_type:
+  - dataset-portal
+  - project-archive
+  - code-repository
+release: CNGBdb CNP0004049
+updated_at: 2024-09-06
+license: CC BY 4.0
+access:
+  method: public-direct-http-bulk-archives
+  automation: none
+  restrictions:
+    - The Microbiome Data Portal download table exposes direct bulk archives under https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/.
+    - Large files support resumable HTTPS downloads; the protein catalogue archive is approximately 171.33 GB.
+    - The CNGB/CNSA project CNP0004049 is still useful for accession-level metadata and per-assembly files, but it is not the primary bulk download path.
+download:
+  landing_page: https://db.cngb.org/maya/datasets/MDB0000002
+  download_api: "https://db.cngb.org/maya/api/get_download?dataset_id=MDB0000002&page=1&per_page=100&sort=default"
+  bulk_directory: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/
+  md5: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/md5.txt
+  all_recovered_mags_archive: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/43191.all_MAGs.tar.gz
+  all_recovered_mags_directory: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/43191.all_MAGs/
+  gomc_genomes_archive: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/24195.GOMC_genomes.tar.gz
+  gomc_genomes_directory: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/24195.GOMC_genomes/
+  protein_catalogue: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/GOPC.geneset.pep.fa.gz
+  unprecedented_genome_size_mags: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/unprecedented_genome_size_MAGs.tar.gz
+  supplementary_directory: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/Supplementary_Data/
+  supplementary_files:
+    environmental_factors_vs_microbial_community_variation: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/Supplementary_Data/Environmental_factors_vs_microbial_community_variation.pdf
+    gomc_large_bacterial_genomes: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/Supplementary_Data/GOMC_large_bacterial_genomes.pdf
+    small_rna_read: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/Supplementary_Data/SmallRNA.CL100176085_L01_25.fq.gz
+    umap_biogeographical_distribution: https://ftp.cngb.org/pub/SciRAID/microbiomics/MDB0000002/Supplementary_Data/UMAP_biogeographical_distribution.pdf
+  cngb_project: https://db.cngb.org/data_resources/project/CNP0004049
+  cnsa_metadata_directory: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0004049/
+  assembly_manifest: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0004049/data_download_links_CNP0004049_ftp.txt
+  assembly_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0004049/metadata_CNP0004049_assembly.tsv
+  sample_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0004049/metadata_CNP0004049_sample_Metagenome_or_environmental_sample.tsv
+  assembly_url_pattern: https://ftp.cngb.org/pub/CNSA/data2/CNP0004049/<sample_accession>/<assembly_accession>/<fasta_file_name>
+  example_assembly_url: https://ftp.cngb.org/pub/CNSA/data2/CNP0004049/CNS0702801/CNA0056188/GOMC.bin.2349.fa.gz
+publication:
+  title: Global marine microbial diversity and its potential in bioprospecting
+  url: https://www.nature.com/articles/s41586-024-07891-2
+  journal: Nature
+  year: 2024
+related:
+  code_repository: https://github.com/BGI-Qingdao/GOMC
+  cngb_project_doi: https://doi.org/10.26036/CNP0004049
+counts:
+  reported_newly_recovered_genomes: 43191
+  reported_non_redundant_catalogue_genomes: 24195
+  newly_recovered_unique_mags_after_dereplication: 16240
+  cngb_project_samples: 16240
+  cngb_project_assemblies: 16240
+  cngb_project_data_size: 12.25GB
+  download_table_items: 8
+bulk_archive_sizes:
+  all_recovered_mags_archive: 30.80GB
+  gomc_genomes_archive: 17.91GB
+  protein_catalogue: 171.33GB
+  unprecedented_genome_size_mags: 15.57MB
+tags:
+  - mag
+  - marine
+  - ocean
+  - metagenomics
+  - cngbdb
+  - cnsa
+  - direct-urls
+  - bulk-archive
+  - md5
+status: active
