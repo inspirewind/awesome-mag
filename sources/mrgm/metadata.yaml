@@ -1,0 +1,197 @@
+slug: mrgm
+name: MRGM
+homepage: https://www.decodebiome.org/MRGM/
+download_page: https://www.decodebiome.org/MRGM/navigate.html
+summary: Mouse Reference Gut Microbiome catalog with 42,245 non-redundant near-complete mouse gut bacterial genomes spanning 1,524 species, 55,893 total near-complete genomes, 1.7 million non-redundant proteins, predicted 16S sequences, and custom Kraken2 and MetaPhlAn databases.
+categories:
+  - animal-associated
+  - metagenome-assembled-genomes
+  - dataset-portal
+biomes:
+  - animal-associated
+  - mouse-gut
+  - gut
+source_type:
+  - dataset
+  - dataset-portal
+release: MRGM
+updated_at: 2026-05-06
+release_date: 2024-09-04
+license: "Article is CC BY 4.0; MRGM webserver data license is not specified on decodebiome."
+access:
+  method: public-direct-http-files-via-php-file-browser
+  automation: none
+  restrictions:
+    - No formal data API endpoint; downloads are served through a PHP-based file browser (listdir.php) returning HTML directory listings.
+    - Direct directory access under data/ returns 403; use listdir.php to browse folders and direct HTTPS URLs for files.
+    - The site does not publish checksum files or a Zenodo mirror for MRGM data.
+    - The non-redundant genome README mentions genome.tar.gz, but the file is absent from the directory listing and the direct URL returned 404 when checked on 2026-05-06.
+    - Large files include the all-genomes archive (43 GB), Kraken2 database.kraken (16 GB), Kraken2 hash.k2d (9 GB), and several multi-GB protein catalog files.
+download:
+  landing_page: https://www.decodebiome.org/MRGM/
+  navigate_page: https://www.decodebiome.org/MRGM/navigate.html
+  file_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data
+  genome_catalog_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog
+  protein_catalog_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/protein_catalog
+  mrgm_species_page: https://www.decodebiome.org/MRGM/MRGM-Genomes.html
+  static_species_table: https://www.decodebiome.org/MRGM/static/MRGM_final_metadata.3.tsv
+  publication:
+    title: "MRGM: an enhanced catalog of mouse gut microbial genomes substantially broadening taxonomic and functional landscapes"
+    authors: Nayeon Kim, Chan Yeong Kim, Junyeong Ma, Sunmo Yang, Dong Jin Park, Sang-Jun Ha, Peter Belenky, Insuk Lee
+    journal: Gut Microbes
+    year: 2024
+    volume: 16
+    issue: 1
+    article_number: 2393791
+    published_at: 2024-09-04
+    doi: 10.1080/19490976.2024.2393791
+    url: https://doi.org/10.1080/19490976.2024.2393791
+    pubmed: https://pubmed.ncbi.nlm.nih.gov/39230075/
+    pmid: 39230075
+    pmc: https://pmc.ncbi.nlm.nih.gov/articles/PMC11376411/
+    pmcid: PMC11376411
+    crossref: https://api.crossref.org/works/10.1080/19490976.2024.2393791
+    license: CC BY 4.0
+  ncbi:
+    raw_metagenomic_sra_study: SRP335854
+    raw_metagenomic_sra_url: https://trace.ncbi.nlm.nih.gov/Traces/sra/?study=SRP335854
+  genome_catalog:
+    browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog
+    readme: https://www.decodebiome.org/MRGM/data/genome_catalog/README.txt
+    representative_genomes:
+      browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/MRGM_representative_genomes
+      sequence_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/MRGM_representative_genomes/MRGM_Genomes-Sequences
+      metadata:
+        url: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_representative_genomes/MRGM_final_metadata.tsv
+        size_human: 1 MB
+      static_web_metadata:
+        url: https://www.decodebiome.org/MRGM/static/MRGM_final_metadata.3.tsv
+      sequence_example: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_representative_genomes/MRGM_Genomes-Sequences/MRGM_0001.fna
+      count: 1524
+    all_nc_genomes:
+      browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/All_55893_genomes
+      genome_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/All_55893_genomes/Genomes
+      metadata:
+        url: https://www.decodebiome.org/MRGM/data/genome_catalog/All_55893_genomes/Genomes_final_metadata.tsv
+        size_human: 17 MB
+      bulk_archive:
+        url: https://www.decodebiome.org/MRGM/data/genome_catalog/All_55893_genomes/genome.tar.gz
+        size_human: 43 GB
+        content_length_bytes: 46787491840
+      genome_example: https://www.decodebiome.org/MRGM/data/genome_catalog/All_55893_genomes/Genomes/GENOME00001.fna.gz
+      count: 55893
+    nonredundant_nc_genomes:
+      browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/Nonredundant_42245_genomes
+      genome_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/Nonredundant_42245_genomes/Genomes
+      metadata:
+        url: https://www.decodebiome.org/MRGM/data/genome_catalog/Nonredundant_42245_genomes/Genomes_nonredundant_metadata.tsv
+        size_human: 12 MB
+      genome_example: https://www.decodebiome.org/MRGM/data/genome_catalog/Nonredundant_42245_genomes/Genomes/GENOME00001.fna.gz
+      missing_bulk_archive:
+        url: https://www.decodebiome.org/MRGM/data/genome_catalog/Nonredundant_42245_genomes/genome.tar.gz
+        checked_at: 2026-05-06
+        http_status: 404
+        note: README.txt mentions this archive, but it is not listed by listdir.php.
+      count: 42245
+    ssu_16s:
+      browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/16S_sequence
+      metadata: https://www.decodebiome.org/MRGM/data/genome_catalog/16S_sequence/16S_sequence_metadata.tsv
+      metadata_size: 21 MB
+      readme: https://www.decodebiome.org/MRGM/data/genome_catalog/16S_sequence/README.txt
+      species_with_16s: 940
+      sequence_count: 16020
+  taxonomy_dbs:
+    kraken2_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb
+    kraken2_taxonomy_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/taxonomy
+    kraken2_files:
+      database: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database.kraken
+      database_size: 16 GB
+      database_80mers_distribution: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database80mers.kmer_distrib
+      database_80mers_kraken: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database80mers.kraken
+      database_90mers_distribution: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database90mers.kmer_distrib
+      database_90mers_kraken: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database90mers.kraken
+      database_100mers_distribution: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database100mers.kmer_distrib
+      database_100mers_kraken: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database100mers.kraken
+      database_150mers_distribution: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database150mers.kmer_distrib
+      database_150mers_kraken: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/database150mers.kraken
+      hash: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/hash.k2d
+      hash_size: 9 GB
+      opts: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/opts.k2d
+      taxo: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/taxo.k2d
+      names: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/taxonomy/names.dmp
+      nodes: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_kraken2_customdb/taxonomy/nodes.dmp
+    metaphlan4_browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb
+    metaphlan4_pkl: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.pkl
+    metaphlan4_files:
+      bt2l_1: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.1.bt2l
+      bt2l_2: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.2.bt2l
+      bt2l_3: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.3.bt2l
+      bt2l_4: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.4.bt2l
+      pkl: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.pkl
+      reverse_bt2l_1: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.rev.1.bt2l
+      reverse_bt2l_2: https://www.decodebiome.org/MRGM/data/genome_catalog/MRGM_custom_db/MRGM_metaphlan_customdb/MRGM_20221205.rev.2.bt2l
+  protein_catalog:
+    browser: https://www.decodebiome.org/MRGM/listdir.php?directory=data/protein_catalog
+    readme: https://www.decodebiome.org/MRGM/data/protein_catalog/README.txt
+    linclust_100:
+      fasta: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-100.Proteins.faa
+      fasta_size: 4 GB
+      cluster_info: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-100.cluster_info.tsv
+      cluster_info_size: 2 GB
+      taxonomic_map: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-100.taxonomic-map.tsv
+      taxonomic_map_size: 783 MB
+    linclust_90:
+      fasta: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-90.Proteins.faa
+      fasta_size: 1 GB
+      cluster_info: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-90.cluster_info.tsv
+      cluster_info_size: 2 GB
+      taxonomic_map: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-90.taxonomic-map.tsv
+      taxonomic_map_size: 281 MB
+      deepgoplus: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-90.deepgoplus.annotations.tsv
+      deepgoplus_size: 1 GB
+      eggnog_mapper: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-90.emapper.annotations.tsv
+      eggnog_mapper_size: 1 GB
+    linclust_80:
+      fasta: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-80.Proteins.faa
+      fasta_size: 949 MB
+      cluster_info: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-80.cluster_info.tsv
+      cluster_info_size: 2 GB
+      taxonomic_map: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-80.taxonomic-map.tsv
+      taxonomic_map_size: 213 MB
+    linclust_50:
+      fasta: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-50.Proteins.faa
+      fasta_size: 409 MB
+      cluster_info: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-50.cluster_info.tsv
+      cluster_info_size: 2 GB
+      taxonomic_map: https://www.decodebiome.org/MRGM/data/protein_catalog/MRGM_linclust-50.taxonomic-map.tsv
+      taxonomic_map_size: 122 MB
+  counts:
+    total_near_complete_genomes: 55893
+    nonredundant_near_complete_genomes: 42245
+    species: 1524
+    novel_species_vs_mgbc: 473
+    nonredundant_proteins_approx: 1700000
+    species_with_16s: 940
+    predicted_16s_sequences: 16020
+    public_wms_samples: 1837
+    in_house_wms_samples: 40
+    total_wms_samples: 1877
+    profiling_survey_samples: 1843
+    species_with_metaphlan_markers: 1523
+  notes:
+    - MRGM is hosted by the Network Biology Lab / decodebiome at Yonsei University.
+    - The web species table is rendered from static/MRGM_final_metadata.3.tsv.
+    - Data are publicly accessible via HTTPS with no authentication required.
+    - MRGM contains bacterial genomes only; the article notes no archaeal genomes among the 1,524 species.
+tags:
+  - mag
+  - mouse-gut
+  - animal-associated
+  - metagenomics
+  - near-complete-genomes
+  - protein-catalog
+  - kraken2
+  - metaphlan
+  - 16s-rrna
+  - gut-microbes
+status: active
