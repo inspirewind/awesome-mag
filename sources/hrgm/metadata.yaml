@@ -1,0 +1,169 @@
+slug: hrgm
+name: HRGM
+homepage: https://www.decodebiome.org/HRGM/
+download_page: https://www.decodebiome.org/HRGM/navigate.html
+summary: Human Reference Gut Microbiome catalog with 155,211 non-redundant near-complete genomes (HRGM2) spanning 4,824 prokaryotic species across 41 countries, plus proteins, SNVs, pangenomes, GEMs, CAZymes, defense systems, and taxonomy profiling databases.
+categories:
+  - human-associated
+  - metagenome-assembled-genomes
+  - dataset-portal
+biomes:
+  - human-associated
+  - gut
+source_type:
+  - dataset
+  - dataset-portal
+release: HRGM2
+updated_at: 2026-04-13
+release_date: 2025-12-04
+license: "CC0-1.0 for HRGM2 Zenodo data; CC BY 4.0 for the HRGM1 publication and third-party gapseq models"
+access:
+  method: public-direct-http-bulk-archives
+  automation: none
+  restrictions:
+    - No formal data API endpoint; downloads are served through a PHP-based file browser (listdir.php) returning HTML directory listings.
+    - Individual genome FASTA files use 3-4 level deep directory nesting; use the download_link_info.tsv index files to enumerate URLs.
+    - The decodebiome server does not publish checksum files; Zenodo HRGM2 records provide MD5 checksums for mirrored data.
+    - "Several bulk archives exceed 100 GB (Nonredundant: 114 GB, Redundant: 179 GB, Pangenomes: 395 GB); plan download time and disk accordingly."
+    - The old URL cited in the publication (www.mbiomenet.org/HRGM/) is unreachable; data has migrated to decodebiome.org.
+download:
+  landing_page: https://www.decodebiome.org/HRGM/
+  file_browser: https://www.decodebiome.org/HRGM/listdir.php?directory=data
+  genome_info_endpoint: https://www.decodebiome.org/HRGM/genomeinfo.php?genome=
+  metadata_tsv: https://www.decodebiome.org/HRGM/static/HRGMv2_metadata_for_web.tsv
+  legacy_hrgm1: https://www.decodebiome.org/HRGM1/
+  code_repository: https://github.com/netbiolab/HRGM2
+  data_doi_overview: https://github.com/netbiolab/HRGM2/blob/main/DATA.md
+  publication:
+    title: "A human gut metagenome-assembled genome catalogue spanning 41 countries supports genome-scale metabolic models"
+    authors: Junyeong Ma, Nayeon Kim, Jun Hyung Cha, et al.
+    journal: Nature Microbiology
+    year: 2026
+    volume: 11
+    pages: 317-334
+    published_at: 2025-12-04
+    url: https://doi.org/10.1038/s41564-025-02206-1
+  legacy_publication:
+    title: "Human reference gut microbiome catalog including newly assembled genomes from under-represented Asian metagenomes"
+    authors: Chan Yeong Kim, Muyoung Lee, Sunmo Yang, Kyungnam Kim, Dongeun Yong, Hye Ryun Kim, Insuk Lee
+    journal: Genome Medicine
+    year: 2021
+    volume: 13
+    pages: 134
+    url: https://doi.org/10.1186/s13073-021-00950-7
+    pmid: 34446072
+  ncbi:
+    hrgm2_bioprojects:
+      - PRJNA1227720
+      - PRJNA1227423
+      - PRJNA1226738
+    hrgm1_sra_study: SRP292575
+    hrgm1_bioproject_raw: PRJNA678426
+    hrgm1_bioproject_assembled: PRJNA730993
+  bulk_archives:
+    rep_genomes:
+      url: https://www.decodebiome.org/HRGM/data/genome_catalog/HRGMv2_Genomes/HRGMv2_Rep_Genome.tar.gz
+      size_human: 3.5 GB
+    pangenomes:
+      url: https://www.decodebiome.org/HRGM/data/genome_catalog/HRGMv2_Genomes/HRGMv2_Pangenomes.tar.gz
+      size_human: 395 GB
+    nonredundant_genomes:
+      url: https://www.decodebiome.org/HRGM/data/genome_catalog/Total_Genomes/Nonredundant_genomes.tar.gz
+      size_human: 114 GB
+    redundant_genomes:
+      url: https://www.decodebiome.org/HRGM/data/genome_catalog/Total_Genomes/Redundant_genomes.tar.gz
+      size_human: 179 GB
+    gems:
+      url: https://www.decodebiome.org/HRGM/data/genome_catalog/GEMs/GEMs.tar.gz
+      size_human: 34 GB
+    defense_systems:
+      url: https://www.decodebiome.org/HRGM/data/protein_catalog/3.HRGMv2_Defense_systems.tar.gz
+      size_human: 377 MB
+  index_files:
+    pangenome_index: https://www.decodebiome.org/HRGM/data/genome_catalog/HRGMv2_Genomes/Pangenome_download_link_info.tsv
+    total_genomes_index: https://www.decodebiome.org/HRGM/data/genome_catalog/Total_Genomes/download_link_info.tsv
+    gem_index: https://www.decodebiome.org/HRGM/data/genome_catalog/GEMs/GEM_download_link_info.tsv
+    cazyme_index: https://www.decodebiome.org/HRGM/data/protein_catalog/download_link_info_cazyme.tsv
+  metadata_files:
+    dereplication_metadata: https://www.decodebiome.org/HRGM/data/genome_catalog/Dereplication_genomes_metadata.tsv
+    cluster_metadata: https://www.decodebiome.org/HRGM/data/genome_catalog/HRGMv2_Cluster_metadata.tsv
+    gtdb_results: https://www.decodebiome.org/HRGM/data/genome_catalog/HRGMv2_gtdbr220_results.tsv
+  taxonomy_dbs:
+    kraken2_rep: https://www.decodebiome.org/HRGM/data/genome_catalog/Taxonomy_Profiling/HRGMv2_kraken2_customdb/HRGMv2_Rep/
+    kraken2_concat: https://www.decodebiome.org/HRGM/data/genome_catalog/Taxonomy_Profiling/HRGMv2_kraken2_customdb/HRGMv2_Concat/
+    metaphlan4: https://www.decodebiome.org/HRGM/data/genome_catalog/Taxonomy_Profiling/HRGMv2_metaphlan_customdb/HRGMv2_MetaPhlAn4_DB/
+    ssu_16s_library: https://www.decodebiome.org/HRGM/data/genome_catalog/Taxonomy_Profiling/16S_rRNA/16S_rRNA_library.fasta
+  protein_catalog_listdir: https://www.decodebiome.org/HRGM/listdir.php?directory=data/protein_catalog
+  # Note: direct access to protein_catalog/ directories returns 403; use listdir.php to browse
+  zenodo_hrgm2:
+    license: cc-zero
+    publication_date: 2025-12-04
+    metadata: https://doi.org/10.5281/zenodo.19480672
+    gems: https://doi.org/10.5281/zenodo.19482535
+    representative_genomes: https://doi.org/10.5281/zenodo.19482781
+    pangenomes:
+      part_1: https://doi.org/10.5281/zenodo.19483642
+      part_2: https://doi.org/10.5281/zenodo.19487814
+      part_3: https://doi.org/10.5281/zenodo.19489118
+      part_4: https://doi.org/10.5281/zenodo.19489530
+      part_5: https://doi.org/10.5281/zenodo.19490162
+      part_6: https://doi.org/10.5281/zenodo.19490766
+      part_7: https://doi.org/10.5281/zenodo.19491184
+      part_8: https://doi.org/10.5281/zenodo.19492155
+      part_9: https://doi.org/10.5281/zenodo.19496353
+      part_10: https://doi.org/10.5281/zenodo.19508753
+    ssu_16s: https://doi.org/10.5281/zenodo.19483551
+    metaphlan4_db: https://doi.org/10.5281/zenodo.19483953
+    kraken2_rep_db: https://doi.org/10.5281/zenodo.19492246
+    kraken2_concat_db:
+      part_1: https://doi.org/10.5281/zenodo.19508916
+      part_2: https://doi.org/10.5281/zenodo.19508925
+    nonredundant_genomes:
+      part_1: https://doi.org/10.5281/zenodo.19496139
+      part_2: https://doi.org/10.5281/zenodo.19499800
+      part_3: https://doi.org/10.5281/zenodo.19501013
+    redundant_genomes:
+      part_1: https://doi.org/10.5281/zenodo.19501855
+      part_2: https://doi.org/10.5281/zenodo.19502700
+      part_3: https://doi.org/10.5281/zenodo.19503297
+      part_4: https://doi.org/10.5281/zenodo.19504199
+      part_5: https://doi.org/10.5281/zenodo.19505035
+    proteins:
+      part_1: https://doi.org/10.5281/zenodo.19534052
+      part_2: https://doi.org/10.5281/zenodo.19534058
+    cazymes:
+      part_1: https://doi.org/10.5281/zenodo.19547966
+      part_2: https://doi.org/10.5281/zenodo.19547970
+      part_3: https://doi.org/10.5281/zenodo.19547972
+      part_4: https://doi.org/10.5281/zenodo.19547975
+    defense_systems: https://doi.org/10.5281/zenodo.19550803
+  third_party_zenodo:
+    gapseq_models:
+      record: https://zenodo.org/records/8283247
+      doi: https://doi.org/10.5281/zenodo.8283247
+      description: gapseq metabolic reconstructions for 5,414 HRGM genomes (by Waschina et al.)
+      size_human: 11.1 GB
+  counts:
+    hrgm2_genomes: 155211
+    hrgm2_species: 4824
+    hrgm2_redundant_input_genomes: 230632
+    hrgm1_genomes: 232098
+    hrgm1_species: 5414
+  notes:
+    - HRGM2 (current, at /HRGM/) supersedes HRGM1; HRGM1 data preserved at /HRGM1/.
+    - Official HRGM2 code and data-description repository is available at https://github.com/netbiolab/HRGM2.
+    - All data is publicly accessible via HTTPS with no authentication required.
+    - The protein catalog provides CD-HIT clusters at 100%, 95%, 90%, 70%, and 50% identity thresholds; browse via listdir.php (direct directory access returns 403).
+tags:
+  - mag
+  - human-gut
+  - metagenomics
+  - pangenome
+  - protein-catalog
+  - kraken2
+  - metaphlan
+  - gems
+  - cazymes
+  - defense-systems
+  - snv
+status: active
