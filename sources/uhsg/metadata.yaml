@@ -1,0 +1,86 @@
+slug: uhsg
+name: UHSG
+full_name: Unified Human Skin Genome
+homepage: https://doi.org/10.1002/advs.202300050
+project_page: https://db.cngb.org/data_resources/project/CNP0002131
+download_page: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0002131/
+summary: Unified Human Skin Genome catalog with 5,779 human skin MAGs representing 813 prokaryotic species across 22 skin sites.
+categories:
+  - human-associated
+  - skin
+  - metagenome-assembled-genomes
+  - genome-catalog
+biomes:
+  - human-associated
+  - skin
+source_type:
+  - dataset
+  - project-archive
+release: CNGBdb CNP0002131
+updated_at: 2025-06-24
+release_date: 2023-08-07
+license: "Not specified for CNGB/CNSA project files; article is open access under CC BY 4.0"
+access:
+  method: public-cnsa-ftp-manifest
+  automation: none
+  restrictions:
+    - Public metadata and per-assembly FASTA links are exposed through the CNSA public_info directory.
+    - Genome files are distributed as many individual assembly FASTA archives, not as a single UHSG bulk tarball.
+    - Use the official manifest and metadata TSV files rather than guessing CNSA data5 paths.
+    - CNGB project pages can be slower than the public FTP directory; use the FTP directory for reproducible retrieval.
+download:
+  landing_page: https://db.cngb.org/data_resources/project/CNP0002131
+  public_info_directory: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0002131/
+  assembly_manifest: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0002131/data_download_links_CNP0002131_ftp.txt
+  assembly_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0002131/metadata_CNP0002131_assembly.tsv
+  experiment_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0002131/metadata_CNP0002131_experiment.tsv
+  sample_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0002131/metadata_CNP0002131_sample_Microbial_sample.tsv
+  assembly_url_pattern: ftp://ftp.cngb.org/pub/CNSA/data5/CNP0002131/<sample_accession>/<assembly_accession>/<fasta_file_name>
+  example_assembly_url: ftp://ftp.cngb.org/pub/CNSA/data5/CNP0002131/CNS0410152/CNA0032467/1111525849480213_bin.6.fa.gz
+  alternate_ftp_host: ftp://ftp2.cngb.org/pub/CNSA/data5/CNP0002131/
+publication:
+  title: Integrated Human Skin Bacteria Genome Catalog Reveals Extensive Unexplored Habitat-Specific Microbiome Diversity and Function
+  authors: Zhaoyang Li, Yuwei Ju, Jing Xia, et al.
+  journal: Advanced Science
+  year: 2023
+  volume: 10
+  issue: 28
+  pages: e2300050
+  published_at: 2023-08-07
+  doi: 10.1002/advs.202300050
+  url: https://doi.org/10.1002/advs.202300050
+  pmid: 37548643
+  pmcid: PMC10558695
+counts:
+  reported_mags: 5779
+  reported_species: 813
+  reported_skin_sites: 22
+  newly_sequenced_facial_samples: 450
+  public_skin_metagenomes: 2069
+  total_integrated_metagenomes: 2519
+  reported_novel_species: 470
+  reported_new_assembled_genomes: 1385
+  reported_putative_novel_secondary_metabolites: 1220
+metadata_files:
+  assembly_manifest:
+    size_human: 682.24 KB
+    last_modified: 2025-06-24 10:55:12
+  assembly_metadata:
+    size_human: 1.27 MB
+    last_modified: 2025-06-24 10:55:23
+  experiment_metadata:
+    size_human: 122.79 KB
+    last_modified: 2025-06-21 12:05:46
+  sample_metadata:
+    size_human: 132.11 KB
+    last_modified: 2025-06-21 12:04:02
+tags:
+  - mag
+  - human-skin
+  - metagenomics
+  - cnsa
+  - cngbdb
+  - ftp-manifest
+  - bgiseq
+  - megahit
+status: active

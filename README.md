@@ -58,6 +58,7 @@ As the list grows, the main `README.md` should stay concise and group links by u
 | [SMAG](https://microbma.github.io/project/SMAG.html) | Global soil MAGs | Project portal, Zenodo dataset, and code repository | Public Zenodo split archive; CyVerse and S3 mirrors have access friction | None | 40,039 soil MAG bins from 3,304 metagenomes, 21,077 SGBs, plus SNV and virus files; see [notes](sources/smag/download.md) |
 | [HRGM](https://www.decodebiome.org/HRGM/) | Human gut MAGs | Dataset portal | Public direct HTTPS bulk archives via PHP file browser | None | 155,211 non-redundant genomes (HRGM2), 4,824 species, plus proteins, pangenomes, GEMs, CAZymes, Kraken2/MetaPhlAn DBs, and taxonomy profiling; see [notes](sources/hrgm/download.md) |
 | [HROM](https://www.decodebiome.org/HROM/) | Human oral MAGs | Dataset portal | Public direct HTTPS bulk archives via PHP file browser | None | 72,641 high-quality oral genomes, 3,426 species, 8,492,076 non-redundant proteins, pangenomes, 16S rRNA library, and Kraken2/MetaPhlAn DBs; see [notes](sources/hrom/download.md) |
+| [UHSG](https://doi.org/10.1002/advs.202300050) | Human skin MAGs across 22 skin sites | CNSA project archive and genome catalog | Public CNSA FTP manifest, metadata TSVs, and per-assembly FASTA links | None | 5,779 MAGs, 813 prokaryotic species, 450 new facial samples plus 2,069 public skin metagenomes; see [notes](sources/uhsg/download.md) |
 
 ## Directory Design
 
