@@ -1,0 +1,187 @@
+slug: hrom
+name: HROM
+homepage: https://www.decodebiome.org/HROM/
+download_page: https://www.decodebiome.org/HROM/navigate.html
+summary: Human Reference Oral Microbiome catalog with 72,641 high-quality oral microbial genomes from 3,426 species, 8,492,076 non-redundant proteins, species pangenomes, 16S rRNA sequences, and custom Kraken2 and MetaPhlAn4 databases.
+categories:
+  - human-associated
+  - metagenome-assembled-genomes
+  - dataset-portal
+biomes:
+  - human-associated
+  - oral
+source_type:
+  - dataset
+  - dataset-portal
+release: HROM
+updated_at: 2026-03-08
+release_date: 2025-11-12
+license: "Not specified for HROM webserver data; article access/license handled by Cell Host & Microbe/Elsevier"
+access:
+  method: public-direct-http-bulk-archives
+  automation: none
+  restrictions:
+    - No formal data API endpoint; downloads are served through a PHP-based file browser (listdir.php) returning HTML directory listings.
+    - Direct directory access under data/ returns 403; use listdir.php to browse folders and direct HTTPS URLs for files.
+    - The site does not publish checksum files or a Zenodo mirror for HROM data.
+    - Representative genomes and pangenomes are stored as many individual files under nested or per-species directories; use the metadata table and listdir.php paths rather than guessing every URL.
+    - The HROM homepage citation still says the manuscript is in preparation, but the matching Cell Host & Microbe article is already published online.
+download:
+  landing_page: https://www.decodebiome.org/HROM/
+  navigate_page: https://www.decodebiome.org/HROM/navigate.html
+  file_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data
+  genome_catalog_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog
+  protein_catalog_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/protein_catalog
+  hrom_species_page: https://www.decodebiome.org/HROM/HROM-Genomes.html
+  static_species_table: https://www.decodebiome.org/HROM/static/HROM_representative_genome_metadata.tsv
+  publication:
+    title: "A high-quality genomic catalog of the human oral microbiome broadens its phylogeny and clinical insights"
+    authors: Jun Hyung Cha, Nayeon Kim, Jin Young You, et al.
+    journal: Cell Host & Microbe
+    year: 2025
+    published_at: 2025-11-12
+    doi: 10.1016/j.chom.2025.10.013
+    url: https://doi.org/10.1016/j.chom.2025.10.013
+  genome_catalog:
+    readme: https://www.decodebiome.org/HROM/data/genome_catalog/README.txt
+    species_metadata: https://www.decodebiome.org/HROM/data/genome_catalog/HROM-Species-metadata.tsv
+    conspecific_metadata: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_Conspecific-genomes-metadata.tsv
+    metadata_files:
+      web_species_table:
+        url: https://www.decodebiome.org/HROM/static/HROM_representative_genome_metadata.tsv
+        size_human: 1.9 MB
+      species_metadata:
+        url: https://www.decodebiome.org/HROM/data/genome_catalog/HROM-Species-metadata.tsv
+        size_human: 1.8 MB
+      conspecific_genomes_metadata:
+        url: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_Conspecific-genomes-metadata.tsv
+        size_human: 22.7 MB
+    nonredundant_genomes_archive:
+      url: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_nonredundant_genomes.tar.gz
+      size_human: 76.1 GB
+    decontamination_archive:
+      url: https://www.decodebiome.org/HROM/data/genome_catalog/decontamination_HROM.tar.gz
+      size_human: 12.6 GB
+    representative_genomes_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog/HROM_representative_genomes
+    representative_genome_example: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_representative_genomes/HROM_Genome_0XXX/HROM_Genome_00XX/HROM_Genome_0001.fna
+    nonredundant_genomes_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog/HROM_nonredundant_genomes
+    nonredundant_genome_example: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_nonredundant_genomes/HROM_Genome_0023/HROM_Genome_0023_1.fna
+    species_pangenome_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog/HROM_species_pangenome
+    species_pangenome_example: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog/HROM_species_pangenome/HROM_Genome_0002
+    species_pangenome_files:
+      gene_presence_absence:
+        url: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_species_pangenome/HROM_Genome_0002/gene_presence_absence.Rtab
+        size_human: 15.6 KB
+      reference_annotation:
+        url: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_species_pangenome/HROM_Genome_0002/pan_genome_reference.eggnog.annotation
+        size_human: 466.3 KB
+      reference_fasta:
+        url: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_species_pangenome/HROM_Genome_0002/pan_genome_reference.fa
+        size_human: 1.2 MB
+  taxonomy_dbs:
+    kraken2_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog/HROM_kraken2_customdb
+    kraken2_database: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database.kraken
+    kraken2_hash: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/hash.k2d
+    kraken2_files:
+      database: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database.kraken
+      database_100mers_distribution: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database100mers.kmer_distrib
+      database_100mers_kraken: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database100mers.kraken
+      database_110mers_distribution: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database110mers.kmer_distrib
+      database_110mers_kraken: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database110mers.kraken
+      database_150mers_distribution: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database150mers.kmer_distrib
+      database_150mers_kraken: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database150mers.kraken
+      database_151mers_distribution: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database151mers.kmer_distrib
+      database_151mers_kraken: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database151mers.kraken
+      database_250mers_distribution: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database250mers.kmer_distrib
+      database_250mers_kraken: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database250mers.kraken
+      database_300mers_distribution: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database300mers.kmer_distrib
+      database_300mers_kraken: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/database300mers.kraken
+      hash: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/hash.k2d
+      opts: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/opts.k2d
+      seqid2taxid: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/seqid2taxid.map
+      taxo: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_kraken2_customdb/taxo.k2d
+    metaphlan4_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog/HROM_metaphlan_customdb
+    metaphlan4_pkl: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.pkl
+    metaphlan4_files:
+      bt2l_1: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.1.bt2l
+      bt2l_2: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.2.bt2l
+      bt2l_3: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.3.bt2l
+      bt2l_4: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.4.bt2l
+      pkl: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.pkl
+      reverse_bt2l_1: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.rev.1.bt2l
+      reverse_bt2l_2: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_metaphlan_customdb/HROM_20221218.rev.2.bt2l
+  marker_sequences:
+    ssu_16s_browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/genome_catalog/HROM_16s_rRNA_sequences
+    ssu_16s_library: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_16s_rRNA_sequences/16S_rRNA_library.fasta
+    ssu_16s_readme: https://www.decodebiome.org/HROM/data/genome_catalog/HROM_16s_rRNA_sequences/README.txt
+  protein_catalog:
+    browser: https://www.decodebiome.org/HROM/listdir.php?directory=data/protein_catalog
+    hrop_100:
+      fasta: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-100.faa
+      fasta_size: 28.0 GB
+      cluster_info: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-100_cluster_info.tsv
+      cluster_info_size: 12.3 GB
+      eggnog_mapper: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-100_eggnog.mapper.tsv
+      eggnog_mapper_size: 23.3 GB
+    hrop_95:
+      fasta: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-95.faa
+      fasta_size: 5.0 GB
+      cluster_info: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-95_cluster_info.tsv
+      cluster_info_size: 6.9 GB
+      deepgoplus: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-95_deepgoplus_filtered.tsv
+      deepgoplus_size: 5.0 GB
+      eggnog_mapper: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-95_eggnog.mapper.tsv
+      eggnog_mapper_size: 3.8 GB
+    hrop_90:
+      fasta: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-90.faa
+      fasta_size: 2.8 GB
+      cluster_info: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-90_cluster_info.tsv
+      cluster_info_size: 6.4 GB
+      deepgoplus: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-90_deepgoplus_filtered.tsv
+      deepgoplus_size: 2.6 GB
+      eggnog_mapper: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-90_eggnog.mapper.tsv
+      eggnog_mapper_size: 2.0 GB
+    hrop_70:
+      fasta: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-70.faa
+      fasta_size: 720.6 MB
+      cluster_info: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-70_cluster_info.tsv
+      cluster_info_size: 5.9 GB
+      deepgoplus: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-70_deepgoplus_filtered.tsv
+      deepgoplus_size: 645.2 MB
+      eggnog_mapper: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-70_eggnog.mapper.tsv
+      eggnog_mapper_size: 486.4 MB
+    hrop_50:
+      fasta: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-50.faa
+      fasta_size: 521.8 MB
+      cluster_info: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-50_cluster_info.tsv
+      cluster_info_size: 5.8 GB
+      deepgoplus: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-50_deepgoplus_filtered.tsv
+      deepgoplus_size: 413.1 MB
+      eggnog_mapper: https://www.decodebiome.org/HROM/data/protein_catalog/HROP-50_eggnog.mapper.tsv
+      eggnog_mapper_size: 300.1 MB
+  counts:
+    high_quality_genomes: 72641
+    species: 3426
+    nonredundant_proteins: 8492076
+    previously_unidentified_species: 2019
+    medium_quality_genomes: 145149
+    public_metagenomes: 7956
+    sample_countries: 21
+    cpr_species: 1137
+  notes:
+    - HROM is hosted by the Network Biology Lab / decodebiome at Yonsei University.
+    - The static web table uses HROM_representative_genome_metadata.tsv to build per-species representative genome download links.
+    - Data are publicly accessible via HTTPS with no authentication required.
+    - Protein catalog files are large; HROP-100 FASTA plus annotation tables exceed 60 GB combined.
+tags:
+  - mag
+  - human-oral
+  - metagenomics
+  - pangenome
+  - protein-catalog
+  - kraken2
+  - metaphlan
+  - 16s-rrna
+  - hrop
+  - cell-host-microbe
+status: active
