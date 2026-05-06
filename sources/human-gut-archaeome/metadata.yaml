@@ -1,0 +1,107 @@
+slug: human-gut-archaeome
+name: Human Gut Archaeome
+homepage: https://www.nature.com/articles/s41564-021-01020-9
+download_page: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/
+summary: Public catalogue of 1,167 nonredundant archaeal genomes from the human gastrointestinal tract, with an EBI bulk archive and Nature supplementary protein and metadata files.
+categories:
+  - human-associated
+  - gut
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - archaeal-genomes
+biomes:
+  - human-associated
+  - gut
+  - gastrointestinal-tract
+source_type:
+  - dataset
+  - paper-supplement
+  - static-file-host
+  - genome-catalog
+release: archaea_gut-genomes.tar.gz
+release_date: 2020-10-23
+checked_at: 2026-05-06
+license: "Article is open access under CC BY 4.0; dataset archive license not separately specified on the EBI index"
+access:
+  method: public-static-archive
+  automation: none
+  restrictions:
+    - Genome archive is a public EBI static file with HTTP range support.
+    - Nature supplementary files are public static-content.springer.com assets.
+    - No checksum file was observed in the EBI genome_sets directory during curation.
+download:
+  landing_page: https://www.nature.com/articles/s41564-021-01020-9
+  ebi_index: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/
+  genome_archive: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/archaea_gut-genomes.tar.gz
+  genome_archive_format: "tar.gz archive of recovered genomes in generic feature format"
+  supplementary_information: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM1_ESM.pdf
+  reporting_summary: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM2_ESM.pdf
+  peer_review_information: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM3_ESM.pdf
+  supplementary_data_1_protein_catalogue: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM4_ESM.zip
+  supplementary_data_2_mapped_protein_matrix: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM5_ESM.zip
+  supplementary_data_3_mcra_alignment: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM6_ESM.txt
+  supplementary_data_4_16s_rrna_genes: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM7_ESM.txt
+  supplementary_tables: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-021-01020-9/MediaObjects/41564_2021_1020_MOESM8_ESM.xlsx
+publication:
+  title: A catalogue of 1,167 genomes from the human gut archaeome
+  authors: Cynthia Maria Chibani, Alexander Mahnert, Guillaume Borrel, Alexandre Almeida, Almut Werner, Jean-Francois Brugere, Simonetta Gribaldo, Robert D. Finn, Ruth A. Schmitz, Christine Moissl-Eichinger
+  journal: Nature Microbiology
+  year: 2022
+  volume: 7
+  pages: 48-61
+  received_at: 2021-05-01
+  accepted_at: 2021-11-10
+  published_at: 2021-12-30
+  issue_date: 2022-01
+  doi: 10.1038/s41564-021-01020-9
+  url: https://doi.org/10.1038/s41564-021-01020-9
+  correction_doi: 10.1038/s41564-022-01061-8
+counts:
+  reported_nonredundant_archaeal_genomes: 1167
+  reported_high_quality_genomes: 608
+  reported_countries: 24
+  reported_protein_clusters: 28581
+  reported_previously_undescribed_genera: 3
+  reported_previously_undescribed_species: 15
+  reported_previously_undescribed_strains: 52
+  genomes_assigned_to_methanobrevibacter: 996
+  genomes_without_known_species_match: 98
+archive_files:
+  genome_archive:
+    size_human: 657 MiB
+    content_length_bytes: 688991120
+    last_modified: 2020-10-23 13:25:53 GMT
+  supplementary_information:
+    content_length_bytes: 1099491
+    last_modified: 2023-11-14 18:11:23 GMT
+  reporting_summary:
+    content_length_bytes: 68564
+    last_modified: 2023-11-14 18:11:26 GMT
+  peer_review_information:
+    content_length_bytes: 1497804
+    last_modified: 2023-11-14 18:11:24 GMT
+  supplementary_data_1_protein_catalogue:
+    content_length_bytes: 31149785
+    last_modified: 2023-11-14 18:11:27 GMT
+  supplementary_data_2_mapped_protein_matrix:
+    content_length_bytes: 125019416
+    last_modified: 2023-11-14 18:11:23 GMT
+  supplementary_data_3_mcra_alignment:
+    content_length_bytes: 865388
+    last_modified: 2023-11-14 18:11:26 GMT
+  supplementary_data_4_16s_rrna_genes:
+    content_length_bytes: 18848
+    last_modified: 2023-11-14 18:11:21 GMT
+  supplementary_tables:
+    content_length_bytes: 5981459
+    last_modified: 2023-11-14 18:11:25 GMT
+tags:
+  - mag
+  - archaeal-genomes
+  - human-gut
+  - metagenomics
+  - mgnify
+  - ebi
+  - protein-catalogue
+  - nature-microbiology
+status: active
