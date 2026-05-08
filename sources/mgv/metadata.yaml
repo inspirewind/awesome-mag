@@ -1,0 +1,149 @@
+slug: mgv
+name: Metagenomic Gut Virus Dataset (MGV)
+homepage: https://portal.nersc.gov/MGV/
+download_page: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/
+summary: Lawrence Berkeley National Laboratory/JGI human gut DNA virus catalogue containing 189,680 draft uncultivated viral genomes with greater than 50% estimated completeness from 11,810 public human gut metagenomic samples, plus vOTU representatives, proteins, protein clusters, host assignments, DGRs, UHGG CRISPR spacers, and phylogeny files.
+categories:
+  - human-associated
+  - gut
+  - viral-genomes
+  - bacteriophage
+  - metagenomics
+  - companion-resource
+biomes:
+  - human-associated
+  - gut
+  - gastrointestinal-tract
+source_type:
+  - dataset
+  - static-file-host
+  - viral-genome-catalog
+  - paper-supplement
+release: MGV v1.0
+release_date: 2021-07-08
+updated_at: 2021-11-03
+checked_at: 2026-05-07
+license: "NERSC README data usage policy says all data are freely available to use without restrictions; cite the original publication"
+access:
+  method: public-static-files
+  automation: none
+  restrictions:
+    - Files are public direct downloads from the NERSC static file index.
+    - No checksum files were observed in the NERSC index during curation.
+    - The directory provides both a full tar.gz archive and the expanded component files.
+    - This is a viral/phage genome catalogue rather than a prokaryotic MAG catalogue; keep it tagged as a human-gut companion resource.
+    - The MGV GitHub README points users to UHGV as an updated version of the database.
+download:
+  landing_page: https://portal.nersc.gov/MGV/
+  expanded_index: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/
+  readme: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/README.txt
+  full_archive:
+    url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08.tar.gz
+    size_human: 5.2G
+    content_length_bytes: 5152736521
+    last_modified: 2021-11-03 00:03:43 GMT
+    description: Full MGV v1.0 archive corresponding to the expanded NERSC directory.
+  core_files:
+    viral_genomes:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_contigs.fna
+      size_human: 8.8G
+      content_length_bytes: 8809657814
+      last_modified: 2021-04-13 23:02:40 GMT
+      description: FASTA of 189,680 non-identical viral genomes from the study, all with greater than 50% estimated completeness.
+    votu_representatives:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_votu_representatives.fna
+      size_human: 2.4G
+      content_length_bytes: 2363053489
+      last_modified: 2021-10-18 22:37:16 GMT
+      description: Representative genomes for 54,118 viral operational taxonomic units.
+    proteins:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_proteins.faa
+      size_human: 4.2G
+      content_length_bytes: 4209791276
+      last_modified: 2021-04-14 18:52:52 GMT
+      description: Protein FASTA with 11,837,198 proteins predicted from MGV viral genomes using Prodigal -p meta.
+    contig_metadata:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_contig_info.tsv
+      size_human: 22M
+      content_length_bytes: 22236480
+      last_modified: 2021-11-02 23:04:21 GMT
+      description: Metadata for 189,680 viral genomes, including vOTU, CheckV quality/completeness, prophage flag, BACPHLIP lifestyle scores, GC, stop-codon readthrough, Baltimore classification, and ICTV annotations.
+    host_assignments:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_host_assignments.tsv
+      size_human: 17M
+      content_length_bytes: 17288606
+      last_modified: 2021-04-14 20:48:04 GMT
+      description: Host links to UHGG genomes inferred from CRISPR spacer matches and near-identical 1 kb BLAST hits.
+    protein_clusters:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_pc_info.tsv
+      size_human: 281M
+      content_length_bytes: 281336520
+      last_modified: 2021-04-15 02:13:47 GMT
+      description: MMseqs2 clustering information grouping 11,837,198 proteins into 459,375 protein clusters.
+    protein_cluster_functions:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_pc_functions.tsv
+      size_human: 6.2M
+      content_length_bytes: 6208655
+      last_modified: 2021-04-14 22:53:01 GMT
+      description: Consensus protein-cluster functional annotations from Pfam, KEGG, TIGRFAM, and related databases.
+    sample_metadata:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_sample_info.tsv
+      size_human: 24M
+      content_length_bytes: 23664005
+      last_modified: 2021-06-17 02:58:13 GMT
+      description: Metadata for the human gut metagenomic samples used to build MGV.
+    diversity_generating_retroelements:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/mgv_dgrs.tsv
+      size_human: 4.3M
+      content_length_bytes: 4335127
+      last_modified: 2021-04-14 20:58:56 GMT
+      description: Diversity-generating retroelement predictions based on reverse transcriptase genes and TR-VR repeats.
+    uhgg_crispr_spacers:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/uhgg_spacers.fna
+      size_human: 165M
+      content_length_bytes: 164695431
+      last_modified: 2021-04-14 18:44:50 GMT
+      description: FASTA of 1,846,441 CRISPR spacers identified from UHGG genomes.
+    caudovirales_phylogeny:
+      url: https://portal.nersc.gov/MGV/MGV_v1.0_2021_07_08/caudovirales_phylogeny.tree
+      size_human: 1.0M
+      content_length_bytes: 1033832
+      last_modified: 2021-08-06 19:41:51 GMT
+      description: Caudovirales phylogeny tree file from the study.
+code:
+  repository: https://github.com/snayfach/MGV
+  updated_database_note: https://github.com/snayfach/UHGV
+publication:
+  title: Metagenomic compendium of 189,680 DNA viruses from the human gut microbiome
+  authors: Stephen Nayfach, David Paez-Espino, Lee Call, Soo Jen Low, Hila Sberro, Natalia N. Ivanova, Amy D. Proal, Michael A. Fischbach, Ami S. Bhatt, Philip Hugenholtz, Nikos C. Kyrpides
+  journal: Nature Microbiology
+  year: 2021
+  volume: 6
+  pages: 960-970
+  published_at: 2021-06-24
+  doi: 10.1038/s41564-021-00928-6
+  url: https://doi.org/10.1038/s41564-021-00928-6
+counts:
+  viral_genomes: 189680
+  estimated_completeness_threshold: ">50%"
+  human_gut_metagenomic_samples: 11810
+  candidate_species_votus: 54118
+  proteins: 11837198
+  protein_clusters: 459375
+  uhgg_crispr_spacers: 1846441
+tags:
+  - phage
+  - viral-genomes
+  - human-gut
+  - metagenomics
+  - virome
+  - checkv
+  - bacphlip
+  - mmseqs2
+  - prodigal
+  - crispr
+  - uhgg
+  - dgr
+  - nersc
+  - jgi
+status: active
