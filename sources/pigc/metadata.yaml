@@ -1,0 +1,116 @@
+slug: pigc
+name: PIGC
+full_name: Pig Integrated Gene Catalog
+homepage: https://www.nature.com/articles/s41467-021-21295-0
+project_page: https://db.cngb.org/data_resources/project/CNP0000824
+download_page: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0000824/
+summary: Pig gut microbial gene catalog and MAG resource built from newly sequenced pig gut metagenomes plus prior PGC data, including 6,339 non-redundant MAGs and the PIGC90 gene catalog.
+categories:
+  - animal-associated
+  - pig-gut
+  - metagenome-assembled-genomes
+  - gene-catalog
+biomes:
+  - animal-associated
+  - pig-gut
+  - feces
+source_type:
+  - dataset
+  - project-archive
+  - code-repository
+release: CNGBdb CNP0000824
+updated_at: 2025-06-24
+release_date: 2020-09-01
+license: "Not specified for CNGB/CNSA project files; article is open access under CC BY 4.0"
+access:
+  method: public-cnsa-ftp-manifest
+  automation: none
+  restrictions:
+    - Public metadata and data links are exposed through the CNSA public_info directory.
+    - The official manifest mixes assembly FASTA links and raw-read experiment FASTQ links; filter the first column when only MAG assemblies are needed.
+    - Genome files are distributed as many individual assembly FASTA archives rather than as one bulk MAG tarball.
+    - The paper reports 6,339 non-redundant MAGs, while the current CNGBdb public assembly metadata contains 6,347 assembly rows.
+    - Use the official manifest and metadata TSV files rather than guessing CNSA data2 paths.
+download:
+  landing_page: https://db.cngb.org/data_resources/project/CNP0000824
+  public_info_directory: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0000824/
+  data_manifest: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0000824/data_download_links_CNP0000824_ftp.txt
+  assembly_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0000824/metadata_CNP0000824_assembly.tsv
+  experiment_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0000824/metadata_CNP0000824_experiment.tsv
+  sample_metadata: https://ftp.cngb.org/pub/CNSA/data7/public_info/CNP0000824/metadata_CNP0000824_sample_Metagenome_or_environmental_sample.tsv
+  assembly_url_pattern: ftp://ftp.cngb.org/pub/CNSA/data2/CNP0000824/<sample_accession>/<assembly_accession>/<fasta_file_name>
+  experiment_url_pattern: ftp://ftp.cngb.org/pub/CNSA/data2/CNP0000824/<sample_accession>/<experiment_accession>/<run_accession>/<fastq_file_name>
+  example_assembly_url: ftp://ftp.cngb.org/pub/CNSA/data2/CNP0000824/CNS0178608/CNA0009161/S53008A_bin_73.fa.gz
+  example_experiment_url: ftp://ftp.cngb.org/pub/CNSA/data2/CNP0000824/CNS0178788/CNX0143359/CNR0176314/QH616240FF5204_NDME10026_1.clean.fq.gz
+publication:
+  title: An expanded catalog of microbial genes and metagenome-assembled genomes from the pig gut microbiome
+  authors: Congying Chen, Yunyan Zhou, Hao Fu, et al.
+  journal: Nature Communications
+  year: 2021
+  volume: 12
+  article_number: 1106
+  published_at: 2021-02-17
+  doi: 10.1038/s41467-021-21295-0
+  url: https://www.nature.com/articles/s41467-021-21295-0
+related:
+  code_repository: https://github.com/zhouyunyan/PIGC
+  code_archive: https://zenodo.org/records/4381340
+  code_archive_doi: https://doi.org/10.5281/zenodo.4381340
+  cngb_project_doi: https://doi.org/10.26036/CNP0000824
+  supplementary_information: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-21295-0/MediaObjects/41467_2021_21295_MOESM1_ESM.pdf
+  supplementary_data:
+    supplementary_data_1: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-21295-0/MediaObjects/41467_2021_21295_MOESM4_ESM.xlsx
+    supplementary_data_2: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-21295-0/MediaObjects/41467_2021_21295_MOESM5_ESM.xlsx
+    supplementary_data_3: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-21295-0/MediaObjects/41467_2021_21295_MOESM6_ESM.xlsx
+    supplementary_data_4: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-21295-0/MediaObjects/41467_2021_21295_MOESM7_ESM.xlsx
+    supplementary_data_5: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-21295-0/MediaObjects/41467_2021_21295_MOESM8_ESM.xlsx
+    source_data: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-21295-0/MediaObjects/41467_2021_21295_MOESM10_ESM.zip
+counts:
+  reported_newly_sequenced_metagenomes: 500
+  reported_total_metagenomes_for_pigc: 787
+  reported_pig_countries: 8
+  reported_pig_breeds_more_than: 40
+  reported_nonredundant_mags: 6339
+  reported_species_level_genome_bins: 2673
+  reported_unknown_species_level_genome_bins: 2309
+  reported_pigc100_genes: 48697887
+  reported_pigc90_genes: 17237052
+  reported_pigc50_genes: 7246447
+  cngb_project_samples: 503
+  cngb_project_experiments: 500
+  cngb_project_runs: 500
+  cngb_project_assemblies: 6347
+  public_info_sample_rows_observed: 502
+  public_info_experiment_rows_observed: 500
+  public_info_assembly_rows_observed: 6347
+  manifest_assembly_links_observed: 6347
+  manifest_experiment_links_observed: 1000
+metadata_files:
+  data_manifest:
+    size_human: 727.04 KB
+    content_length: 744494
+    last_modified: 2025-06-24 10:54:50
+  assembly_metadata:
+    size_human: 1.65 MB
+    content_length: 1732473
+    last_modified: 2025-06-24 10:55:23
+  experiment_metadata:
+    size_human: 156.14 KB
+    content_length: 159887
+    last_modified: 2025-06-21 12:05:59
+  sample_metadata:
+    size_human: 48.33 KB
+    content_length: 49489
+    last_modified: 2025-06-19 12:02:16
+tags:
+  - mag
+  - pig-gut
+  - swine
+  - animal-associated
+  - metagenomics
+  - gene-catalog
+  - cnsa
+  - cngbdb
+  - ftp-manifest
+  - megahit
+status: active
