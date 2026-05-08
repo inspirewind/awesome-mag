@@ -1,0 +1,117 @@
+slug: gut-phage-database
+name: Gut Phage Database (GPD)
+homepage: https://www.sanger.ac.uk/data/gut-phage-database/
+download_page: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/
+summary: Wellcome Sanger Institute human gut bacteriophage catalogue containing 142,809 non-redundant viral genome representatives from 28,060 human gut metagenomes, with nucleotide sequences, proteins, annotations, metadata, host/co-occurrence tables, and Gubaphage/crAss-like companion files.
+categories:
+  - human-associated
+  - gut
+  - viral-genomes
+  - bacteriophage
+  - metagenomics
+  - companion-resource
+biomes:
+  - human-associated
+  - gut
+  - gastrointestinal-tract
+source_type:
+  - dataset
+  - static-file-host
+  - viral-genome-catalog
+  - paper-supplement
+release: Gut Phage Database
+release_date: 2021-02-18
+updated_at: 2022-01-30
+checked_at: 2026-05-07
+license: "Dataset license not separately specified on Sanger or EBI pages; Sanger data use statement and original publication terms apply"
+access:
+  method: public-static-files
+  automation: none
+  restrictions:
+    - Files are public direct downloads from the EMBL-EBI FTP/HTTPS static index.
+    - No checksum files were observed in the EBI directory during curation.
+    - Sanger project page includes a data-use statement asking users to obtain PI permission before publishing chromosome/genome-scale analyses of sequence, ORF, or gene data.
+    - This is a viral/phage genome catalogue rather than a prokaryotic MAG catalogue; keep it tagged as a human-gut companion resource.
+download:
+  landing_page: https://www.sanger.ac.uk/data/gut-phage-database/
+  ebi_index: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/
+  readme: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/README.txt
+  publication_download_anchor: https://www.sciencedirect.com/science/article/pii/S0092867421000726#sec4
+  core_files:
+    nucleotide_sequences:
+      url: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/GPD_sequences.fa.gz
+      size_human: 1.4G
+      content_length_bytes: 1550242586
+      last_modified: 2020-09-02 16:57:19 GMT
+      description: Nucleotide sequences of the 142,809 GPD viral clusters at 95% nucleotide identity.
+    protein_sequences:
+      url: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/GPD_proteome.faa.gz
+      size_human: 928M
+      content_length_bytes: 973148129
+      last_modified: 2020-09-02 16:57:02 GMT
+      description: Protein-coding sequences for GPD.
+    genome_annotations:
+      url: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/GPD_annotations.tar.gz
+      size_human: 1.9G
+      content_length_bytes: 2062328196
+      last_modified: 2020-10-29 08:58:31 GMT
+      description: Archive of per-genome GFF annotation files.
+    metadata:
+      url: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/GPD_metadata.tsv
+      size_human: 50M
+      content_length_bytes: 52699157
+      last_modified: 2020-09-02 16:56:57 GMT
+      description: GPD genome metadata table with source, viral cluster, size, predicted taxon, host range, detection geography, CheckV quality, and novelty fields.
+    orthology_assignment:
+      url: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/GPD_proteome_orthology_assignment.txt.gz
+      size_human: 67M
+      content_length_bytes: 69782442
+      last_modified: 2020-10-29 08:58:34 GMT
+      description: eggNOG/functional annotation table for GPD proteins.
+    protein_clusters:
+      url: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/PCs_GPD.txt
+      size_human: 105M
+      description: Protein clusters for the GPD proteome; each line is one protein cluster.
+  companion_files:
+    gut_metagenomes_metadata: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/GutMetagenomes_metadata.csv
+    co_occurrence_analysis: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/co_occurrence_analysis.txt
+    gubaphage_clades: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/Gubaphage_clades.tsv
+    gubaphage_genomes:
+      url: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/Gubaphage_genomes.fa
+      size_human: 142M
+      content_length_bytes: 148494482
+      last_modified: 2021-05-29 11:12:06 GMT
+    crass_family_members: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/crAss-family_members.tsv
+    crass_gubaphage_tree: https://ftp.ebi.ac.uk/pub/databases/metagenomics/genome_sets/gut_phage_database/crAss_gubaphage_phylo.nwk
+publication:
+  title: Massive expansion of human gut bacteriophage diversity
+  authors: Luis F. Camarillo-Guerrero, Alexandre Almeida, Guillermo Rangel-Pineros, Robert D. Finn, Trevor D. Lawley
+  journal: Cell
+  year: 2021
+  volume: 184
+  issue: 4
+  pages: 1098-1109.e9
+  published_at: 2021-02-18
+  doi: 10.1016/j.cell.2021.01.029
+  pmid: 33606979
+  pmcid: PMC7895897
+  url: https://doi.org/10.1016/j.cell.2021.01.029
+counts:
+  reported_nonredundant_gut_phage_genomes: 142809
+  screened_human_gut_metagenomes: 28060
+  screened_cultured_gut_bacterial_reference_genomes: 2898
+  sequence_cluster_identity: 95% nucleotide identity
+  minimum_genome_length_reported_in_publication: ">10 kb"
+tags:
+  - phage
+  - bacteriophage
+  - viral-genomes
+  - human-gut
+  - metagenomics
+  - checkv
+  - eggnog
+  - crassphage
+  - gubaphage
+  - ebi
+  - sanger
+status: active
