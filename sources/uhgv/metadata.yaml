@@ -1,0 +1,392 @@
+slug: uhgv
+name: Unified Human Gut Virome (UHGV)
+homepage: https://uhgv.jgi.doe.gov/
+download_page: https://portal.nersc.gov/UHGV/
+summary: Joint Genome Institute human gut virome resource integrating 12 independent gut-virus datasets into 873,995 viral genomes and 168,536 species-level vOTUs, with genome/protein FASTA files, metadata, host predictions, read-mapping tables, microdiversity calls, protein clusters, predicted structures, and companion classification/profiling tools.
+categories:
+  - human-associated
+  - gut
+  - viral-genomes
+  - bacteriophage
+  - metagenomics
+  - companion-resource
+biomes:
+  - human-associated
+  - gut
+  - gastrointestinal-tract
+source_type:
+  - dataset
+  - static-file-host
+  - viral-genome-catalog
+  - database-portal
+  - code-repository
+  - zenodo-record
+release: UHGV v1.0
+release_date: 2025-10-24
+updated_at: 2026-04-08
+checked_at: 2026-05-08
+license: "Zenodo data resource is CC BY 4.0; cite both the UHGV data resource and the bioRxiv publication when using the data"
+access:
+  method: public-static-files
+  automation: none
+  restrictions:
+    - Files are public direct downloads from the NERSC static file index and a smaller Zenodo v1.0 record.
+    - NERSC did not expose checksum files during curation; the Zenodo record provides MD5 checksums for its compact zstd subset.
+    - The NERSC top-level README is partly stale and lists older 884,377 genome and 171,338 vOTU counts; the GitHub README and Zenodo v1.0 record use 873,995 genomes and 168,536 species-level vOTUs.
+    - The per-vOTU representative directory is sharded across UHGV-000 through UHGV-224 folders and contains per-genome FASTA, protein, GFF, and annotation files.
+    - This is a viral/phage genome catalogue rather than a prokaryotic MAG catalogue; keep it tagged as a human-gut companion resource.
+download:
+  landing_page: https://uhgv.jgi.doe.gov/downloads
+  nersc_index: https://portal.nersc.gov/UHGV/
+  nersc_readme: https://portal.nersc.gov/UHGV/README.md
+  github_readme: https://github.com/snayfach/UHGV
+  zenodo_record: https://zenodo.org/records/17402089
+  zenodo_api: https://zenodo.org/api/records/17402089
+  recommended_files:
+    votu_hq_representative_genomes:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/votus_hq_plus.fna.gz
+      size_human: 701M
+      content_length_bytes: 735409943
+      last_modified: "2023-04-01 22:36:15 GMT"
+      description: High-quality representative genome FASTA for species-level vOTUs with at least one genome above 90% completeness.
+    votu_metadata:
+      url: https://portal.nersc.gov/UHGV/metadata/votus_metadata.tsv
+      size_human: 52M
+      content_length_bytes: 54955383
+      last_modified: "2026-04-08 01:18:56 GMT"
+      description: Metadata table for all 168,536 species-level vOTUs.
+  nersc_core_files:
+    all_genomes_dna:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/uhgv_full.fna.gz
+      size_human: 6.5G
+      content_length_bytes: 7018217048
+      last_modified: "2025-10-21 01:29:19 GMT"
+      description: DNA FASTA for all UHGV genomes passing the full tier criteria, greater than 50% complete or greater than 10 kb.
+    all_genomes_proteins:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/uhgv_full.faa.gz
+      size_human: 5.6G
+      content_length_bytes: 5961643658
+      last_modified: "2023-04-02 00:46:12 GMT"
+      description: Protein FASTA for all UHGV genomes.
+    all_votu_representatives_dna:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/votus_full.fna.gz
+      size_human: 1.3G
+      content_length_bytes: 1410443362
+      last_modified: "2025-10-21 01:29:31 GMT"
+      description: DNA FASTA for all species-level vOTU representatives.
+    all_votu_representatives_proteins:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/votus_full.faa.gz
+      size_human: 1.0G
+      content_length_bytes: 1120943308
+      last_modified: "2023-04-01 22:24:15 GMT"
+      description: Protein FASTA for all species-level vOTU representatives.
+    medium_quality_votu_representatives_dna:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/votus_mq_plus.fna.gz
+      size_human: 1.0G
+      content_length_bytes: 1119456446
+      last_modified: "2023-04-01 22:52:14 GMT"
+      description: DNA FASTA for vOTU representatives with at least one genome above 50% completeness and confident viral prediction.
+    medium_quality_all_genomes_dna:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/uhgv_mq_plus.fna.gz
+      size_human: 5.1G
+      content_length_bytes: 5428357930
+      last_modified: "2023-04-02 02:00:27 GMT"
+      description: DNA FASTA for all medium-quality-plus UHGV genomes.
+    high_quality_all_genomes_dna:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/uhgv_hq_plus.fna.gz
+      size_human: 3.0G
+      content_length_bytes: 3232872655
+      last_modified: "2023-04-02 02:59:19 GMT"
+      description: DNA FASTA for all high-quality-plus UHGV genomes.
+    host_genomes:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/host_genomes.tar.gz
+      size_human: 4.2G
+      content_length_bytes: 4477497791
+      last_modified: "2024-11-12 04:27:34 GMT"
+      description: Genomic sequences of gut prokaryotes used for host prediction and read mapping.
+    prokaryote_representatives:
+      url: https://portal.nersc.gov/UHGV/genome_catalogs/prokaryote_reps.fna.gz
+      size_human: 4.3G
+      content_length_bytes: 4611496300
+      last_modified: "2024-10-31 04:41:41 GMT"
+      description: Prokaryotic representative genome FASTA used by downstream profiling/index resources.
+  metadata_files:
+    uhgv_metadata:
+      url: https://portal.nersc.gov/UHGV/metadata/uhgv_metadata.tsv
+      size_human: 207M
+      content_length_bytes: 216693675
+      last_modified: "2026-04-08 01:18:55 GMT"
+      description: Genome-level metadata for all 873,995 UHGV genomes.
+    votus_metadata_extended:
+      url: https://portal.nersc.gov/UHGV/metadata/votus_metadata_extended.tsv
+      size_human: 129M
+      content_length_bytes: 135050561
+      last_modified: "2026-04-08 01:18:56 GMT"
+      description: Extended metadata for species-level viral clusters.
+    host_metadata:
+      url: https://portal.nersc.gov/UHGV/metadata/host_metadata.tsv
+      size_human: 131M
+      content_length_bytes: 137080426
+      last_modified: "2023-01-15 04:37:06 GMT"
+      description: Taxonomy and quality metadata for host/prokaryotic genomes.
+    source_biosample_metadata:
+      url: https://portal.nersc.gov/UHGV/metadata/source_biosample_metadata.tsv
+      size_human: 5.3M
+      content_length_bytes: 5558796
+      last_modified: "2024-12-26 20:28:39 GMT"
+      description: Biosample metadata for samples from which viral genomes were obtained.
+  annotations:
+    protein_annotations:
+      url: https://portal.nersc.gov/UHGV/annotations/protein_annotations.tsv.gz
+      size_human: 329M
+      content_length_bytes: 345195020
+      last_modified: "2025-11-02 20:43:55 GMT"
+      description: Functional annotations for proteins encoded by vOTU representatives.
+    trnas:
+      url: https://portal.nersc.gov/UHGV/annotations/tRNAs.tsv.gz
+      size_human: 1.4M
+      content_length_bytes: 1427009
+      last_modified: "2025-11-02 20:33:16 GMT"
+      description: tRNAs predicted in vOTU representatives.
+    diversity_generating_retroelements:
+      url: https://portal.nersc.gov/UHGV/annotations/DGRs.tsv.gz
+      size_human: 144K
+      content_length_bytes: 146923
+      last_modified: "2025-11-02 20:31:01 GMT"
+      description: Diversity-generating retroelements predicted in vOTU representatives.
+  host_predictions:
+    crispr_spacers:
+      url: https://portal.nersc.gov/UHGV/host_predictions/crispr_spacers.fna
+      size_human: 428M
+      content_length_bytes: 448252487
+      last_modified: "2022-12-10 14:50:06 GMT"
+      description: FASTA of 5,318,089 CRISPR spacers used for host prediction.
+    crispr_assignments:
+      url: https://portal.nersc.gov/UHGV/host_predictions/host_assignment_crispr.tsv
+      size_human: 311M
+      content_length_bytes: 325755021
+      last_modified: "2023-04-01 22:10:51 GMT"
+      description: Host predictions inferred from CRISPR spacer matches.
+    kmer_assignments:
+      url: https://portal.nersc.gov/UHGV/host_predictions/host_assignment_kmers.tsv
+      size_human: 372M
+      content_length_bytes: 389983372
+      last_modified: "2023-04-01 22:11:21 GMT"
+      description: Host predictions inferred with PHIST k-mer matching.
+    host_genomes_info:
+      url: https://portal.nersc.gov/UHGV/host_predictions/host_genomes_info.tsv
+      size_human: 128M
+      content_length_bytes: 134338419
+      last_modified: "2023-04-01 22:11:23 GMT"
+      description: GTDB r207 taxonomy for UHGG, NCBI, and Hadza host genomes.
+    phylogenetic_host_range_breadth:
+      url: https://portal.nersc.gov/UHGV/host_predictions/phylogenetic_host_range_breadth.tsv
+      size_human: 9.6M
+      content_length_bytes: 10063177
+      last_modified: "2024-05-21 23:55:18 GMT"
+      description: Estimated phylogenetic host-range breadth for vOTUs.
+  protein_clusters:
+    protein_clusters:
+      url: https://portal.nersc.gov/UHGV/protein_clusters/protein_clusters.tsv
+      size_human: 232M
+      content_length_bytes: 243551564
+      last_modified: "2023-12-13 14:33:24 GMT"
+      description: Protein-cluster summary table.
+    cluster_membership:
+      url: https://portal.nersc.gov/UHGV/protein_clusters/cluster_membership.tsv.gz
+      size_human: 217M
+      content_length_bytes: 227907104
+      last_modified: "2023-11-13 23:59:52 GMT"
+      description: Cluster membership for UHGV proteins.
+    cluster_taxonomy:
+      url: https://portal.nersc.gov/UHGV/protein_clusters/cluster_taxonomy.tsv.gz
+      size_human: 64M
+      content_length_bytes: 66792074
+      last_modified: "2023-12-15 00:34:47 GMT"
+      description: Consensus UHGV and ICTV taxonomy for each protein cluster.
+    multiple_sequence_alignments:
+      url: https://portal.nersc.gov/UHGV/protein_clusters/MSAs.tar.gz
+      size_human: 1.3G
+      content_length_bytes: 1378013812
+      last_modified: "2024-02-28 16:56:13 GMT"
+      description: Multiple sequence alignments for protein clusters with at least 15 members.
+  structures:
+    predicted_pdbs:
+      url: https://portal.nersc.gov/UHGV/structures/PDB.tar.gz
+      size_human: 1.5G
+      content_length_bytes: 1629889221
+      last_modified: "2024-02-28 17:16:57 GMT"
+      description: PDB files of UHGV predicted protein structures.
+    reference_pdbs:
+      url: https://portal.nersc.gov/UHGV/structures/PDB_references.tar.gz
+      size_human: 1.4G
+      content_length_bytes: 1495106183
+      last_modified: "2025-11-10 11:31:49 GMT"
+      description: Predicted structures for COG, HAMAP, NCBIfam, and Pfam entries.
+    structure_json:
+      url: https://portal.nersc.gov/UHGV/structures/JSON.tar.gz
+      size_human: 9.1G
+      content_length_bytes: 9818411035
+      last_modified: "2024-03-27 16:22:40 GMT"
+      description: JSON-format predicted structure output.
+    domains:
+      url: https://portal.nersc.gov/UHGV/structures/domains.tsv
+      size_human: 2.6M
+      content_length_bytes: 2760224
+      last_modified: "2025-06-03 18:39:40 GMT"
+      description: Domain segmentation of UHGV protein structures.
+  phylogeny:
+    caudoviricetes_tree:
+      url: https://portal.nersc.gov/UHGV/phylogeny/caudoviricetes_tree.nwk.gz
+      size_human: 3.4M
+      content_length_bytes: 3569029
+      last_modified: "2025-11-02 17:55:51 GMT"
+      description: Phylogenetic tree of Caudoviricetes genomes.
+  read_mapping:
+    metagenomes_coverm:
+      url: https://portal.nersc.gov/UHGV/read_mapping/metagenomes_coverm.tsv.gz
+      size_human: 2.7G
+      content_length_bytes: 2863443472
+      last_modified: "2024-04-18 22:52:15 GMT"
+      description: CoverM read-mapping statistics for bulk metagenomes.
+    viromes_coverm:
+      url: https://portal.nersc.gov/UHGV/read_mapping/viromes_coverm.tsv.gz
+      size_human: 125M
+      content_length_bytes: 130855351
+      last_modified: "2024-04-18 22:52:19 GMT"
+      description: CoverM read-mapping statistics for viral-enriched metagenomes.
+    relative_abundance:
+      url: https://portal.nersc.gov/UHGV/read_mapping/relative_abundance.tsv
+      size_human: 50M
+      content_length_bytes: 52438736
+      last_modified: "2024-07-01 06:14:36 GMT"
+      description: Per-sample relative abundances of viruses and hosts from read mapping.
+    sample_metadata:
+      url: https://portal.nersc.gov/UHGV/read_mapping/sample_metadata.tsv
+      size_human: 584K
+      content_length_bytes: 597890
+      last_modified: "2024-07-01 05:51:58 GMT"
+      description: Metadata for read-mapping samples.
+    study_metadata:
+      url: https://portal.nersc.gov/UHGV/read_mapping/study_metadata.tsv
+      size_human: 16K
+      content_length_bytes: 16542
+      last_modified: "2024-04-13 01:24:09 GMT"
+      description: Study-level metadata for read-mapping samples.
+  microdiversity:
+    snvs:
+      url: https://portal.nersc.gov/UHGV/microdiversity/SNVs.tsv.zst
+      size_human: 118M
+      content_length_bytes: 123677069
+      last_modified: "2025-11-02 16:50:27 GMT"
+      description: Single-nucleotide variants identified through read mapping.
+    codon_pn_ps:
+      url: https://portal.nersc.gov/UHGV/microdiversity/codon_pN_pS.tsv.zst
+      size_human: 121M
+      content_length_bytes: 126436911
+      last_modified: "2025-11-02 16:50:26 GMT"
+      description: Polymorphic codons and synonymous/nonsynonymous substitution potentials.
+  zenodo_compact_files:
+    uhgv_full_fna:
+      url: https://zenodo.org/records/17402089/files/uhgv_full.fna.zst?download=1
+      size_human: 1.5G
+      content_length_bytes: 1662225998
+      md5: 6608f58dbd0e451c9a494ccf69cb3a35
+      description: zstd-compressed DNA FASTA for all 873,995 UHGV genomes.
+    uhgv_full_faa:
+      url: https://zenodo.org/records/17402089/files/uhgv_full.faa.zst?download=1
+      size_human: 4.7G
+      content_length_bytes: 5087247179
+      md5: d2120a8c5f39e83092e087b551614142
+      description: zstd-compressed protein FASTA for all 37,443,649 UHGV proteins.
+    votus_full_fna:
+      url: https://zenodo.org/records/17402089/files/votus_full.fna.zst?download=1
+      size_human: 920M
+      content_length_bytes: 964680445
+      md5: 9ad996fea08c6087a452194f0c2f9d33
+      description: zstd-compressed DNA FASTA for 168,536 vOTU representatives.
+    votus_full_faa:
+      url: https://zenodo.org/records/17402089/files/votus_full.faa.zst?download=1
+      size_human: 975M
+      content_length_bytes: 1022105075
+      md5: 1eff9626a8c3990a98d2b4ea58ff0596
+      description: zstd-compressed protein FASTA for 7,426,124 vOTU-representative proteins.
+    uhgv_metadata:
+      url: https://zenodo.org/records/17402089/files/uhgv_metadata.tsv.zst?download=1
+      size_human: 37M
+      content_length_bytes: 38978745
+      md5: f897bdf92b8b93cf3941f6d2c3d55efb
+      description: zstd-compressed genome metadata table.
+    votus_metadata_extended:
+      url: https://zenodo.org/records/17402089/files/votus_metadata_extended.tsv.zst?download=1
+      size_human: 13M
+      content_length_bytes: 14048300
+      md5: 6702355349e933fb605e62a8bbaa50a9
+      description: zstd-compressed extended vOTU metadata table.
+  additional_directories:
+    votu_representatives: https://portal.nersc.gov/UHGV/votu_reps/
+    annotation_counts: https://portal.nersc.gov/UHGV/annotations/annotation_counts/
+    additional_annotations: https://portal.nersc.gov/UHGV/annotations/additional_annotations/
+    taxdump: https://portal.nersc.gov/UHGV/taxdump/
+    website_data: https://portal.nersc.gov/UHGV/website_data/
+    toolkit: https://portal.nersc.gov/UHGV/toolkit/
+code:
+  repository: https://github.com/snayfach/UHGV
+  classifier: https://github.com/snayfach/UHGV-classifier
+  website: https://uhgv.jgi.doe.gov/
+  protein_search: https://uhgv.jgi.doe.gov/protein-search
+  structure_search: https://uhgv.jgi.doe.gov/structure-search
+companion_tools:
+  phanta: https://github.com/bhattlab/phanta
+  sylph: https://sylph-docs.github.io/
+publication:
+  title: A genomic atlas of the human gut virome elucidates genetic factors shaping host interactions
+  authors: Antonio P. Camargo, Fragiskos A. Baltoumas, Ekwasi O. Ndela, Matheus B. Fiamenghi, Brandon D. Merrill, Mia M. Carter, Yana Pinto, Mahul Chakraborty, Antonina Andreeva, Giovanna Ghiotto, Joshua Shaw, Amy D. Proal, Justin L. Sonnenburg, Ami S. Bhatt, Simon Roux, Georgios A. Pavlopoulos, Stephen Nayfach, Nikos C. Kyrpides
+  journal: bioRxiv
+  year: 2025
+  published_at: 2025-11-01
+  doi: 10.1101/2025.11.01.686033
+  url: https://www.biorxiv.org/content/10.1101/2025.11.01.686033
+data_resource:
+  title: Unified Human Gut Virome (UHGV)
+  authors: Stephen Nayfach, Antonio Camargo
+  repository: Zenodo
+  version: "1.0"
+  published_at: 2025-10-24
+  doi: 10.5281/zenodo.17402089
+  url: https://doi.org/10.5281/zenodo.17402089
+counts:
+  viral_genomes: 873995
+  species_level_votus: 168536
+  all_viral_proteins: 37443649
+  votu_representative_proteins: 7426124
+  data_sources: 12
+  crispr_spacers: 5318089
+  bulk_metagenomes_mapped: 1798
+  viral_enriched_metagenomes_mapped: 673
+  host_range_votus_in_zenodo_summary: 72503
+  quality_tiers:
+    full: ">50% complete or >10 kb; high-confidence and uncertain viral predictions"
+    medium_quality: ">50% complete; high-confidence viral predictions"
+    high_quality: ">90% complete; high-confidence viral predictions"
+tags:
+  - phage
+  - bacteriophage
+  - viral-genomes
+  - human-gut
+  - metagenomics
+  - virome
+  - checkv
+  - genomad
+  - viralverify
+  - prodigal-gv
+  - mmseqs2
+  - phist
+  - crispr
+  - bacphlip
+  - phrog
+  - interproscan
+  - zenodo
+  - nersc
+  - jgi
+status: active
