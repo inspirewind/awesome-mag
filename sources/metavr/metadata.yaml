@@ -1,0 +1,148 @@
+slug: metavr
+name: Meta-virus Resource (MetaVR)
+homepage: https://www.meta-virome.org/
+download_page: https://www.meta-virome.org/Downloads
+summary: DOE JGI and BSRC Fleming multi-biome successor to IMG/VR, containing 24,435,662 uncultivated virus genomes organized into 12,705,385 vOTUs, with browser-visible portal/API documentation, nucleotide/protein download listings, UViG metadata, host predictions, protein-cluster alignments, AlphaFold3 protein models, and source dataset metadata.
+categories:
+  - integrated-resource
+  - multi-biome
+  - viral-genomes
+  - virome
+  - metagenomics
+  - companion-resource
+biomes:
+  - multi-biome
+  - environmental
+  - host-associated
+  - human-associated
+  - marine
+  - freshwater
+  - terrestrial
+source_type:
+  - database-portal
+  - dataset
+  - api
+  - static-file-host
+  - viral-genome-catalog
+  - paper-supplement
+release: MetaVR / IMGVR5
+release_date: 2025-11-28
+updated_at: 2025-11-28
+checked_at: 2026-05-08
+license: "Dataset license not separately specified on the MetaVR download page; article is open access under CC BY 4.0; cite the MetaVR Nucleic Acids Research paper and respect upstream source terms"
+access:
+  method: public-web-portal-with-cloudflare-protected-api-and-downloads
+  automation: blocked-for-plain-cli-api-and-bulk-downloads
+  restrictions:
+    - Bulk files are listed on the public MetaVR Downloads page and do not require login in the browser, but non-browser CLI downloads are not currently reproducible.
+    - The API documentation is browser-visible, but curation-time plain `curl` requests to documented API endpoints returned Cloudflare challenge HTML rather than JSON.
+    - The site is Cloudflare-protected; curation-time CLI HEAD checks returned a Cloudflare challenge, so content-length and last-modified headers were not captured.
+    - A user-tested `wget -c https://www.meta-virome.org/Data/Downloads/IMGVR5_UViG.fna.gz` request returned `403 Forbidden` on 2026-05-08.
+    - Do not treat the listed bulk URLs as wget/curl-ready direct downloads unless the provider changes the Cloudflare policy or publishes an official mirror.
+    - The Downloads page did not list checksum files during curation.
+    - Bulk files are large, with the main UViG FASTA around 77 GB and the protein FASTA around 48.7 GB compressed.
+    - The Protein Cluster MSA asset is listed on the Downloads page, but a curation fetch of the static URL returned 404 on 2026-05-08; verify interactively before scheduling that transfer.
+    - The catalogue includes both high-confidence and low-confidence UViGs; low-confidence entries have higher expected false-positive risk.
+    - This is a viral genome and virome catalogue rather than a prokaryotic MAG catalogue; keep it tagged as a companion resource.
+download:
+  landing_page: https://www.meta-virome.org/Downloads
+  api_docs: https://meta-virome.org/api/docs
+  core_files:
+    uvig_genomes:
+      url: https://www.meta-virome.org/Data/Downloads/IMGVR5_UViG.fna.gz
+      file: IMGVR5_UViG.fna.gz
+      size_human: "~77G"
+      records: 24435662
+      description: Gzip-compressed nucleotide FASTA for all MetaVR UViGs.
+    uvig_metadata:
+      url: https://www.meta-virome.org/DownloadUvigMetadata
+      file: IMGVR5_UViG.tsv.gz
+      size_human: "~846M"
+      rows: 24435662
+      description: Gzip-compressed UViG metadata table with sample, quality, taxonomy, host, biome, and source fields.
+    uvig_proteins:
+      url: https://www.meta-virome.org/Data/Downloads/IMGVR5_UViG.faa.gz
+      file: IMGVR5_UViG.faa.gz
+      size_human: "~48.7G"
+      description: Gzip-compressed FASTA of predicted proteins for MetaVR UViGs.
+    protein_cluster_msas:
+      url: https://www.meta-virome.org/Data/Downloads/IMGVR5_PC_MSAs.tar.zst
+      file: IMGVR5_PC_MSAs.tar.zst
+      size_human: "~13.8G"
+      description: Zstandard-compressed tar archive of representative protein-cluster multiple sequence alignments for clusters with at least 100 members.
+      caveat: Static URL returned 404 during curation on 2026-05-08 despite being listed on the Downloads page.
+    protein_cluster_3d_models:
+      url: https://www.meta-virome.org/Data/Downloads/IMGVR5_PC_3Dmodels.tar.gz
+      file: IMGVR5_PC_3Dmodels.tar.gz
+      size_human: "~29.6G"
+      description: Gzip-compressed tar archive of AlphaFold3-predicted 3D protein structures for representative protein clusters with at least 100 members.
+    iphop_host_predictions:
+      url: https://www.meta-virome.org/DownloadiPHop
+      file: MetaVR_iPHoP_results.tsv.gz
+      size_human: "~921M"
+      description: Gzip-compressed iPHoP host-classification table for MetaVR UViGs.
+    source_dataset_metadata:
+      url: https://www.meta-virome.org/DownloadSDM
+      file: Source_dataset_metadata.tsv.gz
+      size_human: "~22M"
+      rows: 162534
+      description: Gzip-compressed metadata table for source metagenomes, metatranscriptomes, isolate genomes, SAGs, MAGs, and RefSeq genomes used by MetaVR.
+code:
+  database_generation: https://code.jgi.doe.gov/antoniop.camargo/metavr/
+publication:
+  title: "Meta-virus resource (MetaVR): expanding the frontiers of viral diversity with 24 million uncultivated virus genomes"
+  authors: Mateus B. Fiamenghi, Antonio Pedro Camargo, Iro N. Chasapi, Fotis A. Baltoumas, Simon Roux, Artyom A. Egorov, Eleni Aplakidou, Eric Olo Ndela, Yumary M. Vasquez, I-Min A. Chen, Krishna Palaniappan, T. B. K. Reddy, Supratim Mukherjee, Natalia N. Ivanova, Frederik Schulz, Tanja Woyke, Emiley A. Eloe-Fadrosh, Georgios A. Pavlopoulos, Nikos C. Kyrpides
+  journal: Nucleic Acids Research
+  year: 2026
+  volume: 54
+  issue: D1
+  pages: D801-D812
+  published_at: 2025-11-28
+  doi: 10.1093/nar/gkaf1283
+  pmid: 41312645
+  url: https://doi.org/10.1093/nar/gkaf1283
+counts:
+  uvigs: 24435662
+  votus: 12705385
+  refseq_viral_genomes: 5625
+  high_confidence_uvigs: 11192611
+  low_confidence_uvigs: 13243051
+  source_metagenomes: 37961
+  source_metatranscriptomes: 8694
+  source_isolate_genomes: 99377
+  source_sags: 1452
+  source_mags: 9704
+  source_dataset_metadata_rows_download_page: 162534
+  uvigs_with_taxonomy: 23668185
+  votus_with_taxonomy: 12271957
+  uvigs_with_any_host_assignment: 7833811
+  votus_with_any_host_assignment: 4321235
+  uvigs_with_iphop_host_assignment: 7049110
+  votus_with_iphop_host_assignment: 4173478
+  protein_clusters: 42390306
+  representative_pc_msas: 748927
+  representative_pc_3d_models: 748927
+  gvmag_uvigs: 15710
+  gvmag_votus: 8900
+tags:
+  - metavr
+  - img-vr
+  - uvig
+  - votu
+  - viral-genomes
+  - virome
+  - metagenomics
+  - genomad
+  - checkv
+  - gvclass
+  - iphop
+  - gtdb
+  - ictv
+  - baltimore-classification
+  - mmseqs2
+  - alphafold3
+  - protein-structures
+  - api
+  - jgi
+  - fleming
+status: active
