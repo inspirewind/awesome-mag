@@ -1,0 +1,116 @@
+slug: rug2
+name: RUG2 Rumen MAGs
+homepage: https://www.nature.com/articles/s41587-019-0202-3
+project_page: https://vetgenomics.github.io/metagenomics/stewart2019/
+download_page: https://vetgenomics.github.io/metagenomics/stewart2019/
+summary: Rumen microbial genome resource from Stewart et al. 2019, including 4,941 rumen metagenome-assembled genomes and companion protein, cluster, annotation, and synteny data.
+categories:
+  - animal-associated
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - functional-annotation
+  - supplementary-data
+biomes:
+  - animal-associated
+  - rumen
+  - cattle-rumen
+  - gastrointestinal
+source_type:
+  - paper-dataset
+  - ena-project
+  - data-repository
+  - static-author-page
+release: RUG2
+updated_at: 2019-07-22
+license: unknown
+access:
+  method: public-ena-ftp-plus-datashare-archive
+  automation: none
+  restrictions:
+    - ENA project PRJEB31266 is the primary accession for raw reads, primary assemblies, and RUG assemblies.
+    - ENA project PRJEB21624 contains raw reads from the earlier Stewart et al. 2018 Illumina NextSeq rumen study reused by the 2019 paper.
+    - Edinburgh DataShare stores one large rug2.tar.gz companion archive listed as 29.76 Gb.
+    - The DataShare record does not expose checksums on the landing page.
+    - During curation on 2026-05-08, the DataShare bitstream URL returned HTTP 200 with a 31958778104 byte Content-Length, but the response can be slow.
+    - The author bins page links to a relative CSV, but that CSV URL returned the site 404 page during curation on 2026-05-08.
+download:
+  landing_page: https://vetgenomics.github.io/metagenomics/stewart2019/
+  article: https://www.nature.com/articles/s41587-019-0202-3
+  data_availability: https://www.nature.com/articles/s41587-019-0202-3#data-availability
+  ena:
+    primary_project: https://www.ebi.ac.uk/ena/browser/view/PRJEB31266
+    previous_reads_project: https://www.ebi.ac.uk/ena/browser/view/PRJEB21624
+    primary_project_legacy_view: https://www.ebi.ac.uk/ena/data/view/PRJEB31266
+    previous_reads_project_legacy_view: https://www.ebi.ac.uk/ena/data/view/PRJEB21624
+    read_run_filereport: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB31266&result=read_run&fields=study_accession,sample_accession,experiment_accession,run_accession,fastq_ftp,fastq_md5,fastq_bytes&format=tsv"
+    previous_read_run_filereport: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB21624&result=read_run&fields=study_accession,sample_accession,experiment_accession,run_accession,fastq_ftp,fastq_md5,fastq_bytes&format=tsv"
+    sequence_assembly_search: "https://www.ebi.ac.uk/ena/portal/api/search?result=analysis&query=study_accession=%22PRJEB31266%22%20AND%20analysis_type=%22SEQUENCE_ASSEMBLY%22&fields=study_accession,analysis_accession,sample_accession,analysis_title,analysis_type,assembly_type,generated_ftp,submitted_ftp,submitted_bytes,submitted_md5&format=tsv"
+    primary_metagenome_search: "https://www.ebi.ac.uk/ena/portal/api/search?result=analysis&query=study_accession=%22PRJEB31266%22%20AND%20analysis_type=%22SEQUENCE_ASSEMBLY%22%20AND%20assembly_type=%22primary%20metagenome%22&fields=study_accession,analysis_accession,sample_accession,analysis_title,analysis_type,assembly_type,generated_ftp,submitted_ftp,submitted_bytes,submitted_md5&format=tsv"
+    binned_metagenome_search: "https://www.ebi.ac.uk/ena/portal/api/search?result=analysis&query=study_accession=%22PRJEB31266%22%20AND%20analysis_type=%22SEQUENCE_ASSEMBLY%22%20AND%20assembly_type=%22binned%20metagenome%22&fields=study_accession,analysis_accession,sample_accession,analysis_title,analysis_type,assembly_type,generated_ftp,submitted_ftp,submitted_bytes,submitted_md5&format=tsv"
+    example_raw_read_run:
+      run_accession: ERR3201375
+      sample_accession: SAMEA5383982
+      fastq_ftp:
+        - ftp.sra.ebi.ac.uk/vol1/fastq/ERR320/005/ERR3201375/ERR3201375_1.fastq.gz
+        - ftp.sra.ebi.ac.uk/vol1/fastq/ERR320/005/ERR3201375/ERR3201375_2.fastq.gz
+    example_primary_metagenome:
+      analysis_accession: ERZ1024259
+      sample_accession: SAMEA5383888
+      submitted_ftp: ftp.sra.ebi.ac.uk/vol1/analysis/ERZ102/ERZ1024259/10676_0004_idba.fa.gz
+      generated_ftp: ftp.sra.ebi.ac.uk/vol1/sequence/ERZ102/ERZ1024259/contig.fa.gz
+      submitted_md5: b21885017218b4fc2df47005de916708
+    example_binned_metagenome:
+      analysis_accession: ERZ1037592
+      submitted_ftp: ftp.sra.ebi.ac.uk/vol1/analysis/ERZ103/ERZ1037592/10674_0001_idba_bin.100.fa.gz
+      generated_ftp: ftp.sra.ebi.ac.uk/vol1/sequence/ERZ103/ERZ1037592/contig.fa.gz
+      submitted_md5: 76d4a18e36b849ac0edd48511699b4a3
+  author_indexes:
+    base: https://vetgenomics.github.io/metagenomics/stewart2019/
+    metagenome_assemblies_page: https://vetgenomics.github.io/metagenomics/stewart2019/metagenome_assemblies/
+    metagenome_assemblies_csv: https://vetgenomics.github.io/metagenomics/stewart2019/metagenome_assemblies.csv
+    bins_page: https://vetgenomics.github.io/metagenomics/stewart2019/test/
+    bins_csv_reported_by_page: https://vetgenomics.github.io/metagenomics/stewart2019/test/bins_table_sorted_plus_urls.csv
+  datashare:
+    doi: https://doi.org/10.7488/ds/2470
+    landing_page: https://datashare.ed.ac.uk/handle/10283/3224
+    direct_archive_url: "https://datashare.ed.ac.uk/bitstream/handle/10283/3224/rug2.tar.gz?isAllowed=y&sequence=1"
+    file_name: rug2.tar.gz
+    size_bytes: 31958778104
+    size_human: 29.76 Gb
+    last_modified: 2018-12-03
+    contents:
+      - Predicted proteins
+      - Gene clusters
+      - RUG annotations
+      - RUG synteny
+      - Associated data tables
+publication:
+  title: "Compendium of 4,941 rumen metagenome-assembled genomes for rumen microbiome biology and enzyme discovery"
+  url: https://www.nature.com/articles/s41587-019-0202-3
+  journal: Nature Biotechnology
+  year: 2019
+  doi: https://doi.org/10.1038/s41587-019-0202-3
+related:
+  author_data_page: https://vetgenomics.github.io/metagenomics/stewart2019/
+  previous_reads_project: https://www.ebi.ac.uk/ena/browser/view/PRJEB21624
+counts:
+  rumen_mags: 4941
+  cattle: 283
+  metagenome_assemblies: 288
+  primary_metagenome_assemblies: 282
+  coassemblies: 6
+  bins_landing_page: 20567
+  illumina_bins_author_page: 20469
+tags:
+  - mag
+  - rumen
+  - cattle
+  - metagenomics
+  - rug
+  - rug2
+  - ena
+  - datashare
+  - protein-clusters
+  - functional-annotation
+  - direct-urls
+status: active
