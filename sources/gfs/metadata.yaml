@@ -1,0 +1,124 @@
+slug: gfs
+name: Glacier-fed Streams (GFS) MAGs
+homepage: https://www.nature.com/articles/s41564-024-01874-9
+project_page: https://www.glacierstreams.ch/
+download_page: https://zenodo.org/records/13890040
+summary: Vanishing Glaciers Project MAG resource from the multi-kingdom glacier-fed stream microbiome, with 156 sediment metagenomes from 9 mountain ranges and 2,855 bacterial MAGs.
+categories:
+  - freshwater
+  - cryosphere
+  - extreme-environment
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - supplementary-data
+biomes:
+  - freshwater
+  - glacier-fed-stream
+  - mountain-stream
+  - cryosphere
+  - stream-biofilm
+source_type:
+  - paper-dataset
+  - ncbi-bioproject
+  - zenodo-record
+  - code-repository
+release: Zenodo record 13890040
+release_date: 2024-10-04
+updated_at: 2024-10-04
+checked_at: 2026-05-08
+license: "Zenodo record is Creative Commons Attribution 4.0; VanishingGlacierMAGs code is MIT; article and NCBI archive terms should be checked separately"
+access:
+  method: public-ncbi-bioproject-plus-zenodo-files
+  automation: none
+  restrictions:
+    - The article data availability statement lists NCBI BioProject PRJNA781406 for raw sequencing data and MAGs.
+    - The Zenodo record stores prokaryotic MAG contig, GFF, and protein tar archives with MD5 checksums.
+    - Zenodo direct file URLs are public, but large-file HEAD checks returned a 504 gateway response during curation on 2026-05-08; use resumable downloads and verify MD5 checksums.
+    - The VanishingGlaciersRcode repository did not expose a license in the GitHub API response during curation.
+download:
+  landing_page: https://www.nature.com/articles/s41564-024-01874-9
+  data_availability: https://www.nature.com/articles/s41564-024-01874-9#data-availability
+  project_website: https://www.glacierstreams.ch/
+  ncbi_bioproject: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA781406
+  ncbi_sra_search: https://www.ncbi.nlm.nih.gov/sra?term=PRJNA781406
+  ncbi_assembly_search: https://www.ncbi.nlm.nih.gov/assembly/?term=PRJNA781406
+  ncbi_bioproject_summary_api: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=bioproject&id=781406&retmode=json"
+  zenodo_record: https://zenodo.org/records/13890040
+  zenodo_record_api: https://zenodo.org/api/records/13890040
+  zenodo_doi: https://doi.org/10.5281/zenodo.13890040
+  zenodo_files:
+    prokaryotic_mags_contigs:
+      file_name: ProkaryoticMAGsContig.tar
+      url: "https://zenodo.org/records/13890040/files/ProkaryoticMAGsContig.tar?download=1"
+      size_human: 3.2 GB
+      checksum: md5:92ce0436b073d4480cc4f841d9b6f5e4
+    prokaryotic_mags_gff:
+      file_name: ProkaryoticMAGsGff.tar
+      url: "https://zenodo.org/records/13890040/files/ProkaryoticMAGsGff.tar?download=1"
+      size_human: 1.8 GB
+      checksum: md5:7d04f9d9f11b6df8510ada2e638636f8
+    prokaryotic_mags_proteins:
+      file_name: ProkaryoticMAGsProtein.tar
+      url: "https://zenodo.org/records/13890040/files/ProkaryoticMAGsProtein.tar?download=1"
+      size_human: 597.9 MB
+      checksum: md5:5d3c9d2419345aa7196540ef58010ee7
+  reporting_summary: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM1_ESM.pdf
+  peer_review_file: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM2_ESM.pdf
+  supplementary_tables: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM3_ESM.xlsx
+  source_data_index: https://www.nature.com/articles/s41564-024-01874-9#additional-information
+  source_data:
+    figure_1: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM4_ESM.xlsx
+    figure_2: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM5_ESM.xlsx
+    figure_3: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM6_ESM.xlsx
+    figure_4: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM7_ESM.xlsx
+    figure_5: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM8_ESM.xlsx
+    figure_6: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM9_ESM.xlsx
+    extended_data_figure_1: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM10_ESM.txt
+    extended_data_figure_2: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM11_ESM.txt
+    extended_data_figure_3: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM12_ESM.txt
+    extended_data_figure_4: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM13_ESM.txt
+    extended_data_figure_5: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM14_ESM.xlsx
+    extended_data_figure_6: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM15_ESM.txt
+    extended_data_figure_7: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM16_ESM.txt
+    extended_data_figure_8: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM17_ESM.txt
+    extended_data_figure_9: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-024-01874-9/MediaObjects/41564_2024_1874_MOESM18_ESM.txt
+publication:
+  title: Mapping the metagenomic diversity of the multi-kingdom glacier-fed stream microbiome
+  url: https://www.nature.com/articles/s41564-024-01874-9
+  journal: Nature Microbiology
+  year: 2025
+  volume: 10
+  pages: 217-230
+  received_at: 2024-02-09
+  accepted_at: 2024-10-29
+  published_at: 2025-01-02
+  version_of_record: 2025-01-02
+  issue_date: 2025-01
+  doi: 10.1038/s41564-024-01874-9
+related:
+  project_website: https://www.glacierstreams.ch/
+  code_repository_mag_pipeline: https://github.com/michoug/VanishingGlacierMAGs
+  code_repository_r_analysis: https://github.com/michoug/VanishingGlaciersRcode
+  bioproject_title: Vanishing Glaciers Project
+  bioproject_description: Investigating the microbiomes associated to glacier-fed streams around the world
+counts:
+  reported_glacier_fed_streams: 1034
+  reported_metagenomes: 156
+  reported_mountain_ranges: 9
+  reported_bacterial_mags: 2855
+  ncbi_bioproject_sra_records_checked: 2240
+  ncbi_bioproject_assembly_records_checked: 3387
+  zenodo_files: 3
+  zenodo_total_size: 5.2 GB
+tags:
+  - mag
+  - glacier-fed-streams
+  - freshwater
+  - cryosphere
+  - mountain-streams
+  - stream-biofilm
+  - vanishing-glaciers
+  - metagenomics
+  - zenodo
+  - ncbi
+status: active
