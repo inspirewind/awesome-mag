@@ -1,0 +1,234 @@
+slug: icrggc
+name: ICRGGC
+full_name: Integrated Chicken Reference Genomes and Gene Catalog
+homepage: https://nmdc.cn/icrggc/
+download_page: https://nmdc.cn/icrggc/download
+summary: Chicken gut MAG and gene catalog resource integrating public and newly sequenced chicken gut metagenomes, with 12,339 strain-level MAGs and a 16,565,684-gene catalog.
+categories:
+  - animal-associated
+  - chicken-gut
+  - metagenome-assembled-genomes
+  - gene-catalog
+  - database-portal
+biomes:
+  - animal-associated
+  - chicken-gut
+  - feces
+source_type:
+  - database-portal
+  - dataset
+  - figshare-record
+  - nmdc-ftp
+  - api-backed-access
+release: ICRGGC web release
+updated_at: 2022-11-10
+release_date: 2021-10-26
+curation_checked_at: 2026-05-08
+license: CC BY 4.0 for Figshare datasets; NMDC/ICRGGC site-specific terms not separately stated on the download page
+access:
+  method: public-figshare-and-nmdc-ftp
+  automation: none
+  restrictions:
+    - The ICRGGC download page links to FTP files under download.nmdc.cn; command-line FTP directory listing may require disabling EPSV.
+    - Figshare provides download-all ZIPs for the MAGs and gene catalog records.
+    - The NMDC FTP top-level MAG archive and the Figshare MAG ZIP have different byte sizes; record the chosen source for reproducibility.
+    - Top-level NMDC FTP files do not expose checksum files on the download page; split subdirectories include MD5 manifests.
+download:
+  landing_page: https://nmdc.cn/icrggc/
+  nmdc_download_page: https://nmdc.cn/icrggc/download
+  nmdc_api_page: https://nmdc.cn/icrggcapi/api/icrggc/page?pageNo=1&pageSize=10&keyword=
+  nmdc_api_detail_pattern: https://nmdc.cn/icrggcapi/api/icrggc/<record_id>
+  nmdc_ftp_base: ftp://download.nmdc.cn/icrggc/
+  nmdc_ftp_files:
+    gene_catalog:
+      file_name: gc_del_reorder.fa.gz
+      url: ftp://download.nmdc.cn/icrggc/gc_del_reorder.fa.gz
+      size: 4281006839
+      size_human: 4.3 GB
+      last_modified: 2022-07-29 09:42:00 GMT
+      equivalent_figshare_record: https://doi.org/10.6084/m9.figshare.15911964
+    gene_relative_abundance:
+      file_name: cds_ra_reorder.txt.gz
+      url: ftp://download.nmdc.cn/icrggc/cds_ra_reorder.txt.gz
+      size: 11192647965
+      size_human: 11.2 GB
+      last_modified: 2022-07-29 09:41:00 GMT
+    mags:
+      file_name: MAGs.tar.gz
+      url: ftp://download.nmdc.cn/icrggc/MAGs.tar.gz
+      size: 8462882178
+      size_human: 8.5 GB
+      last_modified: 2022-09-06 06:31:00 GMT
+      equivalent_figshare_record: https://doi.org/10.6084/m9.figshare.15982089
+    mags_backup_observed:
+      file_name: MAGs.tar.gz.bak_20220906
+      url: ftp://download.nmdc.cn/icrggc/MAGs.tar.gz.bak_20220906
+      size: 8462882178
+      size_human: 8.5 GB
+      last_modified: 2022-07-29 09:38:00 GMT
+      notes: Observed in the FTP root listing but not linked in the ICRGGC download table.
+  split_directories:
+    ref_genome:
+      directory: ftp://download.nmdc.cn/icrggc/MAGs_list/Ref_genome/
+      md5_file: ftp://download.nmdc.cn/icrggc/MAGs_list/Ref_genome/MAGs_md5.txt
+      files:
+        - file_name: 1.tar.gz
+          checksum: md5:1ff013de0cb734505ee0e352a4cdb947
+        - file_name: 2.tar.gz
+          checksum: md5:b5d20cea2f39ed27fdc612ae318388db
+        - file_name: 3.tar.gz
+          checksum: md5:8edc1599bfc496c8011a74161af89501
+        - file_name: 4.tar.gz
+          checksum: md5:056ecfcd31e387ef632ec8a31ab65754
+        - file_name: 5.tar.gz
+          checksum: md5:7d529867cfff4d71d8458db22235f8b1
+        - file_name: 6.tar.gz
+          checksum: md5:d3a8088740d71162d2c7b9d7d1369deb
+        - file_name: 7_2.tar.gz
+          checksum: md5:f74c62bba01533fc7f851a59d688df8b
+        - file_name: 8_2.tar.gz
+          checksum: md5:441f698f101c83c8527fe1cdac12a403
+        - file_name: 9_2.tar.gz
+          checksum: md5:a69d4ecbc7007c861a588b52e5514fd3
+        - file_name: 10.tar.gz
+          checksum: md5:b08125ff1af86e8eb0075417695316ab
+        - file_name: 11.tar.gz
+          checksum: md5:23b7a8ad868ccb03e477a8d634e24e19
+        - file_name: 12.tar.gz
+          checksum: md5:b39b6e583fe50c6c213a1e0d86c30239
+        - file_name: 13.tar.gz
+          checksum: md5:0e4d5f9213ba1b5bbdd2ffc97064aff5
+    gene_catalog:
+      directory: ftp://download.nmdc.cn/icrggc/MAGs_list/gc/
+      md5_file: ftp://download.nmdc.cn/icrggc/MAGs_list/gc/Gene_catalog_md5
+      files:
+        - file_name: Gene_catalog_P1.fa.gz
+          checksum: md5:eacbf394d375fa437d8fba0eeebb5e25
+        - file_name: Gene_catalog_P2.fa.gz
+          checksum: md5:bcbac8cc2e80cc05f1c0f26a99d97a57
+        - file_name: Gene_catalog_P3.fa.gz
+          checksum: md5:3580d772004bc7afa73f02813c78b63d
+        - file_name: Gene_catalog_P4.fa.gz
+          checksum: md5:4480a624b225d1bd3f966aa8f0cbc18b
+        - file_name: Gene_catalog_P5.fa.gz
+          checksum: md5:a129c7530bd9e22e2321868b19b3f368
+        - file_name: Gene_catalog_P6.fa.gz
+          checksum: md5:5ace64601553c0cdd4a5b13c83f3afec
+        - file_name: Gene_catalog_P7.fa.gz
+          checksum: md5:a9e2f1aa646f2643180ca7745e5d536f
+        - file_name: Gene_catalog_P8.fa.gz
+          checksum: md5:798d2d6b47cc0ab55c9b18920c628ed1
+        - file_name: Gene_catalog_P9.fa.gz
+          checksum: md5:8546f8ee2f8ec27318e26b30cca25ae1
+        - file_name: split.sh.gz
+          checksum: null
+    gene_catalog_abundance:
+      directory: ftp://download.nmdc.cn/icrggc/MAGs_list/gc_abundance/
+      md5_file: ftp://download.nmdc.cn/icrggc/MAGs_list/gc_abundance/Gene_catalog_md5
+      files:
+        - file_name: Gene_catalog_abundance_P1.txt.gz
+          checksum: md5:da2a78b41cdd64a9825f1215cfec1eae
+        - file_name: Gene_catalog_abundance_P2.txt.gz
+          checksum: md5:1d46935a563a48d9fb8234fc61d60048
+        - file_name: Gene_catalog_abundance_P3.txt.gz
+          checksum: md5:a3ecf940c06a3b649d5e8cdd5ac0e244
+        - file_name: Gene_catalog_abundance_P4.txt.gz
+          checksum: md5:e109bdab2bf43e331f6b56ddbee417a2
+        - file_name: Gene_catalog_abundance_P5.txt.gz
+          checksum: md5:a09799e726c6082237f510937299a07a
+        - file_name: Gene_catalog_abundance_P6.txt.gz
+          checksum: md5:4c226ed59383feeddb9e16d18402b504
+        - file_name: Gene_catalog_abundance_P7.txt.gz
+          checksum: md5:ebeaedfcc912ed8391dfb8ee356d8dac
+        - file_name: Gene_catalog_abundance_P8.txt.gz
+          checksum: md5:46bebbefe6e35d1a3f36e14c516a66b1
+        - file_name: Gene_catalog_abundance_P9.txt.gz
+          checksum: md5:0d9f97aea564578c685dd05df4f4643a
+        - file_name: Gene_catalog_abundance_P10.txt.gz
+          checksum: md5:17dc0ce45c4aa701978ba1045ec42612
+  figshare_records:
+    mags:
+      title: MAGs
+      doi: 10.6084/m9.figshare.15982089
+      landing_page: https://figshare.com/articles/dataset/MAGs/15982089
+      datacite_api: https://api.datacite.org/dois/10.6084/m9.figshare.15982089
+      download_all_url: https://ndownloader.figshare.com/articles/15982089/versions/1
+      download_all_file_name_observed: 15982089.zip
+      datacite_size: 7770004621
+      download_all_content_length_observed: 7770005127
+      size_human: 7.8 GB
+      created_at: 2021-10-26
+      updated_at: 2021-10-26
+      license: CC BY 4.0
+      description: 12,339 MAGs assembled from the chicken gut microbiome.
+    gene_catalog:
+      title: Gene catalog of the chicken gut microbiome
+      doi: 10.6084/m9.figshare.15911964
+      landing_page: https://figshare.com/articles/dataset/Gene_catalog_of_the_chicken_gut_microbiome/15911964
+      datacite_api: https://api.datacite.org/dois/10.6084/m9.figshare.15911964
+      download_all_url: https://ndownloader.figshare.com/articles/15911964/versions/1
+      download_all_file_name_observed: 15911964.zip
+      direct_file_url_observed: https://ndownloader.figshare.com/files/29905377
+      direct_file_name_observed: gene_catalog.fa.gz
+      datacite_size: 4281006837
+      download_all_content_length_observed: 4281007009
+      size_human: 4.3 GB
+      created_at: 2021-10-26
+      updated_at: 2021-10-26
+      license: CC BY 4.0
+      description: Microbial gene catalog of the chicken gut microbiome containing about 16 million genes.
+    source_data:
+      title: Source data used to create the box plots
+      doi: 10.6084/m9.figshare.16871887
+      landing_page: https://figshare.com/articles/dataset/Source_data_used_to_create_the_box_plots/16871887
+      datacite_api: https://api.datacite.org/dois/10.6084/m9.figshare.16871887
+      datacite_size: 121172
+      size_human: 121 KB
+      created_at: 2021-10-26
+      updated_at: 2021-10-26
+      license: CC BY 4.0
+publication:
+  title: Metagenome-Assembled Genomes and Gene Catalog from the Chicken Gut Microbiome Aid in Deciphering Antibiotic Resistomes
+  authors: Yuqing Feng, Yanan Wang, Baoli Zhu, George Fu Gao, Yuming Guo, and Yongfei Hu
+  journal: Communications Biology
+  year: 2021
+  volume: 4
+  article_number: 1305
+  published_at: 2021-11-18
+  doi: 10.1038/s42003-021-02827-2
+  url: https://www.nature.com/articles/s42003-021-02827-2
+related:
+  project_portal: https://nmdc.cn/icrggc/
+  raw_metagenome_projects:
+    ena_prjeb22062: https://www.ebi.ac.uk/ena/browser/view/PRJEB22062
+    ena_prjeb33338: https://www.ebi.ac.uk/ena/browser/view/PRJEB33338
+    ncbi_sra_srp144318: https://www.ncbi.nlm.nih.gov/sra/?term=SRP144318
+    gsa_cra003773: https://ngdc.cncb.ac.cn/gsa/browse/CRA003773
+  figshare_mags_doi: https://doi.org/10.6084/m9.figshare.15982089
+  figshare_gene_catalog_doi: https://doi.org/10.6084/m9.figshare.15911964
+  figshare_source_data_doi: https://doi.org/10.6084/m9.figshare.16871887
+counts:
+  reported_public_chicken_fecal_metagenomes: 799
+  reported_newly_sequenced_metagenomes: 6
+  reported_total_metagenomes: 805
+  reported_mags: 12339
+  nmdc_api_total_mags_observed: 12339
+  reported_species: 1978
+  reported_novel_species: 893
+  reported_novel_genera: 38
+  reported_novel_strains: 9845
+  reported_gene_catalog_genes: 16565684
+  reported_eggnog_annotated_gene_fraction: 0.682
+tags:
+  - mag
+  - chicken-gut
+  - poultry
+  - animal-associated
+  - metagenomics
+  - gene-catalog
+  - resistome
+  - figshare
+  - nmdc
+  - ftp
+  - api
+status: active
