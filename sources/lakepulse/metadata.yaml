@@ -1,0 +1,207 @@
+slug: lakepulse
+name: LakePulse MAG Catalogue
+homepage: https://www.nature.com/articles/s41564-023-01435-6
+download_page: https://datadryad.org/dataset/doi:10.5061/dryad.zkh1893fs
+summary: Continental-scale Canadian lake bacterial MAG catalogue from LakePulse surface-water metagenomes, with MAG contigs, amino-acid FASTA, GFF annotations, and ecozone co-assembly contigs.
+categories:
+  - freshwater
+  - lake
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - supplementary-data
+biomes:
+  - freshwater
+  - lake
+  - oligosaline-lake
+  - surface-water
+source_type:
+  - paper-dataset
+  - dryad-record
+  - ena-project
+  - jgi-gold-study
+  - code-repository
+release: Dryad version 6
+release_date: 2023-08-14
+updated_at: 2023-08-14
+checked_at: 2026-05-08
+license: "Dryad dataset is CC0-1.0; code repository is MIT; article, ENA, and GOLD records have separate terms"
+access:
+  method: public-dryad-files-plus-public-ena-accessions
+  automation: none
+  restrictions:
+    - Dryad is the simplest bulk route for the MAG contig, amino-acid, GFF, and ecozone co-assembly files.
+    - The Dryad file set is approximately 64.3 GB; download individual files with resume support and verify SHA-256 checksums.
+    - ENA PRJEB62834 carries MAG and assembly accession records; during curation, ENA reported 1,008 assembly records and 1,019 analysis records for this study.
+    - ENA PRJEB29238 carries the raw metagenome reads listed in the article data availability statement; during curation, ENA reported 368 read-run records.
+    - JGI GOLD records are article-reported co-assembly annotation accessions; the study URL returned a generic GOLD error page during curation, so prefer Dryad and ENA for reproducible access.
+download:
+  landing_page: https://www.nature.com/articles/s41564-023-01435-6
+  data_availability: https://www.nature.com/articles/s41564-023-01435-6#data-availability
+  dryad_record: https://datadryad.org/dataset/doi:10.5061/dryad.zkh1893fs
+  dryad_doi: https://doi.org/10.5061/dryad.zkh1893fs
+  dryad_dataset_api: https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.zkh1893fs
+  dryad_version_api: https://datadryad.org/api/v2/versions/248470
+  dryad_files_api: https://datadryad.org/api/v2/versions/248470/files
+  ena_mag_project: https://www.ebi.ac.uk/ena/browser/view/PRJEB62834
+  ena_mag_project_xml: https://www.ebi.ac.uk/ena/browser/api/xml/PRJEB62834
+  ena_mag_assembly_report: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB62834&result=assembly&fields=assembly_accession,assembly_name,wgs_set,description,assembly_type,base_count,version&format=tsv"
+  ena_mag_analysis_report: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB62834&result=analysis&fields=analysis_accession,analysis_alias,generated_ftp,generated_md5,generated_bytes,analysis_type&format=tsv"
+  ena_reads_project: https://www.ebi.ac.uk/ena/browser/view/PRJEB29238
+  ena_reads_project_xml: https://www.ebi.ac.uk/ena/browser/api/xml/PRJEB29238
+  ena_reads_fastq_report: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJEB29238&result=read_run&fields=run_accession,fastq_ftp,fastq_md5,fastq_bytes&format=tsv"
+  jgi_gold_study: https://gold.jgi.doe.gov/study?id=Gs0136026
+  dryad_files:
+    lakepulse_mags_contigs:
+      file_name: LakePulse_MAGs-contigs.zip
+      url: https://datadryad.org/api/v2/files/2471867/download
+      size_bytes: 643062789
+      size_human: 643.1 MB
+      checksum: sha256:3094973e8a35ea317009c03dca1d19abd5201883258cc3bf3f549135556395f8
+    lakepulse_mags_aa:
+      file_name: LakePulse_MAGs-aa.zip
+      url: https://datadryad.org/api/v2/files/2471866/download
+      size_bytes: 383896342
+      size_human: 383.9 MB
+      checksum: sha256:7d60a752ca77da39dbedb56ce5bed2b05c5d288c98a82053be42c3377c4492f2
+    lakepulse_mags_gff:
+      file_name: LakePulse_MAGs-gff.zip
+      url: https://datadryad.org/api/v2/files/2471865/download
+      size_bytes: 66177765
+      size_human: 66.2 MB
+      checksum: sha256:00b0eda09043b82646ad8f9519b2f979478d85d5a5e397557d06a417177d61ec
+    ah_coassembly_contigs:
+      file_name: AH_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473311/download
+      size_bytes: 4248624511
+      size_human: 4.2 GB
+      checksum: sha256:e4d25adb9da5ecfc507bd75628422859590b3f050afa9da4dd4d32fe5b9a1d23
+    am_coassembly_contigs:
+      file_name: AM_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473314/download
+      size_bytes: 4449231720
+      size_human: 4.4 GB
+      checksum: sha256:20dbe32911218b9d01eaccfc0297cc7a98b2c8b47195c21662622de647434971
+    bctc_coassembly_contigs:
+      file_name: BCTC_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473317/download
+      size_bytes: 4677231103
+      size_human: 4.7 GB
+      checksum: sha256:b9b6029f09ce720222bddece9989b247ed7c28c317e549958c3dfa65aa3c3207
+    bp_coassembly_contigs:
+      file_name: BP_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473340/download
+      size_bytes: 7849730989
+      size_human: 7.8 GB
+      checksum: sha256:c3debb9bc8a22893475341a6ab700dea89dc6ae5de9e324e4adddebb666e7ac6
+    bs_coassembly_contigs:
+      file_name: BS_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473387/download
+      size_bytes: 4339795513
+      size_human: 4.3 GB
+      checksum: sha256:3a81b540a89b86dabc1b37621b5a27b2b35d6cf9ca61d2557daa7162ae785c72
+    mc_coassembly_contigs:
+      file_name: MC_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473674/download
+      size_bytes: 6100659742
+      size_human: 6.1 GB
+      checksum: sha256:1066673fcb3b25890c4e28be078b64c28445ef06d3c19360d969fe3f3cc2dd3b
+    mp_coassembly_contigs:
+      file_name: MP_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473825/download
+      size_bytes: 4349341776
+      size_human: 4.3 GB
+      checksum: sha256:0aa067575bf1c1bfa0a80e5c9838ec416084eae4eb86654d82ac03ebf3c2b91b
+    p_coassembly_contigs:
+      file_name: P_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473895/download
+      size_bytes: 9821603121
+      size_human: 9.8 GB
+      checksum: sha256:d1e4d8cc7661b57559046d263e45bd692283dbf1d0d46965ec759af8216e39fc
+    pm_coassembly_contigs:
+      file_name: PM_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473919/download
+      size_bytes: 6245306621
+      size_human: 6.2 GB
+      checksum: sha256:89ab9839a82bd9dc794450bd12e6b7ffe638e958ee97062a1a424017fe67a72e
+    sap_coassembly_contigs:
+      file_name: SAP_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473971/download
+      size_bytes: 5184421616
+      size_human: 5.2 GB
+      checksum: sha256:17604406e3256fd4a36a361d01cb67d7e995e0927f843942218ddb2728ad91ab
+    tp_coassembly_contigs:
+      file_name: TP_coassembly-contigs.fa.gz
+      url: https://datadryad.org/api/v2/files/2473984/download
+      size_bytes: 5933187320
+      size_human: 5.9 GB
+      checksum: sha256:ae387a01b86e2f365666835b701cf027ad255026791b4b1dd5900a0e0e0681bc
+    dryad_readme:
+      file_name: README.md
+      url: https://datadryad.org/api/v2/files/2473990/download
+      size_bytes: 3601
+      size_human: 3.6 KB
+      checksum: sha256:329320939f5d04efb8b2dd911bfda1fe4a0314425bc69143bd731f060e4e9958
+  reporting_summary: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM1_ESM.pdf
+  supplementary_tables: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM2_ESM.xlsx
+  peer_review_file: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM3_ESM.pdf
+  source_data:
+    figure_1: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM4_ESM.xlsx
+    figure_2: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM5_ESM.xlsx
+    figure_3: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM6_ESM.xlsx
+    figure_4: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM7_ESM.xlsx
+    figure_5: https://static-content.springer.com/esm/art%3A10.1038%2Fs41564-023-01435-6/MediaObjects/41564_2023_1435_MOESM8_ESM.xlsx
+publication:
+  title: A genome catalogue of lake bacterial diversity and its drivers at continental scale
+  url: https://www.nature.com/articles/s41564-023-01435-6
+  journal: Nature Microbiology
+  year: 2023
+  volume: 8
+  pages: 1920-1934
+  received_at: 2022-10-01
+  accepted_at: 2023-06-20
+  published_at: 2023-07-31
+  version_of_record: 2023-07-31
+  issue_date: 2023-10
+  doi: 10.1038/s41564-023-01435-6
+related:
+  dryad_reference_title: The LakePulse Metagenome-Assembled Genome catalogue
+  code_repository: https://github.com/rebeccagarner/lakepulse_mags
+  correction: https://doi.org/10.1038/s41564-023-01515-7
+  jgi_gold_analysis_projects:
+    boreal_taiga_cordilleras: Ga0495746
+    montane_cordillera: Ga0495744
+    pacific_maritime: Ga0495745
+    taiga_plains: Ga0495743
+    semi_arid_plateaux: Ga0485099
+    boreal_plains: Ga0485102
+    prairies: Ga0485100
+    mixedwood_plains: Ga0364548
+    boreal_shield: Ga0373103
+    atlantic_highlands: Ga0372599
+    atlantic_maritime: Ga0372598
+counts:
+  reported_area_km2: 6500000
+  reported_canadian_lakes: 308
+  reported_bacterial_genomospecies: 1008
+  supplementary_table_lakes: 300
+  dryad_files: 15
+  dryad_mag_zip_files: 3
+  dryad_coassembly_contig_files: 11
+  dryad_total_size_bytes: 64292409479
+  dryad_total_size_human: 64.3 GB
+  ena_prjeb62834_analysis_records_checked: 1019
+  ena_prjeb62834_assembly_records_checked: 1008
+  ena_prjeb29238_read_run_records_checked: 368
+  jgi_gold_analysis_projects: 11
+tags:
+  - mag
+  - lakepulse
+  - freshwater
+  - lakes
+  - canadian-lakes
+  - metagenomics
+  - dryad
+  - ena
+  - jgi-gold
+  - coassembly
+status: active
