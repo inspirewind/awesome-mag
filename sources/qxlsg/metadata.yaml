@@ -1,0 +1,132 @@
+slug: qxlsg
+name: QXLSG
+homepage: https://www.sciencedirect.com/science/article/pii/S2211124725012549
+download_page: https://ngdc.cncb.ac.cn/bioproject/browse/PRJCA037687
+summary: Qinghai-Xizang Lake Sediment Genome catalog, a deep metagenomic atlas of Qinghai-Xizang Plateau lake sediments with 5,866 bacterial and archaeal MAGs, 2,742 species-level genomes, 58.16 million non-redundant protein-coding genes, and 19,008 biosynthetic gene clusters.
+categories:
+  - freshwater
+  - saline-lake
+  - high-altitude
+  - lake-sediment
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - gene-catalog
+  - biosynthetic-gene-clusters
+biomes:
+  - lake-sediment
+  - freshwater-lake
+  - saline-lake
+  - hypersaline-lake
+  - qinghai-xizang-plateau
+  - tibetan-plateau
+source_type:
+  - paper-dataset
+  - ngdc-bioproject
+  - gsa-project-archive
+  - gwh-assembly-archive
+  - node-analysis
+  - figshare-share
+release: Cell Reports article, NGDC BioProject PRJCA037687, GSA archives, NODE analysis OEZ00021318, Figshare share, and GWH per-MAG assemblies
+release_date: 2025-11-25
+updated_at: 2026-03-20
+checked_at: 2026-05-09
+license: "Article is Creative Commons Attribution 4.0; NGDC/GSA/GWH and NODE records are subject to repository terms; Figshare share license was not captured because CLI access returned an AWS WAF challenge."
+access:
+  method: public-ngdc-gsa-gwh-plus-node-and-figshare
+  automation: none
+  restrictions:
+    - Raw metagenomic and 16S reads are public under NGDC BioProject PRJCA037687 with GSA accessions CRA025489 and CRA029668.
+    - GSA HTTPS/FTP/Qtrans directories are public static indexes and include md5sum.txt checksum files.
+    - GWH exposes 5,866 MAG assembly records and direct per-MAG genome FASTA URLs through an AJAX endpoint; no single public bulk MAG archive was found during curation.
+    - The article lists NODE analysis OEZ00021318 and a Figshare share as MAG deposition routes; the Figshare share returned an AWS WAF challenge for command-line HEAD/GET checks during curation.
+    - Treat Figshare as a browser-visible or secondary route unless the provider publishes a stable API/DOI endpoint.
+download:
+  landing_page: https://www.sciencedirect.com/science/article/pii/S2211124725012549
+  doi: https://doi.org/10.1016/j.celrep.2025.116483
+  bioproject: https://ngdc.cncb.ac.cn/bioproject/browse/PRJCA037687
+  gwh_assemblies_api: https://ngdc.cncb.ac.cn/gwh/gsa/ajax/getAssembliesListByBioProjectAccession/PRJCA037687
+  node_analysis: OEZ00021318
+  node_homepage: https://www.biosino.org/node/
+  figshare_share: https://figshare.com/s/74e7f72ed5eb1dd05a13
+  raw_metagenomes:
+    accession: CRA025489
+    title: Qinghai-Xizang Lake Genome catalog
+    browse: https://ngdc.cncb.ac.cn/gsa/browse/CRA025489
+    https_index: https://download.cncb.ac.cn/gsa5/CRA025489/
+    ftp_index: ftp://download.big.ac.cn/gsa5/CRA025489
+    qtrans: https://qtp.cncb.ac.cn/qtrans/v2/file?path=/gsa5/CRA025489
+    md5sum: https://download.cncb.ac.cn/gsa5/CRA025489/md5sum.txt
+    reported_files: 56
+    reported_size_gb: 1350.97
+  amplicon_16s:
+    accession: CRA029668
+    title: Qinghai-Xizang Lake Microbial 16S rDNA sequencing
+    browse: https://ngdc.cncb.ac.cn/gsa/browse/CRA029668
+    https_index: https://download.cncb.ac.cn/gsa5/CRA029668/
+    ftp_index: ftp://download.big.ac.cn/gsa5/CRA029668
+    qtrans: https://qtp.cncb.ac.cn/qtrans/v2/file?path=/gsa5/CRA029668
+    md5sum: https://download.cncb.ac.cn/gsa5/CRA029668/md5sum.txt
+    reported_files: 56
+    reported_size: "<1 GB"
+  example_gwh_mag:
+    accession: GWHHXZW00000000.1
+    assembly_page: https://ngdc.cncb.ac.cn/gwh/Assembly/111872/show
+    file_name: GWHHXZW00000000.1.genome.fasta.gz
+    url: https://download.cncb.ac.cn/gwh/Others/metagenomes_adec_MAG_1_GWHHXZW00000000.1/GWHHXZW00000000.1.genome.fasta.gz
+    size_bytes: 824396
+    last_modified: 2026-03-20
+publication:
+  title: A deep metagenomic atlas of Qinghai-Xizang Plateau lakes reveals their microbial diversity and salinity adaptation mechanisms
+  url: https://www.sciencedirect.com/science/article/pii/S2211124725012549
+  journal: Cell Reports
+  year: 2025
+  volume: 44
+  issue: 11
+  article_number: 116483
+  cover_date: 2025-11-25
+  doi: 10.1016/j.celrep.2025.116483
+  authors:
+    - Zhi-Feng Zhang
+    - Jun-En Huang
+    - Dorji Phurbu
+    - Zi-Shuo Qu
+    - Fang Liu
+    - Lei Cai
+related:
+  crossref_record: https://api.crossref.org/works/10.1016/j.celrep.2025.116483
+  ngdc_bioproject_accession: PRJCA037687
+  gsa_metagenome_accession: CRA025489
+  gsa_16s_accession: CRA029668
+  node_analysis_accession: OEZ00021318
+  figshare_share_id: 74e7f72ed5eb1dd05a13
+counts:
+  lake_sediment_samples: 28
+  salinity_gradient_lakes: 10
+  raw_metagenomic_data_tb: 3.28
+  raw_bins: 43092
+  total_mags: 5866
+  high_quality_mags: 1028
+  coassembly_mags: 1888
+  single_lake_mags: 3978
+  species_level_genomes: 2742
+  species_level_high_quality_mags: 656
+  complete_species_level_genomes: 9
+  novel_species_level_genomes_percent: 80.78
+  non_redundant_protein_coding_genes: 58163874
+  biosynthetic_gene_clusters: 19008
+  gwh_assemblies: 5866
+  bioproject_biosamples: 5894
+  metagenome_runs: 28
+  amplicon_16s_runs: 28
+tags:
+  - mag
+  - qxlsg
+  - qinghai-xizang-plateau
+  - tibetan-plateau
+  - lake-sediment
+  - salinity-gradient
+  - hypersaline
+  - freshwater
+  - archaea
+  - bacteria
+  - metagenomics
