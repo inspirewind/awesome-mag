@@ -1,0 +1,182 @@
+slug: caprinae-gut-mags
+name: Caprinae Gut MAG Catalog
+homepage: https://journals.asm.org/doi/10.1128/spectrum.02211-22
+download_page: https://ngdc.cncb.ac.cn/gsa/browse/CRA007205
+summary: Caprinae gut microbial genome catalog from 30 ultra-deep sheep, goat, Tibetan antelope, and Tibetan gazelle fecal metagenomes from six regions of China, reporting 5,046 medium/high-quality MAGs, 3,306 SGBs, candidate uncultured species, CAZyme, BGC, ARG, and virulence annotations.
+categories:
+  - animal-associated
+  - ruminant
+  - caprinae
+  - sheep
+  - goat
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - supplementary-data
+biomes:
+  - animal-associated
+  - caprinae-gut
+  - ruminant-gut
+  - fecal-metagenome
+source_type:
+  - paper-dataset
+  - cncb-bioproject
+  - gsa-project
+  - science-direct-supplementary-files
+  - github-code-repository
+release: Microbiology Spectrum article e02211-22, CNCB BioProject PRJCA008889, and GSA CRA007205
+release_date: 2022-12-21
+updated_at: 2022-12-21
+checked_at: 2026-05-11
+license: "The Microbiology Spectrum article is Creative Commons Attribution 4.0 according to Crossref metadata; GSA/NGDC raw data, ScienceDirect supplement files, and the GitHub code repository are subject to their own provider terms; qb-lyu/caprinaeGut does not declare a license in the GitHub API."
+access:
+  method: public-gsa-raw-reads-plus-public-supplementary-files
+  automation: none
+  restrictions:
+    - GSA project CRA007205 provides public paired FASTQ files for 30 runs, with HTTPS, FTP, Qtrans, and Aspera routes plus a public md5sum file.
+    - The GSA page reports 60 sequence files totaling 1218.75 GB.
+    - The public GSA download directory contains raw reads only; no public GWH assembly records are linked from BioProject PRJCA008889 during curation.
+    - ScienceDirect exposes direct supplement downloads for two XLSX workbooks and one PDF; the original ASM article page was Cloudflare-challenged from command-line access during curation.
+    - The article reports 5,046 MAGs, but a stable public bulk MAG FASTA/protein archive was not found in GSA, GWH, OMIX, or the GitHub repository during curation; use the supplement workbooks for MAG metadata and contact the authors if genome sequences are required.
+download:
+  landing_page: https://journals.asm.org/doi/10.1128/spectrum.02211-22
+  doi: https://doi.org/10.1128/spectrum.02211-22
+  science_direct_article: https://www.sciencedirect.com/org/science/article/pii/S2165049722010320
+  cncb_bioproject: https://ngdc.cncb.ac.cn/bioproject/browse/PRJCA008889
+  gsa_project: https://ngdc.cncb.ac.cn/gsa/browse/CRA007205
+  gsa_https_directory: https://download.cncb.ac.cn/gsa2/CRA007205/
+  gsa_ftp_directory: ftp://download.big.ac.cn/gsa2/CRA007205
+  gsa_qtrans: https://qtp.cncb.ac.cn/qtrans/v2/file?path=/gsa2/CRA007205
+  gsa_md5sum: https://download.cncb.ac.cn/gsa2/CRA007205/md5sum.txt
+  gsa_example_run_directory: https://download.cncb.ac.cn/gsa2/CRA007205/CRR516072/
+  gsa_example_fastq_1: https://download.cncb.ac.cn/gsa2/CRA007205/CRR516072/CRR516072_f1.fq.gz
+  gsa_example_fastq_2: https://download.cncb.ac.cn/gsa2/CRA007205/CRR516072/CRR516072_r2.fq.gz
+  code_repository:
+    homepage: https://github.com/qb-lyu/caprinaeGut
+    api: https://api.github.com/repos/qb-lyu/caprinaeGut
+    default_branch: master
+    contents:
+      - README.md
+      - figure1/
+      - figure2/
+      - figure3/
+      - figure4/
+      - figure5/
+      - figure6/
+  supplementary_files:
+    - label: Table S1-S9 workbook
+      url: https://ars.els-cdn.com/content/image/1-s2.0-S2165049722010320-spectrum.02211-22-s0001.xlsx
+      format: xlsx
+      size_bytes: 1553086
+      size_human: 1.5 MB
+      sheets:
+        - ST1
+        - ST2
+        - ST3
+        - ST4
+        - ST5
+        - ST6
+        - ST7
+        - ST8
+        - ST9
+      notes: Article supplementary workbook covering tables S1 through S9.
+    - label: Table S10-S18 workbook
+      url: https://ars.els-cdn.com/content/image/1-s2.0-S2165049722010320-spectrum.02211-22-s0002.xlsx
+      format: xlsx
+      size_bytes: 689500
+      size_human: 689.5 KB
+      sheets:
+        - ST10
+        - ST11
+        - ST12
+        - ST13
+        - ST14
+        - ST15
+        - ST16
+        - ST17
+        - ST18
+      notes: Article supplementary workbook covering tables S10 through S18.
+    - label: Figure S1-S7 PDF
+      url: https://ars.els-cdn.com/content/image/1-s2.0-S2165049722010320-spectrum.02211-22-s0003.pdf
+      format: pdf
+      size_bytes: 681239
+      size_human: 681.2 KB
+      notes: Article supplementary figure PDF.
+publication:
+  title: A Catalog of over 5,000 Metagenome-Assembled Microbial Genomes from the Caprinae Gut Microbiota
+  url: https://journals.asm.org/doi/10.1128/spectrum.02211-22
+  journal: Microbiology Spectrum
+  year: 2022
+  volume: 10
+  issue: 6
+  article_number: e02211-22
+  received_at: 2022-06-13
+  accepted_at: 2022-10-10
+  published_at: 2022-11-02
+  issue_date: 2022-12-21
+  doi: 10.1128/spectrum.02211-22
+  pmid: 36321901
+  authors:
+    - Xiao-Xuan Zhang
+    - Qing-Bo Lv
+    - Qiu-Long Yan
+    - Yue Zhang
+    - Ruo-Chun Guo
+    - Jin-Xin Meng
+    - He Ma
+    - Si-Yuan Qin
+    - Qing-He Zhu
+    - Chun-Qiu Li
+    - Rui Liu
+    - Gang Liu
+    - Sheng-Hui Li
+    - Dong-Bo Sun
+    - Hong-Bo Ni
+related:
+  crossref_record: https://api.crossref.org/works/10.1128/spectrum.02211-22
+  pubmed_record: https://pubmed.ncbi.nlm.nih.gov/36321901/
+  cncb_bioproject_accession: PRJCA008889
+  gsa_accession: CRA007205
+  gsa_runs_first: CRR516072
+  gsa_runs_last: CRR516101
+  github_repository: qb-lyu/caprinaeGut
+  cncb_gwh_bioproject_lookup: https://ngdc.cncb.ac.cn/gwh/gsa/ajax/getAssembliesListByBioProjectAccession/PRJCA008889
+counts:
+  fecal_samples_total: 30
+  provinces_or_regions_china: 6
+  reported_raw_bases_tb: 3.3
+  reported_average_high_quality_data_per_sample_gb: 110.1
+  gsa_runs: 30
+  gsa_fastq_files: 60
+  gsa_reported_file_size_gb: 1218.75
+  gsa_md5_entries: 60
+  raw_bins: 22882
+  medium_high_quality_mags: 5046
+  high_quality_mags: 1933
+  medium_quality_mags: 3113
+  reported_average_completeness_percent: 86.3
+  reported_average_contamination_percent: 1.4
+  species_level_genome_bins: 3306
+  reported_uncultured_candidate_species: 2530
+  reported_ko_terms: 7973
+  reported_modules: 342
+  reported_cazyme_genes: 960735
+  reported_cazy_families: 344
+  reported_arg_count: 69
+  reported_arg_host_strains: 46
+  reported_virulence_genes: 302
+  reported_virulence_gene_mags: 17
+tags:
+  - mag
+  - caprinae
+  - sheep
+  - goat
+  - ruminant
+  - animal-gut
+  - fecal-metagenome
+  - cncb
+  - gsa
+  - microbiology-spectrum
+  - cazyme
+  - bgc
+  - arg
+status: active
