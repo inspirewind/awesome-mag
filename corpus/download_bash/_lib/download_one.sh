@@ -1,5 +1,27 @@
 #!/usr/bin/env bash
 
+local_file_size() {
+  local path="$1"
+
+  if stat -c '%s' "${path}" >/dev/null 2>&1; then
+    stat -c '%s' "${path}"
+  else
+    stat -f '%z' "${path}"
+  fi
+}
+
+remote_content_length() {
+  local url="$1"
+
+  if ! command -v curl >/dev/null 2>&1; then
+    return 0
+  fi
+
+  curl -L -sS -I --fail "${url}" 2>/dev/null \
+    | awk 'BEGIN { IGNORECASE = 1 } /^Content-Length:/ { value = $2 } END { gsub("\r", "", value); print value }' \
+    || true
+}
+
 download_one() {
   local slug="$1"
   local dataset="$2"
@@ -30,14 +52,66 @@ download_one() {
   echo "Output: ${target_rel}"
   echo "Expected size: ${size}"
 
-  if [[ -s "${target}" ]]; then
-    echo "Existing non-empty file found; skipping download."
+  local remote_bytes
+  remote_bytes="$(remote_content_length "${url}")"
+  if [[ -n "${remote_bytes}" ]]; then
+    echo "Remote bytes: ${remote_bytes}"
+  else
+    echo "Remote bytes: unavailable; downloader success will be used as the completion check."
+  fi
+
+  if [[ -f "${target}" && -n "${remote_bytes}" ]]; then
+    local existing_bytes
+    existing_bytes="$(local_file_size "${target}")"
+    echo "Existing local bytes: ${existing_bytes}"
+
+    if (( existing_bytes == remote_bytes )); then
+      echo "Existing file size matches remote; skipping download."
+    elif (( existing_bytes < remote_bytes )); then
+      echo "Existing file is incomplete; resuming download."
+      rm -f "${flag}"
+      if command -v curl >/dev/null 2>&1; then
+        curl -L -C - --fail --retry 3 --retry-delay 5 -o "${target}" "${url}"
+      elif command -v aria2c >/dev/null 2>&1; then
+        aria2c -c -x 4 -s 4 --allow-overwrite=true --auto-file-renaming=false \
+          -d "${download_dir}" -o "${filename}" "${url}"
+      elif command -v wget >/dev/null 2>&1; then
+        wget -c --tries=3 -O "${target}" "${url}"
+      else
+        echo "No downloader found. Install aria2c, curl, or wget." >&2
+        return 127
+      fi
+    else
+      echo "Existing file is larger than remote; refusing to mark complete: ${target_rel}" >&2
+      rm -f "${flag}"
+      return 1
+    fi
+  elif [[ -f "${target}" ]]; then
+    local existing_bytes
+    existing_bytes="$(local_file_size "${target}")"
+    echo "Existing local bytes: ${existing_bytes}"
+    echo "Remote size is unavailable; attempting resume instead of trusting the existing file."
+    rm -f "${flag}"
+    if command -v curl >/dev/null 2>&1; then
+      curl -L -C - --fail --retry 3 --retry-delay 5 -o "${target}" "${url}"
+    elif command -v aria2c >/dev/null 2>&1; then
+      aria2c -c -x 4 -s 4 --allow-overwrite=true --auto-file-renaming=false \
+        -d "${download_dir}" -o "${filename}" "${url}"
+    elif command -v wget >/dev/null 2>&1; then
+      wget -c --tries=3 -O "${target}" "${url}"
+    else
+      echo "No downloader found. Install aria2c, curl, or wget." >&2
+      return 127
+    fi
   elif command -v aria2c >/dev/null 2>&1; then
+    rm -f "${flag}"
     aria2c -c -x 4 -s 4 --allow-overwrite=true --auto-file-renaming=false \
       -d "${download_dir}" -o "${filename}" "${url}"
   elif command -v curl >/dev/null 2>&1; then
+    rm -f "${flag}"
     curl -L -C - --fail --retry 3 --retry-delay 5 -o "${target}" "${url}"
   elif command -v wget >/dev/null 2>&1; then
+    rm -f "${flag}"
     wget -c --tries=3 -O "${target}" "${url}"
   else
     echo "No downloader found. Install aria2c, curl, or wget." >&2
@@ -49,6 +123,14 @@ download_one() {
     return 1
   fi
 
+  local final_bytes
+  final_bytes="$(local_file_size "${target}")"
+  if [[ -n "${remote_bytes}" && "${final_bytes}" != "${remote_bytes}" ]]; then
+    echo "Downloaded file size mismatch: local=${final_bytes}, remote=${remote_bytes}" >&2
+    rm -f "${flag}"
+    return 1
+  fi
+
   {
     printf 'slug=%s\n' "${slug}"
     printf 'dataset=%s\n' "${dataset}"
@@ -57,6 +139,8 @@ download_one() {
     printf 'path=%s\n' "${target_rel}"
     printf 'url=%s\n' "${url}"
     printf 'size=%s\n' "${size}"
+    printf 'local_bytes=%s\n' "${final_bytes}"
+    printf 'remote_bytes=%s\n' "${remote_bytes}"
     printf 'completed_at=%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
   } > "${flag}"
 

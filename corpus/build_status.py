@@ -38,6 +38,15 @@ def parse_flag(path: Path) -> dict[str, str]:
     return data
 
 
+def int_value(value: str | None) -> int | None:
+    if not value:
+        return None
+    try:
+        return int(value)
+    except ValueError:
+        return None
+
+
 def discover_scripts() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for script in sorted(DOWNLOAD_BASH_DIR.glob("*/*.sh")):
@@ -61,25 +70,44 @@ def discover_scripts() -> list[dict[str, str]]:
 def status_for(row: dict[str, str]) -> tuple[str, str]:
     flag_path = COMPLETED_DIR / f"{row['slug']}.flag"
     flag = parse_flag(flag_path)
+    default_path = ROOT_DIR / "downloads" / row["slug"] / row["file"]
+
     if not flag:
+        if default_path.exists():
+            return "partial", ""
         return "pending", ""
 
     rel_path = flag.get("path", "")
-    if rel_path and not (ROOT_DIR / rel_path).exists():
+    data_path = ROOT_DIR / rel_path if rel_path else default_path
+    if not data_path.exists():
         return "flag-only", flag.get("completed_at", "")
-    return "done", flag.get("completed_at", "")
+
+    current_bytes = data_path.stat().st_size
+    remote_bytes = int_value(flag.get("remote_bytes"))
+    flagged_local_bytes = int_value(flag.get("local_bytes"))
+
+    if remote_bytes is not None:
+        if current_bytes == remote_bytes:
+            return "done", flag.get("completed_at", "")
+        if current_bytes < remote_bytes:
+            return "incomplete", flag.get("completed_at", "")
+        return "size-mismatch", flag.get("completed_at", "")
+
+    if flagged_local_bytes is not None and current_bytes != flagged_local_bytes:
+        return "changed", flag.get("completed_at", "")
+
+    return "flag-unverified", flag.get("completed_at", "")
 
 
 def print_table(rows: list[dict[str, str]]) -> None:
     total = len(rows)
     statuses = [status_for(row)[0] for row in rows]
-    done = sum(1 for status in statuses if status == "done")
-    flag_only = sum(1 for status in statuses if status == "flag-only")
-    pending = total - done - flag_only
+    counts = {status: statuses.count(status) for status in sorted(set(statuses))}
+    summary = "  ".join(f"{status}: {count}" for status, count in counts.items())
 
     print("# Corpus Build Status")
     print()
-    print(f"Scripts: {total}  Done: {done}  Flag-only: {flag_only}  Pending: {pending}")
+    print(f"Scripts: {total}  {summary}")
     print()
     print("| Part | Dataset | Slug | Size | Status | Completed At | Script |")
     print("| --- | --- | --- | --- | --- | --- | --- |")
