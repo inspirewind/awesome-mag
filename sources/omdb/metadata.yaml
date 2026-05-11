@@ -1,0 +1,162 @@
+slug: omdb
+name: OMDB
+homepage: https://omdb.microbiomics.io/about
+download_page: https://omdb.microbiomics.io/repository/ocean/suppl_info
+summary: Ocean Microbiomics DataBase v2.0, a Sunagawa Lab ocean microbiome genome-resolved database with 274,282 reconstructed genomes, gene and scaffold catalogs, per-genome annotation links, and a browser interface for studies, samples, taxonomy, and genomes.
+categories:
+  - marine
+  - ocean
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - gene-catalog
+  - functional-annotation
+  - database-portal
+biomes:
+  - marine
+  - ocean
+  - seawater
+source_type:
+  - database
+  - dataset-portal
+  - static-file-backend
+  - genome-catalog
+  - gene-catalog
+release: OMDB v2.0
+release_date: 2025-05-25
+updated_at: 2025-05-25
+checked_at: 2026-05-09
+license: CC BY 4.0
+access:
+  method: public-browser-plus-direct-static-files
+  automation: none
+  restrictions:
+    - The graphical interface is best for inspecting individual genomes, studies, samples, taxonomy, and annotations.
+    - Bulk access is public through the Sunagawa Lab static file backend and an OMDBv2.0 links TSV.
+    - The links TSV is small enough to use as a reproducible download manifest; it has one row per genome and columns for genome FASTA, nucleotide genes, amino-acid genes, GFF, and antiSMASH tarball links.
+    - Whole-database sequence archives and catalogs are very large, including a 1.5 TB genome database archive and catalog sequence files up to 150 GB.
+    - The catalog root lists an OMDBv2.0_data.tsv.gz.md5 file, but direct GET returned HTTP 403 during curation; the download documentation reports MD5 c1b5f14c9b7899f7300ccf41e62f8681 for the links TSV.
+download:
+  landing_page: https://omdb.microbiomics.io/repository/ocean/suppl_info
+  about_page: https://omdb.microbiomics.io/about
+  browser_home: https://omdb.microbiomics.io/repository/ocean/
+  static_backend_root: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/
+  catalog_root: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/
+  genome_root: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/genomes/
+  per_genome_tree_root: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/genomes/genomes/
+  downloads_markdown: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/Downloads.md
+  links_tsv:
+    file_name: OMDBv2.0_data.tsv.gz
+    url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_data.tsv.gz
+    size_human: 7.1 MB in directory index; 8 MB in download documentation
+    checksum: md5:c1b5f14c9b7899f7300ccf41e62f8681
+    rows_including_header: 274283
+    genome_rows: 274282
+    columns:
+      - GENOME
+      - SAMPLE
+      - STUDY
+      - GENOME_FILE
+      - GENES_NT_FILE
+      - GENES_AA_FILE
+      - GENES_GFF_FILE
+      - ANTISMASH_FILE
+  genome_database_archive:
+    file_name: OMDv2.genomes.db.tar.gz
+    url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/genomes/OMDv2.genomes.db.tar.gz
+    size_human: 1.5 TB
+    checksum: md5:2f254920c9cb72c683d3faf1283ea01a
+  all_genome_files_manifest:
+    file_name: OMDv2_GENO_all_genome_files
+    url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/genomes/OMDv2_GENO_all_genome_files
+    size_human: 31 MB
+  catalogs:
+    nucleotide_gene_redundant:
+      catalog: OMDBv2.0_NT_G_R
+      entries: 508832278
+      clustering_threshold: none
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_NT_G_R/OMDBv2.0_NT_G_R.fna.gz
+      sequence_size_human: 128 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_NT_G_R/OMDBv2.0_NT_G_R.cluster.tsv.gz
+      cluster_size_human: 5 GB
+    nucleotide_gene_nr100:
+      catalog: OMDBv2.0_NT_G_NR100
+      entries: 325384975
+      clustering_threshold: 100%
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_NT_G_NR100/OMDBv2.0_NT_G_NR100.fna.gz
+      sequence_size_human: 88 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_NT_G_NR100/OMDBv2.0_NT_G_NR100.cluster.tsv.gz
+      cluster_size_human: 4 GB
+    nucleotide_gene_nr95:
+      catalog: OMDBv2.0_NT_G_NR95
+      entries: 103044829
+      clustering_threshold: 95%
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_NT_G_NR95/OMDBv2.0_NT_G_NR95.fna.gz
+      sequence_size_human: 27 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_NT_G_NR95/OMDBv2.0_NT_G_NR95.cluster.tsv.gz
+      cluster_size_human: 3 GB
+    amino_acid_gene_redundant:
+      catalog: OMDBv2.0_AA_G_R
+      entries: 508832278
+      clustering_threshold: none
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_R/OMDBv2.0_AA_G_R.faa.gz
+      sequence_size_human: 88 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_R/OMDBv2.0_AA_G_R.cluster.tsv.gz
+      cluster_size_human: 5 GB
+    amino_acid_gene_nr100:
+      catalog: OMDBv2.0_AA_G_NR100
+      entries: 249518434
+      clustering_threshold: 100%
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_NR100/OMDBv2.0_AA_G_NR100.faa.gz
+      sequence_size_human: 46 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_NR100/OMDBv2.0_AA_G_NR100.cluster.tsv.gz
+      cluster_size_human: 4 GB
+    amino_acid_gene_nr50:
+      catalog: OMDBv2.0_AA_G_NR50
+      entries: 28862112
+      clustering_threshold: 50%
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_NR50/OMDBv2.0_AA_G_NR50.faa.gz
+      sequence_size_human: 4 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_NR50/OMDBv2.0_AA_G_NR50.cluster.tsv.gz
+      cluster_size_human: 4 GB
+    amino_acid_gene_nr30:
+      catalog: OMDBv2.0_AA_G_NR30
+      entries: 18342415
+      clustering_threshold: 30%
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_NR30/OMDBv2.0_AA_G_NR30.faa.gz
+      sequence_size_human: 2 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_AA_G_NR30/OMDBv2.0_AA_G_NR30.cluster.tsv.gz
+      cluster_size_human: 4 GB
+    scaffold_redundant:
+      catalog: OMDBv2.0_SC_G_R
+      entries: 69280421
+      clustering_threshold: none
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_SC_G_R/OMDBv2.0_SC_G_R.fa.gz
+      sequence_size_human: 150 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_SC_G_R/OMDBv2.0_SC_G_R.cluster.tsv.gz
+      cluster_size_human: 1 GB
+    scaffold_nr100:
+      catalog: OMDBv2.0_SC_G_NR100
+      entries: 68726394
+      clustering_threshold: 100%
+      sequence_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_SC_G_NR100/OMDBv2.0_SC_G_NR100.fa.gz
+      sequence_size_human: 145 GB
+      cluster_url: https://sunagawalab.ethz.ch/share/microbiomics/ocean/db/2.0/data/catalogs/OMDBv2.0_SC_G_NR100/OMDBv2.0_SC_G_NR100.cluster.tsv.gz
+      cluster_size_human: 1 GB
+counts:
+  reported_projects: 348
+  reported_georeferenced_samples: 12260
+  reported_reconstructed_genomes: 274282
+  reported_species_level_units: 32022
+  reported_genes: 508832278
+  links_tsv_genome_rows: 274282
+tags:
+  - mag
+  - omdb
+  - ocean
+  - marine
+  - microbiomics
+  - genome-resolved-metagenomics
+  - gene-catalog
+  - scaffold-catalog
+  - direct-urls
+status: active
