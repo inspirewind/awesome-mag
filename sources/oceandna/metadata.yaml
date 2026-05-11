@@ -1,0 +1,118 @@
+slug: oceandna
+name: OceanDNA MAG Catalog
+homepage: https://www.nature.com/articles/s41597-022-01392-5
+download_page: https://springernature.figshare.com/collections/The_OceanDNA_MAG_catalog_contains_over_50_000_prokaryotic_genomes_originated_from_various_marine_environments/5564844/1
+summary: Marine prokaryotic MAG catalog reconstructed from 2,057 published marine metagenomes, with 52,325 qualified MAGs and 8,466 species-level representatives.
+categories:
+  - marine
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - prokaryotic-genomes
+biomes:
+  - marine
+  - ocean
+  - water-column
+  - deep-sea
+  - low-oxygen-zones
+  - polar
+source_type:
+  - paper-dataset
+  - figshare-collection
+  - insdc-bioproject
+  - ddbj-analysis-records
+  - code-repository
+release: Scientific Data 9, 305
+updated_at: 2023-08-11
+license: CC BY 4.0 for the article and figshare collection; CC0 for the figshare supplementary-file record
+access:
+  method: public-figshare-and-insdc
+  automation: none
+  restrictions:
+    - The figshare collection is the primary whole-catalog landing page for genome sequences, but the current figshare web/API endpoints can return WAF or 403 challenges to plain curl clients.
+    - The 8,466 species representatives were submitted as WGS entries under BioProject PRJDB11811 / SRA study DRP008400.
+    - The 43,859 non-representative genomes were submitted as DDBJ analysis entries and are described by the article as available only through DDBJ, while also being present in figshare.
+    - The Nature/Springer supplementary XLSX files are public static files and support byte-range downloads.
+download:
+  landing_page: https://www.nature.com/articles/s41597-022-01392-5
+  figshare_collection: https://springernature.figshare.com/collections/The_OceanDNA_MAG_catalog_contains_over_50_000_prokaryotic_genomes_originated_from_various_marine_environments/5564844/1
+  figshare_doi: https://doi.org/10.6084/m9.figshare.c.5564844.v1
+  figshare_datacite_api: https://api.datacite.org/dois/10.6084/m9.figshare.c.5564844.v1
+  supplementary_figshare_record: https://springernature.figshare.com/articles/dataset/Supplementary_Files_ver_Scientific_Data_/19416815/1
+  supplementary_figshare_doi: https://doi.org/10.6084/m9.figshare.19416815.v1
+  ena_bioproject_xml: https://www.ebi.ac.uk/ena/browser/api/xml/PRJDB11811
+  ena_study_xml: https://www.ebi.ac.uk/ena/browser/api/xml/DRP008400
+  ddbj_bioproject_reference: https://ddbj.nig.ac.jp/resource/bioproject/PRJDB11811
+  ddbj_search_entry: https://ddbj.nig.ac.jp/search/entry/bioproject/PRJDB11811
+  read_run_filereport: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJDB11811&result=read_run&fields=run_accession,fastq_ftp,fastq_md5,fastq_bytes"
+  supplementary_files:
+    file_list:
+      label: A list of supplementary files
+      url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41597-022-01392-5/MediaObjects/41597_2022_1392_MOESM1_ESM.xlsx
+      size_bytes: 9619
+    s1_metagenomes:
+      label: Supplementary File S1
+      description: Metagenomes used in the study, with sample metadata and statistics.
+      url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41597-022-01392-5/MediaObjects/41597_2022_1392_MOESM2_ESM.xlsx
+      size_bytes: 634453
+    s2_viral_terl_hmms:
+      label: Supplementary File S2
+      description: Eleven multiple alignments and HMMs of terL protein sequences from aquatic viral MAGs; listed in the supplementary file index and available through the figshare supplementary package.
+    s3_oceandna_mags:
+      label: Supplementary File S3
+      description: OceanDNA MAG genome statistics, functional RNAs, genome quality, and genome-based taxonomy.
+      url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41597-022-01392-5/MediaObjects/41597_2022_1392_MOESM3_ESM.xlsx
+      size_bytes: 28463431
+    s4_publication_list:
+      label: Supplementary File S4
+      description: List of 15 publications of marine SAGs and MAGs.
+      url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41597-022-01392-5/MediaObjects/41597_2022_1392_MOESM4_ESM.xlsx
+      size_bytes: 10050
+    s5_published_marine_genomes:
+      label: Supplementary File S5
+      description: Published marine prokaryotic genomes with QS >= 50, genome statistics, genome quality, and genome-based taxonomy.
+      url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41597-022-01392-5/MediaObjects/41597_2022_1392_MOESM5_ESM.xlsx
+      size_bytes: 11942764
+    s6_ugcmp_representatives:
+      label: Supplementary File S6
+      description: Species representatives of the unified genome catalog of marine prokaryotes.
+      url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41597-022-01392-5/MediaObjects/41597_2022_1392_MOESM6_ESM.xlsx
+      size_bytes: 6324330
+publication:
+  title: The OceanDNA MAG catalog contains over 50,000 prokaryotic genomes originated from various marine environments
+  url: https://www.nature.com/articles/s41597-022-01392-5
+  journal: Scientific Data
+  year: 2022
+  volume: 9
+  article_number: 305
+  doi: https://doi.org/10.1038/s41597-022-01392-5
+related:
+  magre_code_repository: https://github.com/yosuken/MAGRE
+counts:
+  marine_metagenomes: 2057
+  qualified_mags: 52325
+  species_level_clusters: 8466
+  phyla: 59
+  novel_species_level_clusters: 6256
+  novel_species_level_clusters_percent: 73.9
+  species_representatives_wgs_entries: 8466
+  non_representative_ddbj_analysis_entries: 43859
+  deep_sea_mags: 3337
+  low_oxygen_zone_mags: 7884
+  polar_region_mags: 7752
+  source_metagenomes_water: 1890
+  source_metagenomes_sediment_trap: 63
+  source_metagenomes_biofilm: 104
+  high_quality_draft_mags: 108
+  medium_quality_draft_mags: 52217
+tags:
+  - mag
+  - marine
+  - ocean
+  - prokaryotes
+  - metagenomics
+  - figshare
+  - ddbj
+  - ena
+  - wgs
+  - supplementary-xlsx
+status: active
