@@ -1,0 +1,176 @@
+slug: cfmd
+name: cFMD
+homepage: https://github.com/SegataLab/cFMD
+download_page: https://github.com/SegataLab/cFMD#data
+summary: curatedFoodMetagenomicData, a public food shotgun metagenome resource with curated sample metadata, taxonomic and functional profiles, and reconstructed food-associated MAGs.
+categories:
+  - food
+  - fermented-food
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - taxonomic-profiles
+  - functional-profiles
+  - supplementary-data
+biomes:
+  - food
+  - fermented-food
+  - dairy
+  - cheese
+  - food-processing
+source_type:
+  - dataset
+  - code-repository
+  - zenodo-record
+  - paper-dataset
+release: cFMD v1.3.1
+release_date: 2026-02-02
+updated_at: 2026-02-02
+checked_at: 2026-05-09
+license: CC BY 4.0
+access:
+  method: public-github-files-plus-zenodo-archives
+  automation: upstream-download-scripts
+  restrictions:
+    - GitHub hosts cFMD-level TSV files and per-dataset folders for metadata, MAG info tables, and taxonomic profiles.
+    - MAG FASTA archives are hosted externally on Zenodo and are downloaded dataset-by-dataset through the upstream `download_mags.sh` script.
+    - Functional profiles are hosted externally on Zenodo and are downloaded dataset-by-dataset through the upstream `download_functional_profiles.sh` script.
+    - The upstream scripts use `wget`, extract tarballs locally, and remove the downloaded archive after extraction.
+    - Current cFMD v1.3.1 counts differ from the Cell 2024 paper release; use the GitHub README/release for current counts and the paper/Zenodo v1.1.0 records for publication-era counts.
+download:
+  landing_page: https://github.com/SegataLab/cFMD#data
+  repository: https://github.com/SegataLab/cFMD
+  latest_release: https://github.com/SegataLab/cFMD/releases/tag/v1.3.1
+  data_folder: https://github.com/SegataLab/cFMD/tree/main/cFMD_data
+  raw_files:
+    datasets: https://raw.githubusercontent.com/SegataLab/cFMD/main/cFMD_datasets.tsv
+    metadata: https://raw.githubusercontent.com/SegataLab/cFMD/main/cFMD_metadata.tsv
+    metadata_rules: https://raw.githubusercontent.com/SegataLab/cFMD/main/cFMD_metadata_rules.tsv
+    mags_list: https://raw.githubusercontent.com/SegataLab/cFMD/main/cFMD_mags_list.tsv
+  upstream_scripts:
+    mags: https://raw.githubusercontent.com/SegataLab/cFMD/refs/heads/main/download_mags.sh
+    functional_profiles: https://raw.githubusercontent.com/SegataLab/cFMD/refs/heads/main/download_functional_profiles.sh
+  zenodo:
+    current_new_mags_record:
+      record: https://zenodo.org/records/18456071
+      api: https://zenodo.org/api/records/18456071
+      doi: https://doi.org/10.5281/zenodo.18456071
+      version: cFMDv1.3.1
+      files:
+        - file_name: UNINA_SM_2025_mags.tar.gz
+          url: "https://zenodo.org/records/18456071/files/UNINA_SM_2025_mags.tar.gz?download=1"
+          size_bytes: 618943379
+          size_human: 618.9 MB
+          checksum: md5:539dca2373e8daa7501169506b3a7782
+        - file_name: YasirM_2023_mags.tar.gz
+          url: "https://zenodo.org/records/18456071/files/YasirM_2023_mags.tar.gz?download=1"
+          size_bytes: 1717719
+          size_human: 1.7 MB
+          checksum: md5:dc7a7ff0650ec5864fa8c9f133853b99
+    v1_2_1_mags_patch:
+      record: https://zenodo.org/records/17709831
+      api: https://zenodo.org/api/records/17709831
+      doi: https://doi.org/10.5281/zenodo.17709831
+      version: v1.2.1_patch
+      description: MAGs generated from the 26 food metagenomic datasets added in cFMD v1.2.1, including the eukaryotic-MAG patch.
+    v1_0_0_mags_patch:
+      record: https://zenodo.org/records/17710367
+      api: https://zenodo.org/api/records/17710367
+      doi: https://doi.org/10.5281/zenodo.17710367
+      version: v1.0.0_patch
+      description: MAGs from the initial cFMD release analyzed in Carlino et al. Cell 2024, including the eukaryotic-MAG patch.
+    v1_2_1_functional_profiles:
+      record: https://zenodo.org/records/15609141
+      api: https://zenodo.org/api/records/15609141
+      doi: https://doi.org/10.5281/zenodo.15609141
+      version: v1.2.1_patch
+      files: 26
+      total_size_human: 552.0 MB
+      description: Functional profiles generated from the 26 food metagenome datasets added in cFMD v1.2.1.
+    v1_0_0_functional_profiles:
+      record: https://zenodo.org/records/14871851
+      api: https://zenodo.org/api/records/14871851
+      doi: https://doi.org/10.5281/zenodo.14871851
+      version: v1.0.0
+      description: Functional profiles generated from food samples in the cFMD v1.0.0 release analyzed in Carlino et al. Cell 2024.
+    v1_3_1_functional_profiles:
+      record: https://zenodo.org/records/18456455
+      api: https://zenodo.org/api/records/18456455
+      doi: https://doi.org/10.5281/zenodo.18456455
+      version: cFMDv1.3.1
+      files:
+        - file_name: UNINA_SM_2025_functional_profiles.tar.gz
+          url: "https://zenodo.org/records/18456455/files/UNINA_SM_2025_functional_profiles.tar.gz?download=1"
+          size_bytes: 156654567
+          size_human: 156.7 MB
+          checksum: md5:6967f597e7dd67a5974a17bcc1bfa58d
+        - file_name: YasirM_2023_functional_profiles.tar.gz
+          url: "https://zenodo.org/records/18456455/files/YasirM_2023_functional_profiles.tar.gz?download=1"
+          size_bytes: 655674
+          size_human: 655.7 KB
+          checksum: md5:d9875beefbc988da82a06af17b60d688
+    initial_cell_paper_data:
+      record: https://zenodo.org/records/13285428
+      api: https://zenodo.org/api/records/13285428
+      doi: https://doi.org/10.5281/zenodo.13285428
+      files:
+        - file_name: cFMD_humann.tar.gz
+          url: "https://zenodo.org/records/13285428/files/cFMD_humann.tar.gz?download=1"
+          size_bytes: 1418741688
+          size_human: 1.4 GB
+          checksum: md5:07df67dc175ae69d1be4fd89b0514a14
+        - file_name: cFMD_mags.tar.gz
+          url: "https://zenodo.org/records/13285428/files/cFMD_mags.tar.gz?download=1"
+          size_bytes: 9808151932
+          size_human: 9.8 GB
+          checksum: md5:691e4e35c8b2ccf104ea5336dd6a5c9d
+  notes:
+    - Start with `cFMD_datasets.tsv` and `cFMD_metadata.tsv` to choose datasets and samples.
+    - Use `cFMD_mags_list.tsv` to inspect MAG IDs, SGB assignment, quality, taxonomy, completeness, contamination, and GC content before downloading archives.
+    - Use the upstream scripts for dataset-level MAG and functional-profile downloads; they encode the mapping from dataset name to Zenodo record.
+publication:
+  title: Unexplored microbial diversity from 2,500 food metagenomes and links with the human microbiome
+  url: https://www.sciencedirect.com/science/article/pii/S009286742400833X
+  journal: Cell
+  year: 2024
+  volume: 187
+  issue: 20
+  pages: 5775-5795.e15
+  published_at: 2024-10-03
+  doi: 10.1016/j.cell.2024.07.039
+related:
+  metacheesedb: https://magliulo.github.io/metacheesedb/
+  domino_update: https://www.domino-euproject.eu/food-metagenomic-data-updated-database-with-34k-samples/
+  master_project: https://www.master-h2020.eu/index.html
+  preprocessing_pipeline: https://github.com/SegataLab/preprocessing
+  assembly_pipeline: https://github.com/SegataLab/MASTER-WP5-pipelines/tree/master/05-Assembly_pipeline
+  metaphlan4: https://github.com/biobakery/biobakery/wiki/metaphlan4
+  strainphlan4: https://github.com/biobakery/biobakery/wiki/strainphlan4
+  humann3: https://github.com/biobakery/biobakery/wiki/humann3
+counts:
+  current_food_metagenomes: 3444
+  current_food_metagenomic_datasets: 87
+  current_mags: 14904
+  current_prokaryotic_sgbs: 1153
+  current_eukaryotic_sgbs: 110
+  v1_3_1_added_cheese_datasets: 2
+  v1_3_1_added_samples: 134
+  v1_3_1_added_mags: 839
+  v1_3_1_new_mag_archives: 2
+  v1_3_1_new_functional_profile_archives: 2
+  cell_2024_metagenomes: 2533
+  cell_2024_mags: 10899
+  cell_2024_prokaryotic_sgbs: 1036
+  cell_2024_eukaryotic_sgbs: 108
+tags:
+  - mag
+  - food-microbiome
+  - fermented-food
+  - cheese
+  - metagenomics
+  - taxonomic-profiles
+  - functional-profiles
+  - metaphlan
+  - humann
+  - zenodo
+  - cc-by-4.0
+status: active
