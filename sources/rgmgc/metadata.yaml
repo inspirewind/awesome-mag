@@ -1,0 +1,143 @@
+slug: rgmgc
+name: RGMGC
+full_name: Ruminant gastrointestinal microbiome gene catalog and genome compendium
+homepage: https://rummeta.njau.edu.cn/
+download_page: https://rummeta.njau.edu.cn/rumment/resource/metagenomicsPage
+summary: Ruminant gastrointestinal tract microbial gene catalog and MAG compendium from 370 GIT-content metagenomes spanning seven ruminant species and ten gastrointestinal regions.
+categories:
+  - animal-associated
+  - ruminant
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - gene-catalog
+  - functional-annotation
+  - database-portal
+biomes:
+  - animal-associated
+  - ruminant-git
+  - rumen
+  - gastrointestinal
+  - dairy-cattle
+  - water-buffalo
+  - yak
+  - goat
+  - sheep
+  - roe-deer
+  - water-deer
+source_type:
+  - paper-dataset
+  - database-portal
+  - ncbi-bioproject
+  - sra-project
+  - ncbi-assembly-project
+  - figshare-record
+  - springer-supplementary-files
+release: Microbiome article 9:137, NCBI BioProjects PRJNA657455 and PRJNA657473, Figshare DOI 10.6084/m9.figshare.14176574
+release_date: 2021-06-12
+updated_at: 2022-12-15
+checked_at: 2026-05-11
+license: "Article and Springer-hosted text are Creative Commons Attribution 4.0; upstream dataset files are subject to NCBI/SRA, Figshare, and RGMGC website terms."
+access:
+  method: public-rgmgc-download-endpoints-plus-ncbi-and-figshare
+  automation: none
+  restrictions:
+    - The RGMGC website exposes gene catalogs and abundance/profile tables through `/rumment/download/downloadFile?file=<name>` endpoints.
+    - The website `GENOMES` resource page was empty during curation; use NCBI BioProject `PRJNA657473` and Figshare DOI `10.6084/m9.figshare.14176574` for MAG assembly/protein/ORF access.
+    - NCBI ESearch reported 370 SRA experiment records for `PRJNA657455` and 10,373 assembly records for `PRJNA657473` during curation on 2026-05-11.
+    - The Figshare API returned HTTP 403 from command-line access during curation; browser access to the DOI landing page is the practical route unless the API becomes available.
+    - The website's NCBI related-resource link uses the legacy domain `www.rummeta.com`; the currently reachable official site is `https://rummeta.njau.edu.cn/`.
+download:
+  landing_page: https://rummeta.njau.edu.cn/
+  browse_page: https://rummeta.njau.edu.cn/rumment/browse/browsePage
+  metagenomics_page: https://rummeta.njau.edu.cn/rumment/resource/metagenomicsPage
+  genomes_page: https://rummeta.njau.edu.cn/rumment/resource/genomesPage
+  download_endpoint_pattern: "https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=<file_name>"
+  table_data_api: https://rummeta.njau.edu.cn/rumment/browse/getTableData
+  rgmgc_gene_catalog:
+    nucleotide_fasta: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.geneSet.ffn.gz
+    nucleotide_fasta_size_bytes_observed: 30144505627
+    amino_acid_fasta: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.geneSet.faa.gz
+    amino_acid_fasta_size_bytes_observed: 21133596825
+  profiles:
+    gene_abundance: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.geneabundance.txt.gz
+    gene_abundance_size_bytes_observed: 18168494484
+    phylum_abundance: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.phylum.profile.xls.gz
+    phylum_abundance_size_bytes_observed: 268769
+    genus_abundance: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.genus.profile.xls.gz
+    ko_abundance: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.KOs.profile.xls.gz
+    cog_abundance: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.COGs.profile.xls.gz
+    cazy_abundance: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.cazy.profile.family.xls.gz
+  ncbi:
+    raw_read_bioproject: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA657455
+    raw_read_sra_search: https://www.ncbi.nlm.nih.gov/sra?term=PRJNA657455
+    raw_read_runinfo: https://trace.ncbi.nlm.nih.gov/Traces/sra-db-be/runinfo?acc=PRJNA657455
+    assembly_bioproject: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA657473
+    assembly_search: https://www.ncbi.nlm.nih.gov/assembly/?term=PRJNA657473
+    assembly_esearch_count: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=assembly&term=PRJNA657473%5BBioProject%5D&retmode=json"
+    example_assembly_accession: GCA_017965065.1
+    example_assembly_page: https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_017965065.1/
+  figshare:
+    doi: https://doi.org/10.6084/m9.figshare.14176574
+    landing_page: https://figshare.com/articles/dataset/An_integrated_gene_catalog_and_over_10_000_metagenome-assembled_genomes_from_the_gastrointestinal_microbiome_of_ruminants/14176574
+publication:
+  title: An integrated gene catalog and over 10,000 metagenome-assembled genomes from the gastrointestinal microbiome of ruminants
+  authors: Fei Xie, Wei Jin, Huazhe Si, Yuan Yuan, Ye Tao, Junhua Liu, Xiaoxu Wang, Chengjian Yang, Qiushuang Li, Xiaoting Yan, Limei Lin, Qian Jiang, Lei Zhang, Changzheng Guo, Chris Greening, Rasmus Heller, Le Luo Guan, Phillip B. Pope, Zhiliang Tan, Weiyun Zhu, Min Wang, Qiang Qiu, Zhipeng Li, Shengyong Mao
+  journal: Microbiome
+  year: 2021
+  volume: 9
+  issue: 1
+  article_number: 137
+  published_online: 2021-06-12
+  doi: 10.1186/s40168-021-01078-x
+  pmid: 34118976
+related:
+  article: https://link.springer.com/article/10.1186/s40168-021-01078-x
+  article_pdf: https://link.springer.com/content/pdf/10.1186/s40168-021-01078-x.pdf
+  correction: https://doi.org/10.1186/s40168-022-01426-5
+  official_database: https://rummeta.njau.edu.cn/
+  legacy_database_domain: http://www.rummeta.com
+counts:
+  samples: 370
+  species: 7
+  git_regions: 10
+  nonredundant_genes: 154335274
+  total_gene_length_bp: 100332734514
+  average_gene_length_bp: 650
+  gene_catalog_n50_bp: 768
+  gene_catalog_gc_percent: 47.5
+  mags: 10373
+  novel_uncultured_candidate_species: 8745
+  illumina_bins: 28543
+  ncbi_raw_read_sra_records_observed: 370
+  ncbi_assembly_records_observed: 10373
+observed_files:
+  rgmgc_geneSet_ffn_gz:
+    url: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.geneSet.ffn.gz
+    content_length: 30144505627
+    checked_at: 2026-05-11
+  rgmgc_geneSet_faa_gz:
+    url: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.geneSet.faa.gz
+    content_length: 21133596825
+    checked_at: 2026-05-11
+  rgmgc_geneabundance_txt_gz:
+    url: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.geneabundance.txt.gz
+    content_length: 18168494484
+    checked_at: 2026-05-11
+  rgmgc_phylum_profile_xls_gz:
+    url: https://rummeta.njau.edu.cn/rumment/download/downloadFile?file=RGMGC.phylum.profile.xls.gz
+    content_length: 268769
+    checked_at: 2026-05-11
+tags:
+  - mag
+  - rgmgc
+  - ruminant
+  - ruminant-git
+  - rumen
+  - gene-catalog
+  - cazyme
+  - methane
+  - feed-efficiency
+  - ncbi-sra
+  - ncbi-assembly
+  - figshare
+status: active
