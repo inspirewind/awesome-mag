@@ -1,0 +1,98 @@
+slug: anammox-microbiota
+name: Anammox Microbiota Gene and Genome Catalog
+homepage: https://figshare.com/articles/dataset/A_comprehensive_catalog_encompassing_genes_and_genomes_reveals_the_core_community_and_functional_diversity_in_anammox_microbiota/25476583
+download_page: https://figshare.com/articles/dataset/A_comprehensive_catalog_encompassing_genes_and_genomes_reveals_the_core_community_and_functional_diversity_in_anammox_microbiota/25476583
+summary: Global anammox microbiota gene and genome catalog based on 236 metagenomes from lab-scale and full-scale anammox systems, with 1,768 strain-level MAGs and 1,376 species-level genomes used to characterize core taxa and functional diversity.
+categories:
+  - wastewater
+  - engineered-system
+  - anammox
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - gene-catalog
+  - nitrogen-cycling
+biomes:
+  - wastewater-treatment
+  - anammox-reactor
+  - engineered-bioreactor
+  - lab-scale-system
+  - full-scale-system
+source_type:
+  - figshare-dataset
+  - paper-dataset
+release: Figshare dataset DOI 10.6084/m9.figshare.25476583
+release_date: 2024-03-27
+updated_at: 2024-03-27
+checked_at: 2026-05-09
+license: CC BY 4.0 for the Figshare dataset; Water Research article is Elsevier copyright with publisher-specific text/data-mining terms.
+access:
+  method: public-figshare-download-all
+  automation: none
+  restrictions:
+    - Figshare is the primary data landing page for the gene catalog and strain-level MAG files.
+    - DataCite metadata reports a dataset size of 8,120,727,476 bytes and a CC BY 4.0 license.
+    - The Figshare page exposes a download-all route, but command-line checks from this environment returned AWS WAF challenge or 403 responses for Figshare API/downloader endpoints.
+    - Treat the Figshare page as browser-visible access unless a stable file-level API response is available in the user's environment.
+    - The associated article says BioProject accessions for newly generated raw metagenomes are listed in Table S1; they are not enumerated here because the sequence deposit page itself is Figshare.
+download:
+  landing_page: https://figshare.com/articles/dataset/A_comprehensive_catalog_encompassing_genes_and_genomes_reveals_the_core_community_and_functional_diversity_in_anammox_microbiota/25476583
+  figshare_doi: https://doi.org/10.6084/m9.figshare.25476583
+  figshare_datacite_api: https://api.datacite.org/dois/10.6084/m9.figshare.25476583
+  download_all_url: https://figshare.com/ndownloader/articles/25476583/versions/1
+  dataset_size_bytes: 8120727476
+  dataset_size_human: 8.12 GB
+  observed_cli_behavior:
+    figshare_api: "https://api.figshare.com/v2/articles/25476583 returned HTTP 403 during curation."
+    download_all: "https://figshare.com/ndownloader/articles/25476583/versions/1 returned HTTP 202 with x-amzn-waf-action: challenge during curation."
+publication:
+  title: A comprehensive catalog encompassing 1376 species-level genomes reveals the core community and functional diversity of anammox microbiota
+  url: https://www.sciencedirect.com/science/article/pii/S0043135424012557
+  journal: Water Research
+  year: 2024
+  volume: 266
+  article_number: 122356
+  published_at: 2024-11-15
+  online_at: 2024-08-29
+  doi: 10.1016/j.watres.2024.122356
+  pii: S0043135424012557
+  pmid: 39236503
+  authors:
+    - Depeng Wang
+    - Yabing Meng
+    - Li-Nan Huang
+    - Xu-Xiang Zhang
+    - Xiaonan Luo
+    - Fangang Meng
+related:
+  pubmed_record: https://pubmed.ncbi.nlm.nih.gov/39236503/
+  crossref_record: https://api.crossref.org/works/10.1016/j.watres.2024.122356
+  datacite_record: https://api.datacite.org/dois/10.6084/m9.figshare.25476583
+counts:
+  source_metagenomes_total: 236
+  catalog_construction_samples: 193
+  additional_public_samples_after_catalog_construction: 43
+  source_previous_studies: 37
+  raw_mags: 7474
+  strain_level_mags: 1768
+  species_level_genomes: 1376
+  average_microbiota_coverage_percent: 92.40
+  core_genera: 64
+  core_species: 44
+  core_genera_relative_abundance_percent: 64.25
+  core_species_relative_abundance_percent: 43.97
+  individual_anammox_systems: 110
+  individual_laboratory_systems: 82
+  individual_engineering_systems: 28
+  coupling_systems: 80
+  single_systems: 30
+tags:
+  - mag
+  - anammox
+  - wastewater
+  - nitrogen-cycle
+  - genome-catalog
+  - gene-catalog
+  - figshare
+  - water-research
+  - core-microbiota
+status: active
