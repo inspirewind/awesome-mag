@@ -1,0 +1,202 @@
+slug: growdb
+name: GROWdb
+homepage: https://www.nature.com/articles/s41586-024-08240-z
+download_page: https://zenodo.org/records/8173286
+summary: Genome Resolved Open Watersheds database (GROWdb), a crowdsourced North American river surface-water multi-omics resource covering 90% of US watersheds, with 3,825 recovered MAGs dereplicated to 2,093 MAGs and companion annotations, gene sequences, expression tables, ARG calls, and global freshwater comparison MAG files.
+categories:
+  - freshwater
+  - river
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - metatranscriptomics
+  - supplementary-data
+  - database-portal
+biomes:
+  - freshwater
+  - river
+  - surface-water
+  - watershed
+source_type:
+  - paper-dataset
+  - ncbi-bioproject
+  - zenodo-record
+  - nmdc-portal
+  - kbase-collection
+  - shiny-app
+  - code-repository
+release: GROWdb version 1
+release_date: 2024-05-15
+updated_at: 2024-05-15
+checked_at: 2026-05-09
+license: "Zenodo data records are Creative Commons Attribution 4.0; the Nature article is Creative Commons Attribution-NonCommercial-NoDerivatives 4.0; rossyndicate/GROWdb is MIT; the main GROWdb GitHub repository did not expose a license in the GitHub API during curation"
+access:
+  method: public-ncbi-bioproject-plus-zenodo-files-plus-interactive-portals
+  automation: none
+  restrictions:
+    - The article data availability statement lists all reads and MAGs under NCBI BioProject PRJNA946291.
+    - The Zenodo concept DOI has multiple versions; core GROWdb annotation, gene, expression, ARG, and tree files are in record 8173287, while latest record 11193259 only exposes the global freshwater MAG comparison archive and inventory.
+    - NMDC, KBase, and GROWdb Explorer are useful interactive/search interfaces, but Zenodo and NCBI are the reproducible bulk-download routes.
+    - KBase is a public collection, but some analysis and workspace reuse actions may require a KBase account.
+download:
+  landing_page: https://www.nature.com/articles/s41586-024-08240-z
+  data_availability: https://www.nature.com/articles/s41586-024-08240-z#data-availability
+  ncbi_bioproject: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA946291
+  ncbi_sra_search: https://www.ncbi.nlm.nih.gov/sra?term=PRJNA946291
+  ncbi_assembly_search: https://www.ncbi.nlm.nih.gov/assembly/?term=PRJNA946291
+  ncbi_bioproject_summary_api: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=bioproject&id=946291&retmode=json"
+  zenodo_concept_record: https://zenodo.org/records/8173286
+  zenodo_concept_doi: https://doi.org/10.5281/zenodo.8173286
+  zenodo_core_record: https://zenodo.org/records/8173287
+  zenodo_core_record_api: https://zenodo.org/api/records/8173287
+  zenodo_core_doi: https://doi.org/10.5281/zenodo.8173287
+  zenodo_latest_record: https://zenodo.org/records/11193259
+  zenodo_latest_record_api: https://zenodo.org/api/records/11193259
+  zenodo_latest_doi: https://doi.org/10.5281/zenodo.11193259
+  nmdc_portal: https://data.microbiomedata.org/
+  kbase_collection: https://narrative.kbase.us/collections/GROW
+  kbase_narrative_doi: https://doi.org/10.25982/109073.30/1895615
+  growdb_explorer: https://geocentroid.shinyapps.io/GROWdatabase/
+  zenodo_core_files:
+    annotations:
+      file_name: annotations.tsv.zip
+      url: "https://zenodo.org/records/8173287/files/annotations.tsv.zip?download=1"
+      size_bytes: 306527996
+      size_human: 306.5 MB
+      checksum: md5:c502de99d68664709a734e2a31f6ce95
+    genes_fna:
+      file_name: genes.fna.zip
+      url: "https://zenodo.org/records/8173287/files/genes.fna.zip?download=1"
+      size_bytes: 1214412613
+      size_human: 1.2 GB
+      checksum: md5:acae8ca209d07ae8b7e8134e5925bc66
+    metabolism_summary:
+      file_name: metabolism_summary.xlsx
+      url: "https://zenodo.org/records/8173287/files/metabolism_summary.xlsx?download=1"
+      size_bytes: 22800542
+      size_human: 22.8 MB
+      checksum: md5:1f9035abeec68c130eaa51263af15f2e
+    gene_expression:
+      file_name: GENES_geTMM_norm.counts.rpk_edger_zenodo.csv
+      url: "https://zenodo.org/records/8173287/files/GENES_geTMM_norm.counts.rpk_edger_zenodo.csv?download=1"
+      size_bytes: 12346811
+      size_human: 12.3 MB
+      checksum: md5:402ad772b153a51f4652f1875bb49af1
+    bin_expression:
+      file_name: BINS_norm.counts.rpk_edger.mean_atLeast20_zenodo.csv
+      url: "https://zenodo.org/records/8173287/files/BINS_norm.counts.rpk_edger.mean_atLeast20_zenodo.csv?download=1"
+      size_bytes: 205778
+      size_human: 205.8 KB
+      checksum: md5:8bf115775c2f5789ed39cf05857eb892
+    arg_calls:
+      file_name: ARGS_genes_rgi.txt
+      url: "https://zenodo.org/records/8173287/files/ARGS_genes_rgi.txt?download=1"
+      size_bytes: 357159
+      size_human: 357.2 KB
+      checksum: md5:d73cf4ef7f3cfa6c5043f9592b42f673
+    amr_expression:
+      file_name: AMR_expression_by_sample.csv
+      url: "https://zenodo.org/records/8173287/files/AMR_expression_by_sample.csv?download=1"
+      size_bytes: 2775
+      size_human: 2.8 KB
+      checksum: md5:2355ba5ed8012c0467303dbb1eccb3b2
+    pmoa_amoa_tree_pdf:
+      file_name: GROW_pmoA_amoA_tree.pdf
+      url: "https://zenodo.org/records/8173287/files/GROW_pmoA_amoA_tree.pdf?download=1"
+      size_bytes: 257621
+      size_human: 257.6 KB
+      checksum: md5:a204697773015c7349dce2889d5475df
+    nxr_nar_tree_pdf:
+      file_name: GROW_nxr:nar_tree.pdf
+      url: "https://zenodo.org/records/8173287/files/GROW_nxr:nar_tree.pdf?download=1"
+      size_bytes: 525493
+      size_human: 525.5 KB
+      checksum: md5:8691ad0ec5a200bad3ae45f062887649
+    pmoa_amoa_tree_newick:
+      file_name: bipartitionsBranchLabels.amoA_pmoA_seqs_for_tree_aligned.faa_mode_low.renamed
+      url: "https://zenodo.org/records/8173287/files/bipartitionsBranchLabels.amoA_pmoA_seqs_for_tree_aligned.faa_mode_low.renamed?download=1"
+      size_bytes: 10297
+      size_human: 10.3 KB
+      checksum: md5:9d848e93428500582e9198f3a8294b1a
+    nxr_nar_tree_newick:
+      file_name: bipartitionsBranchLabels.nxr-nar_seqs_for_tree_aligned.faa_mode_low.renamed
+      url: "https://zenodo.org/records/8173287/files/bipartitionsBranchLabels.nxr-nar_seqs_for_tree_aligned.faa_mode_low.renamed?download=1"
+      size_bytes: 17140
+      size_human: 17.1 KB
+      checksum: md5:7e7b3cb619608c9a59e0488100be678c
+  zenodo_latest_files:
+    global_freshwater_dereplicated_mags:
+      file_name: 5986_99ID_drep_global.tar.gz
+      url: "https://zenodo.org/records/11193259/files/5986_99ID_drep_global.tar.gz?download=1"
+      size_bytes: 3871847204
+      size_human: 3.9 GB
+      checksum: md5:2ed31a0b87c4d9ee5c86ed5aa92abe83
+    global_mag_inventory:
+      file_name: GlobalMAG_Inventory.xlsx
+      url: "https://zenodo.org/records/11193259/files/GlobalMAG_Inventory.xlsx?download=1"
+      size_bytes: 919398
+      size_human: 919.4 KB
+      checksum: md5:9a8fae1cd54f600ecb71ac5723b36a06
+  supplementary_files:
+    supplementary_information: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-024-08240-z/MediaObjects/41586_2024_8240_MOESM1_ESM.docx
+    reporting_summary: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-024-08240-z/MediaObjects/41586_2024_8240_MOESM2_ESM.pdf
+    supplementary_data_1: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-024-08240-z/MediaObjects/41586_2024_8240_MOESM3_ESM.xlsx
+    supplementary_data_2: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-024-08240-z/MediaObjects/41586_2024_8240_MOESM4_ESM.xlsx
+    supplementary_data_3: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-024-08240-z/MediaObjects/41586_2024_8240_MOESM5_ESM.xlsx
+    supplementary_data_4: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-024-08240-z/MediaObjects/41586_2024_8240_MOESM6_ESM.xlsx
+publication:
+  title: A functional microbiome catalogue crowdsourced from North American rivers
+  url: https://www.nature.com/articles/s41586-024-08240-z
+  journal: Nature
+  year: 2025
+  volume: 637
+  pages: 103-112
+  received_at: 2023-07-25
+  accepted_at: 2024-10-17
+  published_at: 2024-11-20
+  version_of_record: 2024-11-20
+  issue_date: 2025-01-02
+  doi: 10.1038/s41586-024-08240-z
+related:
+  nmdc_portal: https://data.microbiomedata.org/
+  kbase_collection: https://narrative.kbase.us/collections/GROW
+  kbase_narrative_doi: https://doi.org/10.25982/109073.30/1895615
+  growdb_explorer: https://geocentroid.shinyapps.io/GROWdatabase/
+  code_repository_data_generation: https://github.com/jmikayla1991/Genome-Resolved-Open-Watersheds-database-GROWdb
+  code_repository_geospatial_explorer: https://github.com/rossyndicate/GROWdb
+  code_zenodo_data_generation: https://doi.org/10.5281/zenodo.11041178
+  code_zenodo_figures: https://doi.org/10.5281/zenodo.11188634
+  bioproject_title: Genome Resolved Open Watersheds database (GROWdb) Metagenome
+  bioproject_description: Genome Resolved Open Watersheds database (GROWdb)
+counts:
+  reported_sampling_teams_over: 100
+  reported_samples: 163
+  reported_sites: 106
+  reported_us_watershed_coverage_percent: 90
+  reported_huc2_watersheds: 21
+  reported_sequence_data_tb: 3.8
+  reported_contextual_variables_max: 287
+  reported_recovered_medium_high_quality_mags: 3825
+  reported_dereplicated_mags_99id: 2093
+  reported_phyla: 27
+  reported_novel_families: 10
+  reported_novel_genera: 128
+  global_freshwater_mags_in_comparison: 9798
+  global_dereplicated_mags_archive: 5986
+  zenodo_core_files: 11
+  zenodo_core_total_size_human: 1.6 GB
+  zenodo_latest_files: 2
+  zenodo_latest_total_size_human: 3.9 GB
+tags:
+  - mag
+  - growdb
+  - freshwater
+  - rivers
+  - surface-water
+  - watersheds
+  - metagenomics
+  - metatranscriptomics
+  - zenodo
+  - ncbi
+  - nmdc
+  - kbase
+status: active
