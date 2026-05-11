@@ -1,0 +1,193 @@
+slug: meta320
+name: Meta320 Sheep and Goat Gut MAGs
+homepage: https://link.springer.com/article/10.1186/s40168-024-01806-z
+download_page: https://figshare.com/s/fe5fb3dd964a15844505
+summary: Sheep and goat gut microbial gene and MAG catalog from 320 fecal metagenomes, including 5,810 medium- and high-quality MAGs, sheep and goat non-redundant gene catalogs, CAZyme/PUL annotations, and host-specific MAG analyses.
+categories:
+  - animal-associated
+  - ruminant
+  - sheep
+  - goat
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - gene-catalog
+  - glycan-and-mucin-utilization
+biomes:
+  - animal-associated
+  - ruminant-gut
+  - sheep-gut
+  - goat-gut
+  - fecal-metagenome
+source_type:
+  - paper-dataset
+  - ncbi-bioproject
+  - sra-project
+  - figshare-share
+  - springer-supplementary-files
+  - github-code-repository
+release: Microbiome article 12:104, NCBI BioProject PRJNA972320, Figshare share, and GitHub workflow repository
+release_date: 2024-06-06
+updated_at: 2024-06-06
+checked_at: 2026-05-11
+license: "Article and Springer supplementary files are Creative Commons Attribution 4.0; Figshare share license was not captured because direct CLI access returned an AWS WAF challenge; NCBI/SRA and GitHub records are subject to their own terms, and the GitHub repository does not declare a license."
+access:
+  method: public-ncbi-sra-plus-figshare-browser-and-springer-supplements
+  automation: none
+  restrictions:
+    - Raw sequence reads are public under NCBI BioProject PRJNA972320 and SRA study SRP438552; NCBI runinfo reports 320 paired Illumina HiSeq 4000 metagenomic WGA runs.
+    - Protein and ORF sequences for all MAGs are deposited in a Figshare share; the browser page is the practical access route.
+    - The Figshare ndownloader file endpoint observed during curation returned HTTP/2 202 with `x-amzn-waf-action: challenge`, so command-line access should be treated as WAF-challenged.
+    - Springer supplementary files are direct static files and include sample metadata, gene-catalog features, MAG abundance, CAZyme-predicted proteins, host-specific MAGs, and PUL annotations.
+    - The GitHub workflow repository provides shell/Python/R pipeline snippets and environment files, but no downloadable data release archive.
+download:
+  landing_page: https://link.springer.com/article/10.1186/s40168-024-01806-z
+  doi: https://doi.org/10.1186/s40168-024-01806-z
+  article_pdf: https://link.springer.com/content/pdf/10.1186/s40168-024-01806-z.pdf
+  figshare_share: https://figshare.com/s/fe5fb3dd964a15844505
+  figshare_observed_file_endpoint: https://figshare.com/ndownloader/files/40441679?private_link=fe5fb3dd964a15844505
+  figshare_observed_cli_behavior: "HTTP/2 202 with x-amzn-waf-action: challenge on 2026-05-11."
+  ncbi:
+    bioproject_accession: PRJNA972320
+    bioproject_page: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA972320
+    article_reviewer_dataview: https://dataview.ncbi.nlm.nih.gov/object/PRJNA972320?reviewer=cbpvcbh5i6pfuqc3cfmv2ck30j
+    sra_study: SRP438552
+    runinfo_csv: https://trace.ncbi.nlm.nih.gov/Traces/sra-db-be/runinfo?acc=PRJNA972320
+    project_title: metagenomics of 320 goat and sheep
+    submitter: Northwest A&F University
+    example_run: SRR24653945
+    example_download_path: https://sra-downloadb.be-md.ncbi.nlm.nih.gov/sos6/sra-pub-zq-40/SRR024/24653/SRR24653945/SRR24653945.lite.1
+  code_repository:
+    homepage: https://github.com/bladrome/meta320_binning
+    api: https://api.github.com/repos/bladrome/meta320_binning
+    default_branch: main
+    contents:
+      - readme.org
+      - envs/
+      - pipeline/
+  supplementary_files:
+    - label: Additional file 1 / Figure S1-S9
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM1_ESM.docx
+      format: docx
+      notes: Pipeline and supplementary figures.
+    - label: Additional file 2 / Table S1
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM2_ESM.xls
+      format: xls
+      notes: Background information on sheep and goat samples.
+    - label: Additional file 3 / Table S2
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM3_ESM.xls
+      format: xls
+      notes: General features of the gene catalogs.
+    - label: Additional file 4 / Table S3-S6
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM4_ESM.xls
+      format: xls
+      notes: Sheep core NR genes, species, CAZy families, and KEGG pathway functions.
+    - label: Additional file 5 / Table S7-S10
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM5_ESM.xls
+      format: xls
+      notes: Goat core NR genes, species, CAZy families, and KEGG pathway functions.
+    - label: Additional file 6 / Table S11
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM6_ESM.xls
+      format: xls
+      notes: Species found only in goat and sheep samples.
+    - label: Additional file 7 / Table S12
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM7_ESM.xls
+      format: xls
+      notes: KEGG level-2 analysis of grazing and drylot goat groups.
+    - label: Additional file 8 / Table S13
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM8_ESM.xlsx
+      format: xlsx
+      notes: Relative abundance of 5,810 medium- and high-quality MAGs.
+    - label: Additional file 9 / Table S14
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM9_ESM.xlsx
+      format: xlsx
+      notes: CAZyme-predicted proteins of 5,810 medium- and high-quality MAGs.
+    - label: Additional file 10 / Table S15
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM10_ESM.xlsx
+      format: xlsx
+      notes: 91 sheep-specific MAGs and one goat-specific MAG.
+    - label: Additional file 11 / Table S16
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM11_ESM.xlsx
+      format: xlsx
+      notes: CAZyme-predicted proteins of the 92 host-specific MAGs.
+    - label: Additional file 12 / Table S17
+      url: https://static-content.springer.com/esm/art%3A10.1186%2Fs40168-024-01806-z/MediaObjects/40168_2024_1806_MOESM12_ESM.xlsx
+      format: xlsx
+      notes: Predicted polysaccharide utilization loci for the 92 host-specific MAGs.
+publication:
+  title: Compendium of 5810 genomes of sheep and goat gut microbiomes provides new insights into the glycan and mucin utilization
+  url: https://link.springer.com/article/10.1186/s40168-024-01806-z
+  journal: Microbiome
+  year: 2024
+  volume: 12
+  issue: 1
+  article_number: 104
+  published_online: 2024-06-06
+  doi: 10.1186/s40168-024-01806-z
+  pmid: 38845047
+  authors:
+    - Ke Zhang
+    - Chong He
+    - Lei Wang
+    - Langda Suo
+    - Mengmeng Guo
+    - Jiazhong Guo
+    - Ting Zhang
+    - Yangbin Xu
+    - Yu Lei
+    - Gongwei Liu
+    - Quan Qian
+    - Yunrui Mao
+    - Peter Kalds
+    - Yujiang Wu
+    - Awang Cuoji
+    - Yuxin Yang
+    - Daniel Brugger
+    - Shangquan Gan
+    - Meili Wang
+    - Xiaolong Wang
+    - Fangqing Zhao
+    - Yulin Chen
+related:
+  crossref_record: https://api.crossref.org/works/10.1186/s40168-024-01806-z
+  openalex_record: https://openalex.org/W4399386104
+  pubmed_record: https://pubmed.ncbi.nlm.nih.gov/38845047/
+  pmc_record: https://pmc.ncbi.nlm.nih.gov/articles/PMC11155115/
+  ncbi_bioproject_accession: PRJNA972320
+  sra_study_accession: SRP438552
+  figshare_share_id: fe5fb3dd964a15844505
+  github_repository: bladrome/meta320_binning
+counts:
+  fecal_samples_total: 320
+  sheep_samples: 210
+  goat_samples: 110
+  breeds_total: 21
+  farms_total: 32
+  sheep_nonredundant_predicted_genes_min: 162000000
+  goat_nonredundant_predicted_genes_min: 82000000
+  shared_nonredundant_predicted_genes: 49000000
+  shared_species: 1138
+  medium_high_quality_mags: 5810
+  unidentified_species: 2661
+  sheep_specific_bacterial_taxa: 91
+  host_specific_mags: 92
+  sra_runs: 320
+  sra_spots: 11481992311
+  sra_bases: 3444597693300
+  sra_size_mb: 1075195
+  sra_size_gb: 1050.0
+tags:
+  - mag
+  - meta320
+  - sheep
+  - goat
+  - ruminant
+  - animal-gut
+  - fecal-metagenome
+  - gene-catalog
+  - cazyme
+  - pul
+  - glycan
+  - mucin
+  - figshare
+  - ncbi-sra
+status: active
