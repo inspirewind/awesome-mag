@@ -1,0 +1,224 @@
+slug: tpmc
+name: TPMC
+homepage: https://ngdc.cncb.ac.cn/tpmc
+download_page: https://download.cncb.ac.cn/bigd/TPMC/TPMC_genome_catalog/
+summary: Tibetan Plateau Microbial Catalog, a CNCB-NGDC aquatic microbiome resource with 32,355 medium- and high-quality MAGs from 498 Tibetan Plateau water-ecosystem metagenomes, 10,723 species representatives, a 296,289,678-gene TPMC catalog, 73,864 BGCs, and a companion 329,568,659-gene TLGC catalog.
+categories:
+  - freshwater
+  - high-altitude
+  - aquatic
+  - metagenome-assembled-genomes
+  - genome-catalog
+  - gene-catalog
+  - biosynthetic-gene-clusters
+biomes:
+  - freshwater-lake
+  - saline-lake
+  - river
+  - hot-spring
+  - wetland
+  - glacier
+  - tibetan-plateau
+source_type:
+  - dataset-portal
+  - static-file-index
+  - gsa-project-archive
+  - paper-dataset
+release: Nature Communications article and CNCB-NGDC TPMC static catalog
+release_date: 2024-02-16
+updated_at: 2024-02-16
+checked_at: 2026-05-09
+license: "TPMC catalogs are free to use according to the project page; underlying metagenomes are subject to GSA data release and utilization policies; the article is Creative Commons Attribution 4.0"
+access:
+  method: public-cncb-static-indexes-plus-gsa-project
+  automation: none
+  restrictions:
+    - CNCB-NGDC catalog files are public static HTTPS downloads with byte-range support.
+    - The static catalog directories do not expose MD5 or SHA checksums; use resumable downloads and preserve upstream file sizes for integrity checks.
+    - Several TPMC gene catalog assets are very large plain text FASTA or TSV files rather than compressed archives.
+    - Raw metagenomes are deposited in GSA accession CRA011511; the project page states that underlying metagenomes are protected by GSA data release and utilization policies and encourages contact for overlapping analyses or publications.
+download:
+  landing_page: https://ngdc.cncb.ac.cn/tpmc
+  gsa_project: https://ngdc.cncb.ac.cn/gsa/browse/CRA011511
+  cncb_bioproject: https://ngdc.cncb.ac.cn/bioproject/browse/PRJCA017393
+  raw_metagenome_https_index: https://download.cncb.ac.cn/gsa2/CRA011511
+  raw_metagenome_ftp_index: ftp://download.big.ac.cn/gsa2/CRA011511
+  raw_metagenome_qtrans: https://qtp.cncb.ac.cn/qtrans/v2/file?path=/gsa2/CRA011511
+  sample_metadata:
+    file_name: meta_table.xlsx
+    url: https://download.cncb.ac.cn/bigd/TPMC/meta_table.xlsx
+    size_bytes: 172450
+    size_human: 172.5 KB
+    last_modified: 2024-01-30
+  genome_catalog:
+    index: https://download.cncb.ac.cn/bigd/TPMC/TPMC_genome_catalog/
+    readme: https://download.cncb.ac.cn/bigd/TPMC/TPMC_genome_catalog/readme
+    files:
+      mag_archive:
+        file_name: TPMC_MAG.tar.gz
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_genome_catalog/TPMC_MAG.tar.gz
+        size_bytes: 24777374324
+        size_human: 24.8 GB
+        last_modified: 2023-12-08
+        description: Archive containing 32,355 TPMC MAGs.
+      mag_summary:
+        file_name: MAG_summary.xlsx
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_genome_catalog/MAG_summary.xlsx
+        size_bytes: 4571321
+        size_human: 4.6 MB
+        last_modified: 2023-12-08
+        description: Quality information, taxonomic annotation, and OTU clustering for the MAGs.
+  gene_catalog:
+    index: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/
+    readme: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/readme
+    files:
+      representative_nucleotide_sequences:
+        file_name: non_redundant_gene_rep_seq_nucl.fa
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_rep_seq_nucl.fa
+        size_bytes: 236476528028
+        size_human: 236.5 GB
+        last_modified: 2023-08-06
+      representative_protein_sequences:
+        file_name: non_redundant_gene_rep_seq_proteins.fa
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_rep_seq_proteins.fa
+        size_bytes: 105320365187
+        size_human: 105.3 GB
+        last_modified: 2023-08-06
+      gene_clusters:
+        file_name: non_redundant_gene_clusters.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_clusters.tsv
+        size_bytes: 30185357008
+        size_human: 30.2 GB
+        last_modified: 2023-08-06
+      gene_clusters_in_mag:
+        file_name: non_redundant_gene_clusters_in_mag.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_clusters_in_mag.tsv
+        size_bytes: 7469006171
+        size_human: 7.5 GB
+        last_modified: 2023-08-06
+      nr_annotation:
+        file_name: non_redundant_gene_ann_nr.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_ann_nr.tsv
+        size_bytes: 20365553244
+        size_human: 20.4 GB
+        last_modified: 2023-08-06
+      uniref50_annotation:
+        file_name: non_redundant_gene_ann_uniref50.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_ann_uniref50.tsv
+        size_bytes: 21303593269
+        size_human: 21.3 GB
+        last_modified: 2023-08-06
+      swissprot_annotation:
+        file_name: non_redundant_gene_ann_swissprot.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_ann_swissprot.tsv
+        size_bytes: 8089601279
+        size_human: 8.1 GB
+        last_modified: 2023-08-06
+      eggnog_annotation:
+        file_name: non_redundant_gene_ann_eggnog.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_ann_eggnog.tsv
+        size_bytes: 92052485035
+        size_human: 92.1 GB
+        last_modified: 2023-08-06
+      card_rgi_annotation:
+        file_name: non_redundant_gene_ann_rgi.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_ann_rgi.tsv
+        size_bytes: 47811320
+        size_human: 47.8 MB
+        last_modified: 2023-08-06
+      vfdb_annotation:
+        file_name: non_redundant_gene_ann_vfdb.tsv
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_gene_catalog/non_redundant_gene_ann_vfdb.tsv
+        size_bytes: 4947067279
+        size_human: 4.9 GB
+        last_modified: 2023-08-06
+  bgc_catalog:
+    index: https://download.cncb.ac.cn/bigd/TPMC/TPMC_BGC/
+    readme: https://download.cncb.ac.cn/bigd/TPMC/TPMC_BGC/readme
+    files:
+      bgc_archive:
+        file_name: TPMC_BGC_73864.tar.gz
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_BGC/TPMC_BGC_73864.tar.gz
+        size_bytes: 954604479
+        size_human: 954.6 MB
+        last_modified: 2023-12-08
+        description: Archive of 73,864 antiSMASH BGC GenBank files.
+      bgc_summary:
+        file_name: BGC_summary.xlsx
+        url: https://download.cncb.ac.cn/bigd/TPMC/TPMC_BGC/BGC_summary.xlsx
+        size_bytes: 7524588
+        size_human: 7.5 MB
+        last_modified: 2023-12-08
+  tlgc_gene_catalog:
+    index: https://download.cncb.ac.cn/bigd/TPMC/TLGC_gene_catalog/
+    readme: https://download.cncb.ac.cn/bigd/TPMC/TLGC_gene_catalog/readme
+    files:
+      representative_nucleotide_sequences:
+        file_name: TLGC_non_redundant_gene_rep_seq_nucl.fasta.gz
+        url: https://download.cncb.ac.cn/bigd/TPMC/TLGC_gene_catalog/TLGC_non_redundant_gene_rep_seq_nucl.fasta.gz
+        size_bytes: 72888763812
+        size_human: 72.9 GB
+        last_modified: 2023-08-11
+publication:
+  title: A genome and gene catalog of the aquatic microbiomes of the Tibetan Plateau
+  url: https://www.nature.com/articles/s41467-024-45895-8
+  journal: Nature Communications
+  year: 2024
+  volume: 15
+  article_number: 1438
+  received_at: 2023-09-07
+  accepted_at: 2024-02-07
+  published_at: 2024-02-16
+  doi: 10.1038/s41467-024-45895-8
+related:
+  crossref_record: https://api.crossref.org/works/10.1038/s41467-024-45895-8
+  gsa_accession: CRA011511
+  cncb_bioproject_accession: PRJCA017393
+counts:
+  reported_tpmc_metagenomes: 498
+  reported_tlgc_additional_samples: 109
+  reported_gsa_metagenomes: 607
+  gsa_project_files: 1214
+  gsa_project_size_gb: 19459.39
+  water_ecosystem_samples:
+    saline_lake: 104
+    freshwater_lake: 72
+    river: 108
+    hot_spring: 76
+    wetland: 132
+    glacier: 6
+  reported_mags: 32355
+  reported_species_representatives: 10723
+  reported_high_quality_mags: 2024
+  reported_mean_completeness_percent: 78.1
+  reported_mean_contamination_percent: 2.6
+  reported_unannotated_species_percent: 88
+  reported_tpmc_unigenes: 296289678
+  reported_tlgc_unigenes: 329568659
+  reported_bgcs: 73864
+  bgc_groups:
+    terpene: 31734
+    ripps: 11772
+    others: 11513
+    pksother: 7865
+    nrps: 7044
+    pksi: 2043
+    pks_nrp_hybrids: 1859
+    saccharides: 34
+tags:
+  - mag
+  - tpmc
+  - tibetan-plateau
+  - qinghai-tibet-plateau
+  - aquatic
+  - freshwater
+  - saline-lake
+  - river
+  - hot-spring
+  - wetland
+  - glacier
+  - metagenomics
+  - gsa
+  - cncb
+  - ngdc
+status: active
