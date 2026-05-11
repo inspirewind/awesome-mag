@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 
@@ -10,6 +11,7 @@ CORPUS_DIR = Path(__file__).resolve().parent
 ROOT_DIR = CORPUS_DIR.parent
 DOWNLOAD_BASH_DIR = CORPUS_DIR / "download_bash"
 COMPLETED_DIR = CORPUS_DIR / "completed"
+LOCKS_DIR = CORPUS_DIR / ".locks"
 
 
 def parse_metadata(path: Path) -> dict[str, str]:
@@ -47,6 +49,24 @@ def int_value(value: str | None) -> int | None:
         return None
 
 
+def lock_status(slug: str) -> str | None:
+    pid_file = LOCKS_DIR / f"{slug}.lock" / "pid"
+    if not pid_file.exists():
+        return None
+
+    pid = int_value(pid_file.read_text(encoding="utf-8", errors="replace").strip())
+    if pid is None:
+        return "stale-lock"
+
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return "stale-lock"
+    except PermissionError:
+        return "running"
+    return "running"
+
+
 def discover_scripts() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for script in sorted(DOWNLOAD_BASH_DIR.glob("*/*.sh")):
@@ -68,6 +88,10 @@ def discover_scripts() -> list[dict[str, str]]:
 
 
 def status_for(row: dict[str, str]) -> tuple[str, str]:
+    locked = lock_status(row["slug"])
+    if locked is not None:
+        return locked, ""
+
     flag_path = COMPLETED_DIR / f"{row['slug']}.flag"
     flag = parse_flag(flag_path)
     default_path = ROOT_DIR / "downloads" / row["slug"] / row["file"]

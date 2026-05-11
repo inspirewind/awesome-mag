@@ -40,11 +40,33 @@ download_one() {
 
   local download_dir="${root_dir}/downloads/${slug}"
   local completed_dir="${root_dir}/corpus/completed"
+  local locks_dir="${root_dir}/corpus/.locks"
   local target="${download_dir}/${filename}"
   local target_rel="downloads/${slug}/${filename}"
   local flag="${completed_dir}/${slug}.flag"
+  local lock_dir="${locks_dir}/${slug}.lock"
 
-  mkdir -p "${download_dir}" "${completed_dir}"
+  mkdir -p "${download_dir}" "${completed_dir}" "${locks_dir}"
+
+  while true; do
+    if mkdir "${lock_dir}" 2>/dev/null; then
+      printf '%s\n' "$$" > "${lock_dir}/pid"
+      printf '%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" > "${lock_dir}/started_at"
+      break
+    fi
+
+    local lock_pid
+    lock_pid="$(cat "${lock_dir}/pid" 2>/dev/null || true)"
+    if [[ -n "${lock_pid}" ]] && kill -0 "${lock_pid}" 2>/dev/null; then
+      echo "Dataset is already downloading under pid ${lock_pid}; skipping duplicate run."
+      return 0
+    fi
+
+    echo "Removing stale lock for ${slug}."
+    rm -rf "${lock_dir}"
+  done
+
+  trap "rm -rf '${lock_dir}'" EXIT HUP INT TERM
 
   echo "Dataset: ${dataset}"
   echo "Part: ${part}"
