@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import os
+import csv
 from pathlib import Path
 
 
@@ -49,6 +50,29 @@ def int_value(value: str | None) -> int | None:
         return None
 
 
+def manifest_counts(path: Path) -> tuple[int, int]:
+    if not path.exists():
+        return 0, 0
+
+    expected = 0
+    present = 0
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        for row in reader:
+            rel_path = row.get("path", "")
+            if not rel_path:
+                continue
+            expected += 1
+            data_path = ROOT_DIR / rel_path
+            expected_bytes = int_value(row.get("bytes"))
+            if not data_path.exists() or data_path.stat().st_size == 0:
+                continue
+            if expected_bytes is not None and data_path.stat().st_size != expected_bytes:
+                continue
+            present += 1
+    return expected, present
+
+
 def lock_status(slug: str) -> str | None:
     pid_file = LOCKS_DIR / f"{slug}.lock" / "pid"
     if not pid_file.exists():
@@ -65,6 +89,21 @@ def lock_status(slug: str) -> str | None:
     except PermissionError:
         return "running"
     return "running"
+
+
+def has_data_files(path: Path) -> bool:
+    if not path.exists():
+        return False
+    ignored = {"manifest.tsv", "_manifest.aria2", ".download-complete"}
+    for child in path.rglob("*"):
+        if not child.is_file():
+            continue
+        if child.name in ignored:
+            continue
+        if child.name.startswith("."):
+            continue
+        return True
+    return False
 
 
 def discover_scripts() -> list[dict[str, str]]:
@@ -94,10 +133,11 @@ def status_for(row: dict[str, str]) -> tuple[str, str]:
 
     flag_path = COMPLETED_DIR / f"{row['slug']}.flag"
     flag = parse_flag(flag_path)
-    default_path = ROOT_DIR / "downloads" / row["slug"] / row["file"]
+    download_dir = ROOT_DIR / "downloads" / row["slug"]
+    default_path = download_dir / row["file"]
 
     if not flag:
-        if default_path.exists():
+        if default_path.exists() or has_data_files(download_dir):
             return "partial", ""
         return "pending", ""
 
@@ -105,6 +145,18 @@ def status_for(row: dict[str, str]) -> tuple[str, str]:
     data_path = ROOT_DIR / rel_path if rel_path else default_path
     if not data_path.exists():
         return "flag-only", flag.get("completed_at", "")
+
+    manifest_rel = flag.get("manifest", "")
+    if manifest_rel:
+        manifest_path = ROOT_DIR / manifest_rel
+        expected, present = manifest_counts(manifest_path)
+        if expected == 0:
+            return "flag-only", flag.get("completed_at", "")
+        if present == expected:
+            return "done", flag.get("completed_at", "")
+        if present == 0:
+            return "pending", flag.get("completed_at", "")
+        return "incomplete", flag.get("completed_at", "")
 
     current_bytes = data_path.stat().st_size
     remote_bytes = int_value(flag.get("remote_bytes"))

@@ -14,6 +14,7 @@ Examples:
   bash corpus/download_bash/run_all.sh
   bash corpus/download_bash/run_all.sh -j 2 part1_recommended_direct
   bash corpus/download_bash/run_all.sh -j 6 part1_recommended_direct part3_viral_direct
+  bash corpus/download_bash/run_all.sh -j 2 part4_hard_datasets
 
 By default this runs all scripts in:
   part1_recommended_direct

@@ -14,11 +14,25 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from lib.corpus_download import (
+    AlreadyRunning,
+    DownloadError,
+    DownloadItem,
+    add_common_arguments,
+    run_manifest_workflow,
+)
+
 DOWNLOADS_URL = "https://spire.embl.de/downloads"
 SPIRE_SITE = "https://spire.embl.de"
 SWIFTER_SPIRE_BASE = "https://swifter.embl.de/~fullam/spire/"
 MARKER_GENES_BASE = "https://swifter.embl.de/~fullam/census_marker_genes/"
 USER_AGENT = "awesome-mag/0.1 (+https://github.com/)"
+DOWNLOAD_SLUG = "spire"
+DOWNLOAD_DATASET = "SPIRE"
+DOWNLOAD_SIZE = "714 per-study MAG tar archives; total size not precomputed"
+DOWNLOAD_NOTE = "SPIRE downloads page filtered to per-study *_MAGs.tar archives only."
 
 STUDY_STATIC_ASSETS = ("assemblies", "mags", "fna", "faa")
 STUDY_PROFILE_ASSETS = ("motus3-profile", "spire-motus-profile")
@@ -403,6 +417,57 @@ def command_manifest(args: argparse.Namespace) -> int:
     return 0
 
 
+def records_to_download_items(records: list[UrlRecord], root: Path) -> list[DownloadItem]:
+    output_dir = root / "downloads" / DOWNLOAD_SLUG / "mags"
+    return [
+        DownloadItem(
+            url=record.url,
+            output=output_dir / record.output_name(),
+            md5=record.md5,
+        )
+        for record in records
+    ]
+
+
+def command_download(args: argparse.Namespace) -> int:
+    html = load_downloads_html(args.downloads_html)
+    studies = parse_studies(html)
+    matches = select_studies(
+        studies,
+        study_names=args.study,
+        contains=args.contains,
+        all_studies=args.all_studies or (not args.study and not args.contains),
+    )
+    if not matches:
+        raise SystemExit("No matching SPIRE studies found.")
+
+    records = list(
+        iter_study_url_records(
+            matches,
+            ["mags"],
+            include_md5_sidecars=False,
+        )
+    )
+    if not records:
+        raise SystemExit("No SPIRE MAG archive URLs were found for the selected studies.")
+
+    root = Path(args.root).expanduser().resolve()
+    return run_manifest_workflow(
+        root=root,
+        slug=DOWNLOAD_SLUG,
+        dataset=DOWNLOAD_DATASET,
+        size=DOWNLOAD_SIZE,
+        items=records_to_download_items(records, root),
+        downloader=args.downloader,
+        jobs=args.jobs,
+        connections=args.connections,
+        retries=args.retries,
+        verify=args.verify_md5,
+        note=DOWNLOAD_NOTE,
+        manifest_only=args.manifest_only,
+    )
+
+
 def add_study_selection_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--study",
@@ -491,6 +556,15 @@ def build_parser() -> argparse.ArgumentParser:
     add_output_arguments(manifest_parser)
     manifest_parser.set_defaults(func=command_manifest)
 
+    download_parser = subparsers.add_parser(
+        "download",
+        help="Download SPIRE per-study MAG tar archives.",
+    )
+    add_study_selection_arguments(download_parser)
+    add_common_arguments(download_parser, jobs=4, connections=2)
+    add_downloads_page_argument(download_parser)
+    download_parser.set_defaults(func=command_download)
+
     return parser
 
 
@@ -499,6 +573,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         return args.func(args)
+    except AlreadyRunning:
+        return 0
+    except DownloadError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
     except SourceError as exc:
         print(str(exc), file=sys.stderr)
         return 1
