@@ -21,7 +21,9 @@ import io
 import lzma
 import re
 import shutil
+import sys
 import tarfile
+import time
 import zipfile
 from contextlib import contextmanager
 from dataclasses import dataclass, field
@@ -88,6 +90,18 @@ IGNORED_NAMES = {
     "_manifest.aria2",
     "manifest.tsv",
 }
+
+
+class ProgressLogger:
+    def __init__(self, *, quiet: bool = False) -> None:
+        self.quiet = quiet
+        self.started_at = time.monotonic()
+
+    def log(self, message: str) -> None:
+        if self.quiet:
+            return
+        elapsed = time.monotonic() - self.started_at
+        print(f"[{elapsed:8.1f}s] {message}", file=sys.stderr, flush=True)
 
 
 @dataclass(frozen=True)
@@ -259,6 +273,20 @@ def relpath(path: Path, root: Path) -> str:
 
 def display_path(path: Path, root: Path) -> str:
     return relpath(path, root)
+
+
+def human_bytes(value: int | None) -> str:
+    if value is None:
+        return "unknown size"
+    units = ("B", "KiB", "MiB", "GiB", "TiB", "PiB")
+    amount = float(value)
+    for unit in units:
+        if amount < 1024 or unit == units[-1]:
+            if unit == "B":
+                return f"{int(amount)} {unit}"
+            return f"{amount:.1f} {unit}"
+        amount /= 1024
+    return f"{value} B"
 
 
 def output_path(path: Path, *, relative_to: Path | None) -> str:
@@ -588,12 +616,43 @@ def classify_layout_with_options(
     )
 
 
+def deterministic_layout_without_content(
+    source: SourceFasta,
+    *,
+    dataset_regular_fastas: int,
+    layout_override: str,
+) -> Layout | None:
+    if layout_override:
+        return Layout(
+            mode=layout_override,
+            confidence="override",
+            note="layout selected by user override; content sampling skipped",
+        )
+    if source.scope == "viral":
+        return None
+    if source.archive_path is not None and source.sibling_fastas > 1:
+        return Layout(
+            mode="file_per_genome",
+            confidence="high",
+            note="multi-file archive; each FASTA member is treated as one MAG; content sampling skipped",
+        )
+    if source.archive_path is None and dataset_regular_fastas > 1:
+        return Layout(
+            mode="file_per_genome",
+            confidence="high",
+            note="multiple FASTA files in the dataset directory; each file is treated as one MAG; content sampling skipped",
+        )
+    return None
+
+
 def discover_archive_fastas(
     *,
     dataset: DatasetMeta,
     archive_path: Path,
     root: Path,
     problems: list[Problem],
+    logger: ProgressLogger,
+    log_every: int,
 ) -> list[SourceFasta]:
     if is_unsupported_archive(archive_path):
         problems.append(
@@ -607,14 +666,28 @@ def discover_archive_fastas(
         )
         return []
 
+    archive_rel = display_path(archive_path, root)
+    archive_size = human_bytes(archive_path.stat().st_size if archive_path.exists() else None)
+    logger.log(f"{dataset.slug}: scanning archive members: {archive_rel} ({archive_size})")
+
     try:
-        if zipfile.is_zipfile(archive_path):
+        if archive_path.name.lower().endswith(".zip") or zipfile.is_zipfile(archive_path):
+            total_members = 0
             with zipfile.ZipFile(archive_path) as archive:
-                members = [
-                    name
-                    for name in archive.namelist()
-                    if not name.endswith("/") and is_probably_fasta_name(Path(name).name)
-                ]
+                members = []
+                for info in archive.infolist():
+                    total_members += 1
+                    if log_every > 0 and total_members % log_every == 0:
+                        logger.log(
+                            f"{dataset.slug}: {archive_path.name}: scanned {total_members} zip entries; "
+                            f"FASTA members={len(members)}"
+                        )
+                    if not info.is_dir() and is_probably_fasta_name(Path(info.filename).name):
+                        members.append(info.filename)
+            logger.log(
+                f"{dataset.slug}: {archive_path.name}: found {len(members)} FASTA member(s) "
+                f"across {total_members} zip entries"
+            )
             return [
                 SourceFasta(
                     slug=dataset.slug,
@@ -631,12 +704,22 @@ def discover_archive_fastas(
             ]
 
         if tarfile.is_tarfile(archive_path):
+            total_members = 0
             with tarfile.open(archive_path, mode="r:*") as archive:
-                members = [
-                    member.name
-                    for member in archive
-                    if member.isfile() and is_probably_fasta_name(Path(member.name).name)
-                ]
+                members = []
+                for member in archive:
+                    total_members += 1
+                    if log_every > 0 and total_members % log_every == 0:
+                        logger.log(
+                            f"{dataset.slug}: {archive_path.name}: scanned {total_members} tar entries; "
+                            f"FASTA members={len(members)}"
+                        )
+                    if member.isfile() and is_probably_fasta_name(Path(member.name).name):
+                        members.append(member.name)
+            logger.log(
+                f"{dataset.slug}: {archive_path.name}: found {len(members)} FASTA member(s) "
+                f"across {total_members} tar entries"
+            )
             return [
                 SourceFasta(
                     slug=dataset.slug,
@@ -680,6 +763,8 @@ def discover_sources(
     root: Path,
     downloads_dir: Path,
     dataset_filter: set[str] | None,
+    logger: ProgressLogger,
+    log_every: int,
 ) -> tuple[list[SourceFasta], list[Problem], dict[str, DatasetMeta]]:
     metadata = discover_dataset_meta(root)
     problems: list[Problem] = []
@@ -697,22 +782,42 @@ def discover_sources(
         )
         return sources, problems, metadata
 
-    for dataset_dir in sorted(path for path in downloads_dir.iterdir() if path.is_dir()):
+    dataset_dirs = sorted(path for path in downloads_dir.iterdir() if path.is_dir())
+    if dataset_filter:
+        dataset_dirs = [path for path in dataset_dirs if path.name in dataset_filter]
+    logger.log(f"discovering sources under {display_path(downloads_dir, root)}; datasets={len(dataset_dirs)}")
+
+    for dataset_index, dataset_dir in enumerate(dataset_dirs, start=1):
         slug = dataset_dir.name
-        if dataset_filter and slug not in dataset_filter:
-            continue
         dataset = metadata.get(slug, DatasetMeta(slug=slug, dataset=slug, part="unknown"))
         regular_fastas: list[Path] = []
         archive_paths: list[Path] = []
+        logger.log(f"[{dataset_index}/{len(dataset_dirs)}] {slug}: walking files")
 
+        walked = 0
         for path in sorted(dataset_dir.rglob("*")):
+            walked += 1
             if not path.is_file() or should_ignore_file(path):
+                if log_every > 0 and walked % log_every == 0:
+                    logger.log(
+                        f"{slug}: walked {walked} paths; FASTA files={len(regular_fastas)}; "
+                        f"archives={len(archive_paths)}"
+                    )
                 continue
             if is_supported_archive(path) or is_unsupported_archive(path):
                 archive_paths.append(path)
-                continue
-            if is_probably_fasta_name(path.name):
+            elif is_probably_fasta_name(path.name):
                 regular_fastas.append(path)
+            if log_every > 0 and walked % log_every == 0:
+                logger.log(
+                    f"{slug}: walked {walked} paths; FASTA files={len(regular_fastas)}; "
+                    f"archives={len(archive_paths)}"
+                )
+
+        logger.log(
+            f"{slug}: file walk done; paths={walked}; FASTA files={len(regular_fastas)}; "
+            f"archives={len(archive_paths)}"
+        )
 
         for path in regular_fastas:
             sources.append(
@@ -727,7 +832,14 @@ def discover_sources(
             )
 
         for path in archive_paths:
-            members = discover_archive_fastas(dataset=dataset, archive_path=path, root=root, problems=problems)
+            members = discover_archive_fastas(
+                dataset=dataset,
+                archive_path=path,
+                root=root,
+                problems=problems,
+                logger=logger,
+                log_every=log_every,
+            )
             if not members:
                 problems.append(
                     Problem(
@@ -739,6 +851,7 @@ def discover_sources(
                     )
                 )
             sources.extend(members)
+            logger.log(f"{slug}: total discovered FASTA sources={len(sources)}")
 
         if not regular_fastas and not archive_paths:
             problems.append(
@@ -751,6 +864,8 @@ def discover_sources(
                 )
             )
 
+        logger.log(f"{slug}: discovery complete")
+
     return sources, problems, metadata
 
 
@@ -761,6 +876,9 @@ def inspect_sources(
     full: bool,
     custom_regexes: dict[str, re.Pattern[str]],
     layout_overrides: dict[str, str],
+    logger: ProgressLogger,
+    log_every: int,
+    sample_file_per_genome: bool,
 ) -> tuple[list[dict[str, str]], list[Problem], dict[str, Layout]]:
     problems: list[Problem] = []
     rows: list[dict[str, str]] = []
@@ -770,25 +888,41 @@ def inspect_sources(
         if source.archive_path is None:
             regular_counts[source.slug] = regular_counts.get(source.slug, 0) + 1
 
-    for source in sources:
+    logger.log(f"inspecting FASTA layouts; sources={len(sources)}; full_count={full}")
+
+    for source_index, source in enumerate(sources, start=1):
+        if log_every > 0 and (source_index == 1 or source_index % log_every == 0 or source_index == len(sources)):
+            logger.log(
+                f"inspect progress: {source_index}/{len(sources)} sources; "
+                f"current={source.slug}:{Path(source.member_name or source.path.name).name}"
+            )
         key = source.label
-        try:
-            summary = summarize_fasta(source, sample_records=sample_records, full=full)
-        except (OSError, gzip.BadGzipFile, lzma.LZMAError, EOFError) as exc:
-            problems.append(Problem("error", source.slug, source.label, "fasta-read-failed", str(exc)))
-            continue
-
-        if summary.records == 0:
-            problems.append(Problem("error", source.slug, source.label, "empty-fasta", "No FASTA records found."))
-            continue
-
-        layout = classify_layout_with_options(
+        layout = deterministic_layout_without_content(
             source,
-            summary,
             dataset_regular_fastas=regular_counts.get(source.slug, 0),
-            custom_regex=custom_regexes.get(source.slug),
             layout_override=layout_overrides.get(source.slug, ""),
         )
+        summary = FastaSummary()
+        sampled = False
+        if layout is None or sample_file_per_genome or full:
+            try:
+                summary = summarize_fasta(source, sample_records=sample_records, full=full)
+                sampled = True
+            except (OSError, gzip.BadGzipFile, lzma.LZMAError, EOFError) as exc:
+                problems.append(Problem("error", source.slug, source.label, "fasta-read-failed", str(exc)))
+                continue
+
+            if summary.records == 0:
+                problems.append(Problem("error", source.slug, source.label, "empty-fasta", "No FASTA records found."))
+                continue
+
+            layout = classify_layout_with_options(
+                source,
+                summary,
+                dataset_regular_fastas=regular_counts.get(source.slug, 0),
+                custom_regex=custom_regexes.get(source.slug),
+                layout_override=layout_overrides.get(source.slug, ""),
+            )
         layouts[key] = layout
         if layout.mode == "unknown_multi_fasta":
             problems.append(
@@ -814,9 +948,9 @@ def inspect_sources(
                 "archive_member": source.member_name,
                 "layout": layout.mode,
                 "confidence": layout.confidence,
-                "records_observed": str(summary.records),
-                "bases_observed": str(summary.bases),
-                "sampled_records": str(summary.sampled_records),
+                "records_observed": str(summary.records) if sampled else "",
+                "bases_observed": str(summary.bases) if sampled else "",
+                "sampled_records": str(summary.sampled_records) if sampled else "0",
                 "truncated": "yes" if summary.truncated else "no",
                 "first_header": summary.first_header[:240],
                 "note": note,
@@ -1182,10 +1316,13 @@ def command_inspect(args: argparse.Namespace) -> int:
     dataset_filter = set(args.datasets.split(",")) if args.datasets else None
     custom_regexes = compile_mag_id_regexes(args.mag_id_regex)
     layout_overrides = parse_layout_overrides(args.layout_override)
+    logger = ProgressLogger(quiet=args.quiet)
     sources, discover_problems, _ = discover_sources(
         root=root,
         downloads_dir=downloads_dir,
         dataset_filter=dataset_filter,
+        logger=logger,
+        log_every=args.log_every,
     )
     rows, inspect_problems, _ = inspect_sources(
         sources=sources,
@@ -1193,6 +1330,9 @@ def command_inspect(args: argparse.Namespace) -> int:
         full=args.full_count,
         custom_regexes=custom_regexes,
         layout_overrides=layout_overrides,
+        logger=logger,
+        log_every=args.log_every,
+        sample_file_per_genome=args.sample_file_per_genome,
     )
     problems = discover_problems + inspect_problems
 
@@ -1234,12 +1374,15 @@ def command_build(args: argparse.Namespace) -> int:
     relative_to = Path(args.relative_to).resolve() if args.relative_to else None
     custom_regexes = compile_mag_id_regexes(args.mag_id_regex)
     layout_overrides = parse_layout_overrides(args.layout_override)
+    logger = ProgressLogger(quiet=args.quiet)
     ensure_clean_dir(out_dir, force=args.force)
 
     sources, discover_problems, _ = discover_sources(
         root=root,
         downloads_dir=downloads_dir,
         dataset_filter=dataset_filter,
+        logger=logger,
+        log_every=args.log_every,
     )
     inspect_rows, inspect_problems, layouts = inspect_sources(
         sources=sources,
@@ -1247,6 +1390,9 @@ def command_build(args: argparse.Namespace) -> int:
         full=args.full_count,
         custom_regexes=custom_regexes,
         layout_overrides=layout_overrides,
+        logger=logger,
+        log_every=args.log_every,
+        sample_file_per_genome=args.sample_file_per_genome,
     )
     all_problems = discover_problems + inspect_problems
 
@@ -1286,6 +1432,8 @@ def command_build(args: argparse.Namespace) -> int:
             continue
         if source.scope == "viral":
             continue
+        if args.log_every > 0 and (len(mag_rows) == 0 or len(mag_rows) % args.log_every == 0):
+            logger.log(f"materializing MAG source: {source.slug}:{Path(source.member_name or source.path.name).name}")
         rows, problems = process_mag_source(
             source,
             layout,
@@ -1301,6 +1449,7 @@ def command_build(args: argparse.Namespace) -> int:
     seen_viral_ids: set[str] = set()
     with viral_fasta.open("wb") as handle:
         for source in viral_sources:
+            logger.log(f"appending viral source: {source.slug}:{Path(source.member_name or source.path.name).name}")
             rows, problems = append_viral_source(
                 source,
                 out_fasta=handle,
@@ -1367,9 +1516,29 @@ def build_parser() -> argparse.ArgumentParser:
         help="Number of FASTA headers to sample per source during layout inference.",
     )
     parser.add_argument(
+        "--sample-file-per-genome",
+        action="store_true",
+        help=(
+            "Also read FASTA content for sources whose layout is already deterministically "
+            "file_per_genome. By default these are not sampled, which keeps inspect usable "
+            "for very large tar archives and per-MAG file trees."
+        ),
+    )
+    parser.add_argument(
         "--full-count",
         action="store_true",
         help="Scan entire FASTA sources during inspection instead of stopping after the sample.",
+    )
+    parser.add_argument(
+        "--log-every",
+        type=int,
+        default=1000,
+        help="Print progress every N walked paths, archive members, or inspected sources. Use 0 to disable interval logs.",
+    )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Suppress progress logs; summary output is still printed.",
     )
     parser.add_argument(
         "--fail-on-problems",
