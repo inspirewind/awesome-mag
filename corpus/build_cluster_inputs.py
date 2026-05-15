@@ -25,6 +25,7 @@ import sys
 import tarfile
 import time
 import zipfile
+import zlib
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -670,11 +671,28 @@ def discover_archive_fastas(
     archive_size = human_bytes(archive_path.stat().st_size if archive_path.exists() else None)
     logger.log(f"{dataset.slug}: scanning archive members: {archive_rel} ({archive_size})")
 
+    def record_archive_error(exc: BaseException, *, total_members: int, fasta_members: int) -> None:
+        message = (
+            f"{type(exc).__name__}: {exc}; scanned_entries={total_members}; "
+            f"fasta_members_seen={fasta_members}. The archive is likely incomplete or corrupt; "
+            "partial members from this archive were not added to clustering inputs."
+        )
+        logger.log(f"{dataset.slug}: archive scan failed for {archive_path.name}: {message}")
+        problems.append(
+            Problem(
+                "error",
+                dataset.slug,
+                display_path(archive_path, root),
+                "archive-read-failed",
+                message,
+            )
+        )
+
     try:
-        if archive_path.name.lower().endswith(".zip") or zipfile.is_zipfile(archive_path):
+        if archive_path.name.lower().endswith(".zip"):
             total_members = 0
+            members: list[str] = []
             with zipfile.ZipFile(archive_path) as archive:
-                members = []
                 for info in archive.infolist():
                     total_members += 1
                     if log_every > 0 and total_members % log_every == 0:
@@ -703,10 +721,10 @@ def discover_archive_fastas(
                 for name in members
             ]
 
-        if tarfile.is_tarfile(archive_path):
-            total_members = 0
-            with tarfile.open(archive_path, mode="r:*") as archive:
-                members = []
+        total_members = 0
+        members: list[str] = []
+        try:
+            with tarfile.open(archive_path, mode="r|*") as archive:
                 for member in archive:
                     total_members += 1
                     if log_every > 0 and total_members % log_every == 0:
@@ -716,6 +734,18 @@ def discover_archive_fastas(
                         )
                     if member.isfile() and is_probably_fasta_name(Path(member.name).name):
                         members.append(member.name)
+        except (
+            EOFError,
+            OSError,
+            gzip.BadGzipFile,
+            lzma.LZMAError,
+            tarfile.TarError,
+            zlib.error,
+        ) as exc:
+            record_archive_error(exc, total_members=total_members, fasta_members=len(members))
+            return []
+
+        if members:
             logger.log(
                 f"{dataset.slug}: {archive_path.name}: found {len(members)} FASTA member(s) "
                 f"across {total_members} tar entries"
@@ -734,16 +764,22 @@ def discover_archive_fastas(
                 )
                 for name in members
             ]
-    except (OSError, tarfile.TarError, zipfile.BadZipFile) as exc:
-        problems.append(
-            Problem(
-                "error",
-                dataset.slug,
-                display_path(archive_path, root),
-                "archive-read-failed",
-                str(exc),
+        if total_members > 0:
+            logger.log(
+                f"{dataset.slug}: {archive_path.name}: found 0 FASTA members "
+                f"across {total_members} tar entries"
             )
-        )
+            return []
+    except (
+        EOFError,
+        OSError,
+        gzip.BadGzipFile,
+        lzma.LZMAError,
+        tarfile.TarError,
+        zipfile.BadZipFile,
+        zlib.error,
+    ) as exc:
+        record_archive_error(exc, total_members=0, fasta_members=0)
         return []
 
     problems.append(
@@ -756,7 +792,6 @@ def discover_archive_fastas(
         )
     )
     return []
-
 
 def discover_sources(
     *,
@@ -832,6 +867,7 @@ def discover_sources(
             )
 
         for path in archive_paths:
+            problem_count_before = len(problems)
             members = discover_archive_fastas(
                 dataset=dataset,
                 archive_path=path,
@@ -840,7 +876,8 @@ def discover_sources(
                 logger=logger,
                 log_every=log_every,
             )
-            if not members:
+            had_new_error = any(problem.severity == "error" for problem in problems[problem_count_before:])
+            if not members and not had_new_error:
                 problems.append(
                     Problem(
                         "warning",
