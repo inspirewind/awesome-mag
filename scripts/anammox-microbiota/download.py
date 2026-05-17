@@ -39,11 +39,12 @@ NOTE = (
 ARTICLE_ID = "25476583"
 VERSION = "1"
 FIGSHARE_API = f"https://api.figshare.com/v2/articles/{ARTICLE_ID}"
+FIGSHARE_FILES_API = f"https://api.figshare.com/v2/articles/{ARTICLE_ID}/files"
 DOWNLOAD_ALL_URL = f"https://figshare.com/ndownloader/articles/{ARTICLE_ID}/versions/{VERSION}"
 USER_AGENT = "awesome-mag/0.1 (+https://github.com/)"
 
 
-def fetch_json(url: str) -> dict[str, object]:
+def fetch_json(url: str) -> object:
     request = urllib.request.Request(
         url,
         headers={"Accept": "application/json, */*", "User-Agent": USER_AGENT},
@@ -61,8 +62,6 @@ def fetch_json(url: str) -> dict[str, object]:
         payload = json.loads(text)
     except json.JSONDecodeError as exc:
         raise DownloadError(f"Figshare API returned non-JSON content:\n{text[:2000]}") from exc
-    if not isinstance(payload, dict):
-        raise DownloadError("Figshare API returned a non-object JSON payload.")
     return payload
 
 
@@ -102,11 +101,30 @@ def file_download_url(entry: dict[str, object]) -> str:
     return ""
 
 
-def build_api_items(root: Path, *, api_url: str, include_regex: str | None) -> list[DownloadItem]:
-    payload = fetch_json(api_url)
-    files = payload.get("files")
-    if not isinstance(files, list):
-        raise DownloadError("Figshare API payload did not expose a files list.")
+def fetch_file_entries(*, files_api_url: str, article_api_url: str) -> list[object]:
+    errors: list[str] = []
+    for label, url in (("files API", files_api_url), ("article metadata API", article_api_url)):
+        try:
+            payload = fetch_json(url)
+        except DownloadError as exc:
+            errors.append(f"{label} failed: {exc}")
+            continue
+        if isinstance(payload, list):
+            return payload
+        if isinstance(payload, dict) and isinstance(payload.get("files"), list):
+            return payload["files"]  # type: ignore[index]
+        errors.append(f"{label} response did not expose a files list.")
+    raise DownloadError("\n".join(errors))
+
+
+def build_api_items(
+    root: Path,
+    *,
+    files_api_url: str,
+    article_api_url: str,
+    include_regex: str | None,
+) -> list[DownloadItem]:
+    files = fetch_file_entries(files_api_url=files_api_url, article_api_url=article_api_url)
 
     output_dir = root / "downloads" / SLUG / "figshare_files"
     pattern = re.compile(include_regex) if include_regex else None
@@ -155,7 +173,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--api-url",
         default=FIGSHARE_API,
-        help="Figshare public article API URL. Defaults to the Anammox article API.",
+        help="Figshare public article metadata API URL. Defaults to the Anammox article API.",
+    )
+    parser.add_argument(
+        "--files-api-url",
+        default=FIGSHARE_FILES_API,
+        help="Figshare public article files API URL. Defaults to the Anammox article files API.",
     )
     parser.add_argument(
         "--include-regex",
@@ -183,7 +206,12 @@ def main(argv: list[str] | None = None) -> int:
         items = build_download_all_item(root)
     else:
         try:
-            items = build_api_items(root, api_url=args.api_url, include_regex=args.include_regex)
+            items = build_api_items(
+                root,
+                files_api_url=args.files_api_url,
+                article_api_url=args.api_url,
+                include_regex=args.include_regex,
+            )
         except DownloadError as exc:
             if args.no_fallback_download_all:
                 raise
