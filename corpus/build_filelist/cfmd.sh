@@ -56,6 +56,8 @@ export LOG_EVERY
 python3 - <<'PY'
 from __future__ import annotations
 
+import bz2
+import gzip
 import hashlib
 import os
 import shutil
@@ -99,6 +101,18 @@ def is_fasta(path: str) -> bool:
     return path.lower().endswith(FASTA_SUFFIXES)
 
 
+def output_member_name(member_name: str) -> str:
+    lower = member_name.lower()
+    if lower.endswith(".bz2") or lower.endswith(".gz"):
+        return member_name.rsplit(".", 1)[0]
+    return member_name
+
+
+def is_plain_fasta(path: Path) -> bool:
+    lower = path.name.lower()
+    return lower.endswith((".fa", ".fasta", ".fna", ".fas"))
+
+
 def md5sum(path: Path, *, log_every_bytes: int = 2 * 1024**3) -> str:
     digest = hashlib.md5()
     seen = 0
@@ -134,7 +148,8 @@ if log_every <= 0:
 
 download_dir = root / "downloads" / SLUG
 archive_path = download_dir / ARCHIVE_NAME
-extract_dir = download_dir / "extracted"
+archive_extract_dir = download_dir / "extracted"
+extract_dir = download_dir / "extracted_plain"
 filelist_dir = root / "corpus" / "cluster_inputs" / "rabbittclust"
 filelist = filelist_dir / f"{SLUG}.list"
 
@@ -186,11 +201,11 @@ try:
             if inspect_only:
                 continue
 
-            target = safe_target(extract_dir, member.name)
+            target = safe_target(extract_dir, output_member_name(member.name))
             if (
                 not force_extract
                 and target.exists()
-                and target.stat().st_size == member.size
+                and target.stat().st_size > 0
             ):
                 skipped += 1
                 continue
@@ -201,8 +216,16 @@ try:
 
             target.parent.mkdir(parents=True, exist_ok=True)
             tmp = target.with_name(target.name + ".tmp")
+            lower = member.name.lower()
             with source, tmp.open("wb") as out:
-                shutil.copyfileobj(source, out, length=1024 * 1024)
+                if lower.endswith(".bz2"):
+                    with bz2.BZ2File(source) as decompressed:
+                        shutil.copyfileobj(decompressed, out, length=1024 * 1024)
+                elif lower.endswith(".gz"):
+                    with gzip.GzipFile(fileobj=source) as decompressed:
+                        shutil.copyfileobj(decompressed, out, length=1024 * 1024)
+                else:
+                    shutil.copyfileobj(source, out, length=1024 * 1024)
             tmp.replace(target)
             extracted += 1
 except (tarfile.TarError, EOFError, OSError) as exc:
@@ -225,14 +248,15 @@ if inspect_only:
     print(f"archive: {archive_path}")
     print(f"archive_bytes: {observed_bytes}")
     print(f"expected_filelist_entries: {fasta_count}")
-    print(f"uncompressed_fasta_bytes: {fasta_bytes} ({human_bytes(fasta_bytes)})")
+    print(f"compressed_member_bytes: {fasta_bytes} ({human_bytes(fasta_bytes)})")
+    print(f"archive_extract_dir: {archive_extract_dir}")
     print(f"extract_dir: {extract_dir}")
     raise SystemExit(0)
 
 fastas = sorted(
     path
     for path in extract_dir.rglob("*")
-    if path.is_file() and is_fasta(path.name)
+    if path.is_file() and is_plain_fasta(path)
 )
 
 if len(fastas) != EXPECTED_FASTA_COUNT:
@@ -248,7 +272,8 @@ print(f"archive_bytes: {observed_bytes}")
 print(f"extract_dir: {extract_dir}")
 print(f"filelist: {filelist}")
 print(f"filelist_entries: {len(fastas)}")
-print(f"uncompressed_fasta_bytes: {fasta_bytes} ({human_bytes(fasta_bytes)})")
+print(f"compressed_member_bytes: {fasta_bytes} ({human_bytes(fasta_bytes)})")
+print(f"materialized_fasta_bytes: {sum(path.stat().st_size for path in fastas)} ({human_bytes(sum(path.stat().st_size for path in fastas))})")
 print(f"first_entry: {fastas[0].resolve()}")
 print(f"last_entry: {fastas[-1].resolve()}")
 PY
