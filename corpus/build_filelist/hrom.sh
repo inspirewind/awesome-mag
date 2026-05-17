@@ -7,9 +7,10 @@ set -euo pipefail
 # input archive: downloads/hrom/HROM_nonredundant_genomes.tar.gz
 # output filelist: corpus/cluster_inputs/rabbittclust/hrom.list
 #
-# This builder targets the HROM nonredundant genome archive. HROM also exposes
-# representative genomes as many individual files, but the current download
-# script retrieves the nonredundant bulk archive.
+# This builder targets the HROM nonredundant genome archive. The HROM paper
+# highlights 72,641 near-complete genomes, but the downloaded bulk archive is
+# the full nonredundant set of 145,149 medium-quality genomes. HROM also exposes
+# representative genomes as many individual files.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
@@ -61,7 +62,7 @@ from pathlib import Path
 
 SLUG = "hrom"
 ARCHIVE_NAME = "HROM_nonredundant_genomes.tar.gz"
-EXPECTED_FASTA_COUNT = 72_641
+EXPECTED_FASTA_COUNT = 145_149
 FASTA_SUFFIXES = (
     ".fa",
     ".fasta",
