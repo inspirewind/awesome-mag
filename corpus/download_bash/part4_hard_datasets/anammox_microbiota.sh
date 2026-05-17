@@ -4,9 +4,9 @@ set -euo pipefail
 # dataset: Anammox Microbiota Catalog
 # slug: anammox-microbiota
 # part: part4_hard_datasets
-# size: 8.12 GB Figshare file
+# size: 1.87 GB Figshare Strain_level_MAGs.zip
 # file: .download-complete
-# note: Direct Figshare file download. The package must be inspected after download to select MAG FASTA files.
+# note: Direct Figshare file download for the strain-level MAG archive.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
@@ -15,7 +15,7 @@ SLUG="anammox-microbiota"
 DATASET="Anammox Microbiota Catalog"
 PART="part4_hard_datasets"
 URL="https://ndownloader.figshare.com/files/45271516"
-EXPECTED_BYTES="8120727476"
+EXPECTED_BYTES="1865155640"
 OUT_DIR="${ROOT_DIR}/downloads/${SLUG}"
 OUT_FILE="${OUT_DIR}/anammox_microbiota_figshare_45271516.zip"
 MANIFEST="${OUT_DIR}/manifest.tsv"
@@ -127,12 +127,12 @@ write_completed_flag() {
     printf "path=%s\n" "$(relpath "${MARKER}")"
     printf "manifest=%s\n" "$(relpath "${MANIFEST}")"
     printf "archive=%s\n" "$(relpath "${OUT_FILE}")"
-    printf "size=8.12 GB Figshare file\n"
+    printf "size=1.87 GB Figshare Strain_level_MAGs.zip\n"
     printf "file_count=1\n"
     printf "present_count=1\n"
     printf "local_bytes=%s\n" "${actual_bytes}"
     printf "remote_bytes=%s\n" "${EXPECTED_BYTES}"
-    printf "note=Direct Figshare file download; inspect package contents before building MAG filelist.\n"
+    printf "note=Direct Figshare file download for the strain-level MAG archive.\n"
     printf "completed_at=%s\n" "${now}"
   } > "${COMPLETED_DIR}/${SLUG}.flag"
 }
@@ -152,7 +152,7 @@ echo "Part: ${PART}"
 echo "Files: 1"
 echo "Manifest: $(relpath "${MANIFEST}")"
 echo "Output: $(relpath "${OUT_DIR}")"
-echo "Expected size: 8.12 GB Figshare file"
+echo "Expected size: 1.87 GB Figshare Strain_level_MAGs.zip"
 echo "URL: ${URL}"
 
 if [ "${MANIFEST_ONLY}" -eq 1 ]; then
