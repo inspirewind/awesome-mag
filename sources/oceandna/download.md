@@ -16,7 +16,7 @@ Use the figshare collection as the main human-facing landing page:
 - collection page: `https://springernature.figshare.com/collections/The_OceanDNA_MAG_catalog_contains_over_50_000_prokaryotic_genomes_originated_from_various_marine_environments/5564844/1`
 - DataCite metadata: `https://api.datacite.org/dois/10.6084/m9.figshare.c.5564844.v1`
 
-Plain command-line access to figshare was not reliable during curation: `api.figshare.com` returned `403 Forbidden`, and a share URL returned an AWS WAF challenge. Use the browser page or the official figshare API from an allowed network before committing direct genome-file URLs.
+Plain command-line access to the generic figshare API can be unreliable from some environments, but the server-side probe on 2026-05-18 confirmed that the direct `ndownloader.figshare.com` article endpoint returns the non-representative MAG ZIP as `application/zip`.
 
 ## Supplementary Files
 
@@ -79,11 +79,11 @@ curl -L -o PRJDB11811-read-run-fastq.tsv \
   'https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJDB11811&result=read_run&fields=run_accession,fastq_ftp,fastq_md5,fastq_bytes'
 ```
 
-For bulk MAG sequence retrieval, prefer figshare. For INSDC retrieval, start from the accession mappings in the article/supplementary metadata and use DDBJ/ENA/GenBank WGS or DDBJ analysis records as appropriate.
+For bulk MAG sequence retrieval, combine the Figshare non-representative ZIP with ENA WGS representative FASTA files. The ENA `wgs_set` file report for `PRJDB11811` returns 8,466 representative FASTA URLs in the `set_fasta_ftp` field.
 
 ## Automation Decision
 
-A source-specific downloader is not added yet. The static supplementary XLSX files are direct downloads, while the genome collection is behind figshare pages that can challenge plain HTTP clients. If a helper is added later, it should first enumerate figshare file metadata from a network where the official API is accessible, then write a URL list for `wget` or `aria2c` rather than scraping browser state.
+A source-specific downloader is implemented as `corpus/download_bash/part4_hard_datasets/oceandna.sh`. It downloads Figshare article `15218454` from the stable direct ndownloader endpoint and enumerates ENA `PRJDB11811` WGS FASTA files into `downloads/oceandna/representatives_manifest.tsv`.
 
 ## Verification
 
@@ -93,4 +93,4 @@ During curation on 2026-05-09:
 - DataCite resolved `10.6084/m9.figshare.19416815.v1` as the CC0 Scientific Data supplementary-file dataset.
 - The ENA XML API returned public `PRJDB11811` / `DRP008400` metadata with the same title and counts.
 - The six static Springer supplementary URLs returned `200 OK`.
-- Plain `curl` to figshare API endpoints returned WAF/403 responses, so direct genome-file URLs were not validated.
+- On 2026-05-18, the server probe confirmed `https://ndownloader.figshare.com/articles/15218454/versions/1` returns a 26,291,374,398-byte ZIP for 43,859 non-representative MAGs, and the ENA `PRJDB11811` `wgs_set` report returns 8,466 representative FASTA URLs.

@@ -26,9 +26,9 @@ updated_at: 2023-08-11
 license: CC BY 4.0 for the article and figshare collection; CC0 for the figshare supplementary-file record
 access:
   method: public-figshare-and-insdc
-  automation: none
+  automation: implemented
   restrictions:
-    - The figshare collection is the primary whole-catalog landing page for genome sequences, but the current figshare web/API endpoints can return WAF or 403 challenges to plain curl clients.
+    - The figshare collection is the primary whole-catalog landing page for genome sequences, but generic figshare web/API endpoints can return WAF or 403 challenges to plain curl clients; use the direct ndownloader article endpoint for the non-representative MAG ZIP.
     - The 8,466 species representatives were submitted as WGS entries under BioProject PRJDB11811 / SRA study DRP008400.
     - The 43,859 non-representative genomes were submitted as DDBJ analysis entries and are described by the article as available only through DDBJ, while also being present in figshare.
     - The Nature/Springer supplementary XLSX files are public static files and support byte-range downloads.
@@ -44,6 +44,8 @@ download:
   ddbj_bioproject_reference: https://ddbj.nig.ac.jp/resource/bioproject/PRJDB11811
   ddbj_search_entry: https://ddbj.nig.ac.jp/search/entry/bioproject/PRJDB11811
   read_run_filereport: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJDB11811&result=read_run&fields=run_accession,fastq_ftp,fastq_md5,fastq_bytes"
+  nonrepresentative_figshare_article: https://ndownloader.figshare.com/articles/15218454/versions/1
+  representative_wgs_filereport: "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJDB11811&result=wgs_set&fields=accession,wgs_set,set_fasta_ftp,description&format=tsv"
   supplementary_files:
     file_list:
       label: A list of supplementary files
