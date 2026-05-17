@@ -31,12 +31,12 @@ updated_at: 2024-06-06
 checked_at: 2026-05-11
 license: "Article and Springer supplementary files are Creative Commons Attribution 4.0; Figshare share license was not captured because direct CLI access returned an AWS WAF challenge; NCBI/SRA and GitHub records are subject to their own terms, and the GitHub repository does not declare a license."
 access:
-  method: public-ncbi-sra-plus-figshare-browser-and-springer-supplements
-  automation: none
+  method: public-ncbi-sra-plus-figshare-private-link-and-springer-supplements
+  automation: corpus/download_bash/part4_hard_datasets/meta320.sh
   restrictions:
     - Raw sequence reads are public under NCBI BioProject PRJNA972320 and SRA study SRP438552; NCBI runinfo reports 320 paired Illumina HiSeq 4000 metagenomic WGA runs.
-    - Protein and ORF sequences for all MAGs are deposited in a Figshare share; the browser page is the practical access route.
-    - The Figshare ndownloader file endpoint observed during curation returned HTTP/2 202 with `x-amzn-waf-action: challenge`, so command-line access should be treated as WAF-challenged.
+    - The Meta320 MAG assemblies file is deposited in a Figshare private share; the repository wrapper uses the official downloader-host private-link file endpoint.
+    - The browser-facing Figshare ndownloader file endpoint observed during curation returned HTTP/2 202 with `x-amzn-waf-action: challenge`, so command-line access should still be validated on the target server and should not attempt challenge bypasses.
     - Springer supplementary files are direct static files and include sample metadata, gene-catalog features, MAG abundance, CAZyme-predicted proteins, host-specific MAGs, and PUL annotations.
     - The GitHub workflow repository provides shell/Python/R pipeline snippets and environment files, but no downloadable data release archive.
 download:

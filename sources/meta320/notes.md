@@ -40,9 +40,9 @@ Springer supplementary files are important for curation because several MAG-leve
 
 - Use the article DOI page as the descriptive landing page.
 - Use NCBI BioProject `PRJNA972320` or the SRA runinfo CSV as the reproducible route for raw reads.
-- Use the Figshare share for MAG protein and ORF sequence downloads. During curation, the observed file endpoint `https://figshare.com/ndownloader/files/40441679?private_link=fe5fb3dd964a15844505` returned `HTTP/2 202` with `x-amzn-waf-action: challenge`, so command-line automation is not reliable from this environment.
+- Use the Figshare share for the Meta320 MAG assemblies file. The observed browser-facing file endpoint `https://figshare.com/ndownloader/files/40441679?private_link=fe5fb3dd964a15844505` returned `HTTP/2 202` with `x-amzn-waf-action: challenge` during one curation check, but the official downloader-host endpoint `https://ndownloader.figshare.com/files/40441679?private_link=fe5fb3dd964a15844505` is now wrapped by `corpus/download_bash/part4_hard_datasets/meta320.sh` and should be validated on the target server.
 - Use Springer static supplementary URLs for metadata/annotation tables; spot checks of Additional files 8, 9, and 12 returned HTTP 200.
-- No source-specific automation script is needed now. A future helper could download the SRA runinfo CSV and emit sample/run manifests, but it should not try to bypass the Figshare WAF challenge.
+- Do not add challenge-bypass logic. If the official downloader-host endpoint fails, use browser-mediated download or revisit the Figshare route. After a successful download, inspect the payload packaging and FASTA headers before building the RabbitTClust filelist.
 
 Primary citation:
 

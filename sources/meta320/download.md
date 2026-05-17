@@ -42,21 +42,27 @@ Or use the `download_path` column in the NCBI runinfo CSV if direct SRA object d
 https://sra-downloadb.be-md.ncbi.nlm.nih.gov/sos6/sra-pub-zq-40/SRR024/24653/SRR24653945/SRR24653945.lite.1
 ```
 
-## MAG Protein and ORF Sequences
+## MAG Assemblies
 
-The article states that protein and ORF sequences for all MAGs are deposited in Figshare:
+The Figshare share exposes a file titled "5,810 genomes of meta320", corresponding to the article's medium- and high-quality MAG set:
 
 ```text
 https://figshare.com/s/fe5fb3dd964a15844505
 ```
 
-During curation, the observed direct Figshare file endpoint:
+The observed direct Figshare file endpoint:
 
 ```text
 https://figshare.com/ndownloader/files/40441679?private_link=fe5fb3dd964a15844505
 ```
 
-returned `HTTP/2 202` with `x-amzn-waf-action: challenge`, so the practical route is browser download from the Figshare share. Do not add automation that attempts to bypass that challenge.
+returned `HTTP/2 202` with `x-amzn-waf-action: challenge` during one curation check, but the same file can also be addressed through the official file downloader host:
+
+```text
+https://ndownloader.figshare.com/files/40441679?private_link=fe5fb3dd964a15844505
+```
+
+The repository now includes a thin download wrapper at `corpus/download_bash/part4_hard_datasets/meta320.sh`. It does not scrape or bypass Figshare protections; it only uses the public private-link file endpoint and should be validated on the target server before writing the filelist builder.
 
 ## Springer Supplementary Files
 
@@ -102,7 +108,7 @@ The pipeline mentions tools including metaWRAP, dRep, GTDB-Tk release 207, eggNO
 
 ## Automation Decision
 
-No source-specific download script is needed for the README entry.
+A thin source-specific download script is included because the Figshare share exposes one MAG assemblies file.
 
 The reproducible parts are already covered by stable public endpoints:
 
@@ -110,7 +116,7 @@ The reproducible parts are already covered by stable public endpoints:
 - SRA Toolkit or runinfo `download_path` values for read transfer
 - Springer static supplementary file URLs for table downloads
 
-The Figshare MAG sequence endpoint is not suitable for unattended scripting from this environment because it returns a WAF challenge. A future helper should stop at manifest generation and should not try to bypass Figshare browser protections.
+The Figshare MAG sequence endpoint should still be treated as network-sensitive. If the server receives an HTML challenge/error page instead of the binary file, use browser-mediated download or revisit the Figshare route rather than adding challenge-bypass logic. After a successful download, inspect the payload packaging and FASTA headers before building the RabbitTClust filelist.
 
 ## Verification
 
