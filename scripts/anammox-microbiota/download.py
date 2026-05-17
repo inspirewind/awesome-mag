@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import urllib.error
@@ -41,13 +42,35 @@ VERSION = "1"
 FIGSHARE_API = f"https://api.figshare.com/v2/articles/{ARTICLE_ID}"
 FIGSHARE_FILES_API = f"https://api.figshare.com/v2/articles/{ARTICLE_ID}/files"
 DOWNLOAD_ALL_URL = f"https://figshare.com/ndownloader/articles/{ARTICLE_ID}/versions/{VERSION}"
-USER_AGENT = "awesome-mag/0.1 (+https://github.com/)"
+DEFAULT_USER_AGENT = "awesome-mag/0.1 (mailto:your-email@example.org; +https://github.com/)"
 
 
-def fetch_json(url: str) -> object:
+def load_token(*, env_name: str, token_file: str | None) -> str:
+    if token_file:
+        path = Path(token_file).expanduser()
+        try:
+            token = path.read_text(encoding="utf-8").strip()
+        except OSError as exc:
+            raise DownloadError(f"Could not read Figshare token file: {path}") from exc
+        if token:
+            return token
+    return os.environ.get(env_name, "").strip()
+
+
+def request_headers(*, user_agent: str, token: str = "", accept: str = "application/json, */*") -> dict[str, str]:
+    headers = {
+        "Accept": accept,
+        "User-Agent": user_agent,
+    }
+    if token:
+        headers["Authorization"] = f"token {token}"
+    return headers
+
+
+def fetch_json(url: str, *, token: str, user_agent: str) -> object:
     request = urllib.request.Request(
         url,
-        headers={"Accept": "application/json, */*", "User-Agent": USER_AGENT},
+        headers=request_headers(user_agent=user_agent, token=token),
     )
     try:
         with urllib.request.urlopen(request) as response:
@@ -101,11 +124,17 @@ def file_download_url(entry: dict[str, object]) -> str:
     return ""
 
 
-def fetch_file_entries(*, files_api_url: str, article_api_url: str) -> list[object]:
+def fetch_file_entries(
+    *,
+    files_api_url: str,
+    article_api_url: str,
+    token: str,
+    user_agent: str,
+) -> list[object]:
     errors: list[str] = []
     for label, url in (("files API", files_api_url), ("article metadata API", article_api_url)):
         try:
-            payload = fetch_json(url)
+            payload = fetch_json(url, token=token, user_agent=user_agent)
         except DownloadError as exc:
             errors.append(f"{label} failed: {exc}")
             continue
@@ -123,8 +152,15 @@ def build_api_items(
     files_api_url: str,
     article_api_url: str,
     include_regex: str | None,
+    token: str,
+    user_agent: str,
 ) -> list[DownloadItem]:
-    files = fetch_file_entries(files_api_url=files_api_url, article_api_url=article_api_url)
+    files = fetch_file_entries(
+        files_api_url=files_api_url,
+        article_api_url=article_api_url,
+        token=token,
+        user_agent=user_agent,
+    )
 
     output_dir = root / "downloads" / SLUG / "figshare_files"
     pattern = re.compile(include_regex) if include_regex else None
@@ -186,6 +222,24 @@ def build_parser() -> argparse.ArgumentParser:
         help="Only download Figshare API files whose names match this Python regex.",
     )
     parser.add_argument(
+        "--figshare-token-env",
+        default="FIGSHARE_TOKEN",
+        help="Environment variable containing a Figshare personal token. Defaults to FIGSHARE_TOKEN.",
+    )
+    parser.add_argument(
+        "--figshare-token-file",
+        default=None,
+        help="Path to a file containing a Figshare personal token. Avoid committing this file.",
+    )
+    parser.add_argument(
+        "--user-agent",
+        default=DEFAULT_USER_AGENT,
+        help=(
+            "User-Agent sent to the Figshare API. Replace the mailto placeholder with "
+            "a real contact address if your server policy allows it."
+        ),
+    )
+    parser.add_argument(
         "--download-all-route",
         action="store_true",
         help="Skip file-level API enumeration and download the official Figshare download-all ZIP route.",
@@ -201,6 +255,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     root = Path(args.root).expanduser().resolve()
+    token = load_token(env_name=args.figshare_token_env, token_file=args.figshare_token_file)
 
     if args.download_all_route:
         items = build_download_all_item(root)
@@ -211,6 +266,8 @@ def main(argv: list[str] | None = None) -> int:
                 files_api_url=args.files_api_url,
                 article_api_url=args.api_url,
                 include_regex=args.include_regex,
+                token=token,
+                user_agent=args.user_agent,
             )
         except DownloadError as exc:
             if args.no_fallback_download_all:
