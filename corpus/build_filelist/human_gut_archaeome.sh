@@ -7,10 +7,11 @@ set -euo pipefail
 # input archive: downloads/human-gut-archaeome/archaea_gut-genomes.tar.gz
 # output filelist: corpus/cluster_inputs/rabbittclust/human-gut-archaeome.list
 #
-# The EBI archive stores recovered archaeal genomes in GFF/GFF3 format. Each
-# GFF is one genome and can contain its nucleotide sequence in a trailing
-# ##FASTA block. This builder materializes those FASTA blocks as one .fna file
-# per genome so RabbitTClust receives genome-level FASTA paths.
+# The EBI archive stores recovered archaeal genomes in GFF/GFF3 format and
+# contains nested representative subsets. RabbitTClust should only receive the
+# full nonredundant catalogue under MAGs_1167_gff/. Each selected GFF is one
+# genome and can contain its nucleotide sequence in a trailing ##FASTA block.
+# This builder materializes those FASTA blocks as one .fna file per genome.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
@@ -72,6 +73,7 @@ SLUG = "human-gut-archaeome"
 ARCHIVE_NAME = "archaea_gut-genomes.tar.gz"
 EXPECTED_ARCHIVE_BYTES = 688_991_120
 EXPECTED_GENOME_COUNT = 1_167
+SELECTED_PREFIX = "MAGs_1167_gff/"
 FASTA_SUFFIXES = (
     ".fa",
     ".fasta",
@@ -112,6 +114,12 @@ def is_fasta_name(path: str) -> bool:
 
 def is_gff_name(path: str) -> bool:
     return path.lower().endswith(GFF_SUFFIXES)
+
+
+def normalize_member_name(path: str) -> str:
+    while path.startswith("./"):
+        path = path[2:]
+    return path
 
 
 def strip_compression_suffix(path: str) -> str:
@@ -216,6 +224,7 @@ filelist_dir.mkdir(parents=True, exist_ok=True)
 entries = 0
 direct_fasta_members = 0
 gff_members = 0
+excluded_sequence_like_members = 0
 gff_with_fasta = 0
 gff_without_fasta = 0
 sequence_sources = 0
@@ -236,21 +245,29 @@ try:
                 print(
                     f"[scan] {ARCHIVE_NAME}: entries={entries}; "
                     f"direct_fastas={direct_fasta_members}; gff={gff_members}; "
-                    f"gff_with_fasta={gff_with_fasta}; extracted={extracted}; "
+                    f"gff_with_fasta={gff_with_fasta}; "
+                    f"excluded_sequence_like={excluded_sequence_like_members}; "
+                    f"extracted={extracted}; "
                     f"skipped={skipped}; elapsed={elapsed:.1f}s",
                     flush=True,
                 )
 
+            member_name = normalize_member_name(member.name)
+
             if not member.isfile():
                 continue
 
-            is_fasta = is_fasta_name(member.name)
-            is_gff = is_gff_name(member.name)
+            is_fasta = is_fasta_name(member_name)
+            is_gff = is_gff_name(member_name)
             if not is_fasta and not is_gff:
                 continue
 
+            if not member_name.startswith(SELECTED_PREFIX):
+                excluded_sequence_like_members += 1
+                continue
+
             member_bytes += member.size
-            target_name = output_member_name(member.name)
+            target_name = output_member_name(member_name)
             if target_name in targets_seen:
                 raise SystemExit(f"Duplicate materialized target from archive members: {target_name}")
             targets_seen.add(target_name)
@@ -268,12 +285,12 @@ try:
 
                 source = tar.extractfile(member)
                 if source is None:
-                    raise SystemExit(f"Could not extract tar member: {member.name}")
+                    raise SystemExit(f"Could not extract tar member: {member_name}")
 
                 target.parent.mkdir(parents=True, exist_ok=True)
                 tmp = target.with_name(target.name + ".tmp")
                 with source:
-                    with open_member_payload(member.name, source) as payload:
+                    with open_member_payload(member_name, source) as payload:
                         with tmp.open("wb") as out:
                             shutil.copyfileobj(payload, out, length=1024 * 1024)
                 tmp.replace(target)
@@ -290,10 +307,10 @@ try:
 
             source = tar.extractfile(member)
             if source is None:
-                raise SystemExit(f"Could not extract tar member: {member.name}")
+                raise SystemExit(f"Could not extract tar member: {member_name}")
 
             with source:
-                with open_member_payload(member.name, source) as payload:
+                with open_member_payload(member_name, source) as payload:
                     if inspect_only:
                         headers, bases, _ = extract_gff_fasta(payload)
                     else:
@@ -323,7 +340,8 @@ if sequence_sources != EXPECTED_GENOME_COUNT:
         f"Unexpected genome sequence source count: "
         f"{sequence_sources} != {EXPECTED_GENOME_COUNT}. "
         f"direct_fastas={direct_fasta_members}; gff_with_fasta={gff_with_fasta}; "
-        f"gff_without_fasta={gff_without_fasta}"
+        f"gff_without_fasta={gff_without_fasta}; "
+        f"excluded_sequence_like={excluded_sequence_like_members}"
     )
 
 elapsed = time.time() - started
@@ -331,6 +349,7 @@ print(
     f"[done] {ARCHIVE_NAME}: entries={entries}; sequence_sources={sequence_sources}; "
     f"direct_fastas={direct_fasta_members}; gff={gff_members}; "
     f"gff_with_fasta={gff_with_fasta}; gff_without_fasta={gff_without_fasta}; "
+    f"excluded_sequence_like={excluded_sequence_like_members}; "
     f"member_bytes={member_bytes} ({human_bytes(member_bytes)}); "
     f"gff_fasta_bases={gff_fasta_bases}; extracted={extracted}; "
     f"skipped={skipped}; elapsed={elapsed:.1f}s",
@@ -343,8 +362,10 @@ if inspect_only:
     print(f"archive: {archive_path}")
     print(f"archive_bytes: {archive_bytes}")
     print(f"expected_filelist_entries: {sequence_sources}")
+    print(f"selected_prefix: {SELECTED_PREFIX}")
     print(f"direct_fasta_members: {direct_fasta_members}")
     print(f"gff_members: {gff_members}")
+    print(f"excluded_sequence_like_members: {excluded_sequence_like_members}")
     print(f"gff_with_fasta: {gff_with_fasta}")
     print(f"gff_without_fasta: {gff_without_fasta}")
     print(f"member_bytes: {member_bytes} ({human_bytes(member_bytes)})")
@@ -352,9 +373,10 @@ if inspect_only:
     print(f"extract_dir: {extract_dir}")
     raise SystemExit(0)
 
+selected_extract_root = extract_dir / SELECTED_PREFIX.rstrip("/")
 fastas = sorted(
     path
-    for path in extract_dir.rglob("*")
+    for path in selected_extract_root.rglob("*")
     if path.is_file() and is_plain_fasta(path)
 )
 
