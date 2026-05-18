@@ -93,9 +93,9 @@ The ScienceDirect article page lists supplementary datasets that are useful for 
 
 ## Automation Decision
 
-A source-specific `download.py` is not needed for the current awesome entry. GSA raw-read directories are static and checksum-backed, and GWH exposes the MAG FASTA URLs through a public JSON endpoint.
+A source-specific downloader is implemented as `corpus/download_bash/part4_hard_datasets/qxlsg.sh`. It uses `scripts/qxlsg/download.py` to fetch the GWH BioProject assembly JSON and download only DNA genome FASTA links for the 5,866 MAGs.
 
-If a helper is added later, it should:
+The helper:
 
 - fetch the GWH assemblies JSON for `PRJCA037687`;
 - emit a TSV/JSON manifest with GWH accession, assembly page, MAG label, direct FASTA URL, file size if checked, and last-modified date if checked;
