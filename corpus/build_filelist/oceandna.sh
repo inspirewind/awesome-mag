@@ -74,6 +74,7 @@ from __future__ import annotations
 import bz2
 import os
 import shutil
+import tarfile
 import time
 import zipfile
 from pathlib import Path
@@ -105,6 +106,16 @@ SUPPORTED_OUTPUT_SUFFIXES = (
     ".fna.gz",
     ".fas.gz",
 )
+TAR_ARCHIVE_SUFFIXES = (
+    ".tar",
+    ".tar.gz",
+    ".tgz",
+    ".tar.bz2",
+    ".tbz2",
+    ".tar.xz",
+    ".txz",
+)
+ZIP_ARCHIVE_SUFFIXES = (".zip",)
 
 
 def human_bytes(value: int) -> str:
@@ -125,6 +136,33 @@ def is_supported_fasta_path(path: Path) -> bool:
     return path.name.lower().endswith(SUPPORTED_OUTPUT_SUFFIXES)
 
 
+def is_tar_archive(path: str) -> bool:
+    return path.lower().endswith(TAR_ARCHIVE_SUFFIXES)
+
+
+def is_zip_archive(path: str) -> bool:
+    lower = path.lower()
+    return lower.endswith(ZIP_ARCHIVE_SUFFIXES) and not is_fasta(lower)
+
+
+def archive_label(path: str) -> str:
+    name = Path(path).name
+    lower = name.lower()
+    for suffix in (
+        ".tar.gz",
+        ".tar.bz2",
+        ".tar.xz",
+        ".tgz",
+        ".tbz2",
+        ".txz",
+        ".tar",
+        ".zip",
+    ):
+        if lower.endswith(suffix):
+            return name[: -len(suffix)]
+    return Path(name).stem
+
+
 def output_member_name(member_name: str) -> str:
     if member_name.lower().endswith(".bz2"):
         return member_name.rsplit(".", 1)[0]
@@ -135,7 +173,111 @@ def safe_target(root: Path, member_name: str) -> Path:
     target = (root / member_name).resolve()
     root_resolved = root.resolve()
     if target != root_resolved and not str(target).startswith(str(root_resolved) + os.sep):
-        raise SystemExit(f"Unsafe ZIP member path: {member_name}")
+        raise SystemExit(f"Unsafe archive member path: {member_name}")
+    return target
+
+
+def copy_fasta_member(source, source_name: str, target: Path, expected_size: int, state: dict[str, int]) -> None:
+    if not force_extract and target.exists():
+        if source_name.lower().endswith(".bz2"):
+            if target.stat().st_size > 0:
+                state["skipped"] += 1
+                return
+        elif target.stat().st_size == expected_size:
+            state["skipped"] += 1
+            return
+
+    target.parent.mkdir(parents=True, exist_ok=True)
+    tmp = target.with_name(target.name + ".tmp")
+    with source, tmp.open("wb") as out:
+        if source_name.lower().endswith(".bz2"):
+            with bz2.BZ2File(source) as decompressed:
+                shutil.copyfileobj(decompressed, out, length=8 * 1024 * 1024)
+        else:
+            shutil.copyfileobj(source, out, length=8 * 1024 * 1024)
+    tmp.replace(target)
+    state["extracted"] += 1
+
+
+def log_progress(archive_name: str, state: dict[str, int], started: float) -> None:
+    if state["entries"] % log_every != 0:
+        return
+    elapsed = time.time() - started
+    print(
+        f"[scan] {archive_name}: entries={state['entries']}; "
+        f"fastas={state['fastas']}; extracted={state['extracted']}; "
+        f"skipped={state['skipped']}; elapsed={elapsed:.1f}s",
+        flush=True,
+    )
+
+
+def process_zip_fastas(
+    archive: zipfile.ZipFile,
+    infos: list[zipfile.ZipInfo],
+    *,
+    archive_name: str,
+    target_root: Path,
+    summary,
+    state: dict[str, int],
+    started: float,
+) -> None:
+    for info in infos:
+        state["entries"] += 1
+        log_progress(archive_name, state, started)
+        if info.is_dir() or not is_fasta(info.filename):
+            continue
+
+        state["fastas"] += 1
+        state["fasta_bytes"] += info.file_size
+        summary.write(f"{archive_name}!{info.filename}\t{info.compress_size}\t{info.file_size}\n")
+        if inspect_only:
+            continue
+
+        target = safe_target(target_root, output_member_name(info.filename))
+        source = archive.open(info)
+        copy_fasta_member(source, info.filename, target, info.file_size, state)
+
+
+def process_tar_fastas(
+    fileobj,
+    *,
+    archive_name: str,
+    target_root: Path,
+    summary,
+    state: dict[str, int],
+    started: float,
+) -> None:
+    with tarfile.open(fileobj=fileobj, mode="r|*") as tar:
+        for member in tar:
+            state["entries"] += 1
+            log_progress(archive_name, state, started)
+            if not member.isfile() or not is_fasta(member.name):
+                continue
+
+            state["fastas"] += 1
+            state["fasta_bytes"] += member.size
+            summary.write(f"{archive_name}!{member.name}\t\t{member.size}\n")
+            if inspect_only:
+                continue
+
+            source = tar.extractfile(member)
+            if source is None:
+                raise SystemExit(f"Could not extract tar member: {archive_name}!{member.name}")
+
+            target = safe_target(target_root, output_member_name(member.name))
+            copy_fasta_member(source, member.name, target, member.size, state)
+
+
+def materialize_nested_zip(archive: zipfile.ZipFile, info: zipfile.ZipInfo, cache_dir: Path) -> Path:
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    target = cache_dir / Path(info.filename).name
+    if not force_extract and target.exists() and target.stat().st_size == info.file_size:
+        return target
+
+    tmp = target.with_name(target.name + ".tmp")
+    with archive.open(info) as source, tmp.open("wb") as out:
+        shutil.copyfileobj(source, out, length=8 * 1024 * 1024)
+    tmp.replace(target)
     return target
 
 
@@ -183,11 +325,7 @@ rep_fastas = sorted(
 if len(rep_fastas) != expected_rep:
     raise SystemExit(f"Unexpected representative FASTA count: {len(rep_fastas)} != {expected_rep}")
 
-entries = 0
-nonrep_fastas = 0
-nonrep_fasta_bytes = 0
-extracted = 0
-skipped = 0
+state = {"entries": 0, "fastas": 0, "fasta_bytes": 0, "extracted": 0, "skipped": 0}
 started = time.time()
 
 print(f"[scan] {zip_path.name}: start ({human_bytes(zip_bytes)})", flush=True)
@@ -201,54 +339,138 @@ try:
             print(f"[zip-test] {zip_path.name}: OK", flush=True)
 
         summary.write("member\tcompressed_size\tuncompressed_size\n")
-        for info in archive.infolist():
-            entries += 1
-            if entries % log_every == 0:
-                elapsed = time.time() - started
+        infos = archive.infolist()
+        direct_fastas = [info for info in infos if not info.is_dir() and is_fasta(info.filename)]
+        nested_tars = [info for info in infos if not info.is_dir() and is_tar_archive(info.filename)]
+        nested_zips = [info for info in infos if not info.is_dir() and is_zip_archive(info.filename)]
+
+        if direct_fastas:
+            print(
+                f"[scan] {zip_path.name}: found {len(direct_fastas)} direct FASTA member(s) in outer ZIP",
+                flush=True,
+            )
+            process_zip_fastas(
+                archive,
+                infos,
+                archive_name=zip_path.name,
+                target_root=extract_dir,
+                summary=summary,
+                state=state,
+                started=started,
+            )
+        elif nested_tars:
+            print(
+                f"[scan] {zip_path.name}: no direct FASTA members; "
+                f"streaming {len(nested_tars)} nested tar archive(s)",
+                flush=True,
+            )
+            for info in nested_tars:
+                label = archive_label(info.filename)
+                target_root = extract_dir / label
                 print(
-                    f"[scan] {zip_path.name}: entries={entries}; "
-                    f"fastas={nonrep_fastas}; extracted={extracted}; "
-                    f"skipped={skipped}; elapsed={elapsed:.1f}s",
+                    f"[scan] nested tar: {info.filename} "
+                    f"({human_bytes(info.file_size)} uncompressed ZIP member bytes)",
                     flush=True,
                 )
-
-            if info.is_dir() or not is_fasta(info.filename):
-                continue
-
-            nonrep_fastas += 1
-            nonrep_fasta_bytes += info.file_size
-            summary.write(f"{info.filename}\t{info.compress_size}\t{info.file_size}\n")
-            if inspect_only:
-                continue
-
-            target = safe_target(extract_dir, output_member_name(info.filename))
-            if not force_extract and target.exists():
-                if info.filename.lower().endswith(".bz2"):
-                    if target.stat().st_size > 0:
-                        skipped += 1
-                        continue
-                elif target.stat().st_size == info.file_size:
-                    skipped += 1
-                    continue
-
-            target.parent.mkdir(parents=True, exist_ok=True)
-            tmp = target.with_name(target.name + ".tmp")
-            with archive.open(info) as source, tmp.open("wb") as out:
-                if info.filename.lower().endswith(".bz2"):
-                    with bz2.BZ2File(source) as decompressed:
-                        shutil.copyfileobj(decompressed, out, length=8 * 1024 * 1024)
-                else:
-                    shutil.copyfileobj(source, out, length=8 * 1024 * 1024)
-            tmp.replace(target)
-            extracted += 1
-except (zipfile.BadZipFile, EOFError, OSError) as exc:
+                with archive.open(info) as source:
+                    process_tar_fastas(
+                        source,
+                        archive_name=info.filename,
+                        target_root=target_root,
+                        summary=summary,
+                        state=state,
+                        started=started,
+                    )
+        elif nested_zips:
+            print(
+                f"[scan] {zip_path.name}: no direct FASTA members; "
+                f"materializing {len(nested_zips)} nested ZIP archive(s)",
+                flush=True,
+            )
+            nested_cache_dir = download_dir / "nested_archives"
+            for info in nested_zips:
+                label = archive_label(info.filename)
+                target_root = extract_dir / label
+                print(
+                    f"[scan] nested zip: {info.filename} "
+                    f"({human_bytes(info.file_size)} uncompressed ZIP member bytes)",
+                    flush=True,
+                )
+                nested_zip_path = materialize_nested_zip(archive, info, nested_cache_dir)
+                with zipfile.ZipFile(nested_zip_path) as nested_archive:
+                    nested_infos = nested_archive.infolist()
+                    nested_direct_fastas = [
+                        nested_info
+                        for nested_info in nested_infos
+                        if not nested_info.is_dir() and is_fasta(nested_info.filename)
+                    ]
+                    nested_tar_infos = [
+                        nested_info
+                        for nested_info in nested_infos
+                        if not nested_info.is_dir() and is_tar_archive(nested_info.filename)
+                    ]
+                    if nested_direct_fastas:
+                        process_zip_fastas(
+                            nested_archive,
+                            nested_infos,
+                            archive_name=info.filename,
+                            target_root=target_root,
+                            summary=summary,
+                            state=state,
+                            started=started,
+                        )
+                    elif nested_tar_infos:
+                        for nested_tar in nested_tar_infos:
+                            nested_tar_label = archive_label(nested_tar.filename)
+                            nested_tar_target_root = target_root / nested_tar_label
+                            print(
+                                f"[scan] nested tar: {info.filename}!{nested_tar.filename} "
+                                f"({human_bytes(nested_tar.file_size)} uncompressed ZIP member bytes)",
+                                flush=True,
+                            )
+                            with nested_archive.open(nested_tar) as source:
+                                process_tar_fastas(
+                                    source,
+                                    archive_name=f"{info.filename}!{nested_tar.filename}",
+                                    target_root=nested_tar_target_root,
+                                    summary=summary,
+                                    state=state,
+                                    started=started,
+                                )
+                    else:
+                        preview = "\n".join(
+                            f"  {nested_info.file_size}\t{nested_info.filename}"
+                            for nested_info in nested_infos[:40]
+                        )
+                        raise SystemExit(
+                            "No FASTA or supported nested tar archive was found in "
+                            f"nested ZIP {info.filename}. First members:\n{preview}"
+                        )
+        else:
+            preview = "\n".join(
+                f"  {info.file_size}\t{info.filename}" for info in infos[:40]
+            )
+            raise SystemExit(
+                "No FASTA or supported nested tar archive was found in the "
+                f"Figshare ZIP. First members:\n{preview}"
+            )
+except (zipfile.BadZipFile, tarfile.TarError, EOFError, OSError) as exc:
     raise SystemExit(
         f"Failed to read {zip_path}: {exc}. "
         "The ZIP is likely incomplete; rerun the OceanDNA download script to resume."
     ) from exc
 
+nonrep_fastas = state["fastas"]
+nonrep_fasta_bytes = state["fasta_bytes"]
+extracted = state["extracted"]
+skipped = state["skipped"]
+entries = state["entries"]
+
 if nonrep_fastas != expected_nonrep:
-    raise SystemExit(f"Unexpected non-representative FASTA count: {nonrep_fastas} != {expected_nonrep}")
+    raise SystemExit(
+        f"Unexpected non-representative FASTA count: {nonrep_fastas} != {expected_nonrep}. "
+        f"See {members_tsv} for the archive members that were recognized."
+    )
 
 elapsed = time.time() - started
 print(
