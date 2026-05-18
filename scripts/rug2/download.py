@@ -31,10 +31,20 @@ ENA_BINS_TSV = (
     "https://www.ebi.ac.uk/ena/portal/api/search?"
     "result=analysis&"
     "query=study_accession=%22PRJEB31266%22%20AND%20analysis_type=%22SEQUENCE_ASSEMBLY%22%20AND%20assembly_type=%22binned%20metagenome%22&"
-    "fields=study_accession,analysis_accession,sample_accession,analysis_title,analysis_type,assembly_type,generated_ftp,submitted_ftp,submitted_bytes,submitted_md5&"
+    "fields=study_accession,analysis_accession,sample_accession,analysis_title,analysis_type,assembly_type,generated_ftp,generated_bytes,generated_md5,submitted_ftp,submitted_bytes,submitted_md5&"
     "format=tsv"
 )
 USER_AGENT = "awesome-mag/0.1 (+https://github.com/)"
+BROKEN_SUBMITTED_ANALYSES = {
+    # ENA still reports these submitted_ftp paths, but the files currently
+    # return "resource not found". The generated_ftp contig.fa.gz files are
+    # present and have ENA-provided md5/byte metadata.
+    "ERZ1039161",
+    "ERZ1039343",
+    "ERZ1039465",
+    "ERZ1061177",
+    "ERZ1063851",
+}
 
 
 def fetch_text(url: str) -> str:
@@ -89,13 +99,31 @@ def build_items(root: Path) -> list[DownloadItem]:
     for row in reader:
         if row.get("assembly_type", "").casefold() != "binned metagenome":
             continue
-        urls = split_field(row.get("submitted_ftp", "")) or split_field(row.get("generated_ftp", ""))
-        md5s = split_field(row.get("submitted_md5", ""))
-        byte_values = split_field(row.get("submitted_bytes", ""))
         analysis = row.get("analysis_accession", "")
+        submitted_urls = split_field(row.get("submitted_ftp", ""))
+        generated_urls = split_field(row.get("generated_ftp", ""))
+
+        if analysis in BROKEN_SUBMITTED_ANALYSES:
+            if not generated_urls:
+                raise DownloadError(f"{analysis} needs generated_ftp fallback, but ENA did not provide one.")
+            urls = generated_urls
+            md5s = split_field(row.get("generated_md5", ""))
+            byte_values = split_field(row.get("generated_bytes", ""))
+            output_name_urls = submitted_urls or generated_urls
+        else:
+            urls = submitted_urls or generated_urls
+            if submitted_urls:
+                md5s = split_field(row.get("submitted_md5", ""))
+                byte_values = split_field(row.get("submitted_bytes", ""))
+            else:
+                md5s = split_field(row.get("generated_md5", ""))
+                byte_values = split_field(row.get("generated_bytes", ""))
+            output_name_urls = urls
+
         for index, raw_url in enumerate(urls):
             url = with_scheme(raw_url)
-            output_name = unique_output_name(analysis, url, seen)
+            output_source_url = with_scheme(output_name_urls[index]) if index < len(output_name_urls) else url
+            output_name = unique_output_name(analysis, output_source_url, seen)
             md5 = md5s[index] if index < len(md5s) else ""
             size = parse_int(byte_values[index]) if index < len(byte_values) else None
             items.append(

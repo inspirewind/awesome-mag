@@ -130,3 +130,4 @@ Checked on 2026-05-08:
 Checked on 2026-05-18:
 
 - `scripts/rug2/download.py --manifest-only` returned 20,567 ENA binned metagenome FASTA entries.
+- Five ENA records still reported stale `submitted_ftp` paths that returned resource-not-found: `ERZ1039161`, `ERZ1039343`, `ERZ1039465`, `ERZ1061177`, and `ERZ1063851`. Their `generated_ftp` `contig.fa.gz` paths were reachable and had ENA-provided MD5/byte metadata, so the corpus downloader uses those generated paths as fallbacks while preserving the original output filenames.

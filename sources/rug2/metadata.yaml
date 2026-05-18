@@ -34,6 +34,7 @@ access:
     - During curation on 2026-05-08, the DataShare bitstream URL returned HTTP 200 with a 31958778104 byte Content-Length, but the response can be slow.
     - The author bins page links to a relative CSV, but that CSV URL returned the site 404 page during curation on 2026-05-08.
     - The corpus downloader uses the public ENA binned metagenome FASTA sequence superset. A stricter 4,941 final-RUG subset needs a reliable final RUG ID mapping before use.
+    - Five ENA `submitted_ftp` paths were stale during corpus download on 2026-05-18; the downloader uses the corresponding `generated_ftp` paths for `ERZ1039161`, `ERZ1039343`, `ERZ1039465`, `ERZ1061177`, and `ERZ1063851`.
 download:
   landing_page: https://vetgenomics.github.io/metagenomics/stewart2019/
   article: https://www.nature.com/articles/s41587-019-0202-3
