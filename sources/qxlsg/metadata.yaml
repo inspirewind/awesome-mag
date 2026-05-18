@@ -33,7 +33,7 @@ checked_at: 2026-05-09
 license: "Article is Creative Commons Attribution 4.0; NGDC/GSA/GWH and NODE records are subject to repository terms; Figshare share license was not captured because CLI access returned an AWS WAF challenge."
 access:
   method: public-ngdc-gsa-gwh-plus-node-and-figshare
-  automation: none
+  automation: implemented
   restrictions:
     - Raw metagenomic and 16S reads are public under NGDC BioProject PRJCA037687 with GSA accessions CRA025489 and CRA029668.
     - GSA HTTPS/FTP/Qtrans directories are public static indexes and include md5sum.txt checksum files.

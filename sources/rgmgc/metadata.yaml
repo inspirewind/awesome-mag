@@ -35,16 +35,16 @@ source_type:
 release: Microbiome article 9:137, NCBI BioProjects PRJNA657455 and PRJNA657473, Figshare DOI 10.6084/m9.figshare.14176574
 release_date: 2021-06-12
 updated_at: 2022-12-15
-checked_at: 2026-05-11
+checked_at: 2026-05-18
 license: "Article and Springer-hosted text are Creative Commons Attribution 4.0; upstream dataset files are subject to NCBI/SRA, Figshare, and RGMGC website terms."
 access:
   method: public-rgmgc-download-endpoints-plus-ncbi-and-figshare
-  automation: none
+  automation: corpus/download_bash/part4_hard_datasets/rgmgc.sh for NCBI Assembly genome FASTA files
   restrictions:
     - The RGMGC website exposes gene catalogs and abundance/profile tables through `/rumment/download/downloadFile?file=<name>` endpoints.
     - The website `GENOMES` resource page was empty during curation; use NCBI BioProject `PRJNA657473` and Figshare DOI `10.6084/m9.figshare.14176574` for MAG assembly/protein/ORF access.
-    - NCBI ESearch reported 370 SRA experiment records for `PRJNA657455` and 10,373 assembly records for `PRJNA657473` during curation on 2026-05-11.
-    - The Figshare API returned HTTP 403 from command-line access during curation; browser access to the DOI landing page is the practical route unless the API becomes available.
+    - NCBI ESearch reported 370 SRA experiment records for `PRJNA657455` during curation on 2026-05-11 and 10,373 assembly records for `PRJNA657473` again on 2026-05-18.
+    - The Figshare API returned HTTP 403 from command-line access during curation; browser access to the DOI landing page is the practical route unless the API becomes available. The Figshare payload is protein/ORF sequence data and is not used for the MAG genome FASTA corpus.
     - The website's NCBI related-resource link uses the legacy domain `www.rummeta.com`; the currently reachable official site is `https://rummeta.njau.edu.cn/`.
 download:
   landing_page: https://rummeta.njau.edu.cn/
