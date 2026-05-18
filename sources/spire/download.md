@@ -10,7 +10,17 @@ The static file host is:
 
 ## Download Strategy
 
-This repository does not use Python to download SPIRE data. The helper script only resolves and prints URLs so users can download with their preferred tools, such as `wget`, `curl`, `aria2c`, or an HPC transfer workflow.
+The corpus workflow uses the helper script to enumerate and download only the
+per-study MAG archives:
+
+```bash
+bash corpus/download_bash/part4_hard_datasets/spire.sh --manifest-only
+bash corpus/download_bash/part4_hard_datasets/spire.sh --downloader aria2c --jobs 4 --connections 2
+```
+
+For ad hoc workflows, the helper can still resolve and print URLs so users can
+download with their preferred tools, such as `wget`, `curl`, `aria2c`, or an HPC
+transfer workflow.
 
 For per-study static archives, use the official downloads page as the authoritative study list. It exposes 714 unique study names and four static archive classes per study:
 
@@ -74,3 +84,19 @@ python3 scripts/spire/download.py manifest \
 - Use `--asset all` to include those profile endpoints in per-study URL output.
 - The Apache indexes expose some page-hidden per-study tar files. Several are 10K placeholder archives and should not be treated as normal study packages without inspection.
 - The `manifest` command intentionally enumerates index pages; it may include files not shown in the official downloads page.
+
+## Filelist Building
+
+Build RabbitTClust inputs from the downloaded `*_MAGs.tar` archives:
+
+```bash
+bash corpus/build_filelist/spire.sh --inspect-only --log-every 5000
+bash corpus/build_filelist/spire.sh --log-every 5000
+```
+
+The builder uses `downloads/spire/mags/*.tar`, extracts FASTA members under
+`downloads/spire/extracted/<archive-stem>/`, and writes one FASTA path per MAG.
+The default expected archive count is 714, and the default expected genome FASTA
+count is 1,158,553, matching the SPIRE v1 genome metadata row count captured in
+the local dataset summary. Inspect mode writes per-archive counts and read errors
+to `corpus/cluster_inputs/debug/spire.archives.tsv`.

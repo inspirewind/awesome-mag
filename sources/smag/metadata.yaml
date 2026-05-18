@@ -21,12 +21,13 @@ updated_at: 2025-06-05
 license: CC BY 4.0
 access:
   method: public-zenodo-files-plus-mirrors
-  automation: none
+  automation: corpus/download_bash/part4_hard_datasets/smag.sh plus corpus/build_filelist/smag.sh for the main MAG archive
   restrictions:
     - The stable checked download endpoint is the Zenodo record, where the main MAG archive is split into many `mag.tar.gz.*` parts.
     - The official CyVerse links redirected to `https://unblockme.cyverse.org/` when checked on 2026-04-27.
     - The official China-region S3 links for MAG40039 and dereplicated MAG archives returned 404 when checked on 2026-04-27.
     - The former SMAG web interface is marked as under website maintenance on the project page.
+    - The paper/project summary reports 40,039 MAG bins, but the reassembled Zenodo `mag.tar.gz` archive was observed to contain 40,350 FASTA members during corpus filelist inspection.
 download:
   landing_page: https://microbma.github.io/project/SMAG.html
   zenodo_record: https://zenodo.org/records/8223844

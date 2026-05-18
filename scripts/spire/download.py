@@ -31,6 +31,7 @@ MARKER_GENES_BASE = "https://swifter.embl.de/~fullam/census_marker_genes/"
 USER_AGENT = "awesome-mag/0.1 (+https://github.com/)"
 DOWNLOAD_SLUG = "spire"
 DOWNLOAD_DATASET = "SPIRE"
+EXPECTED_MAG_ARCHIVE_COUNT = 714
 DOWNLOAD_SIZE = "714 per-study MAG tar archives; total size not precomputed"
 DOWNLOAD_NOTE = "SPIRE downloads page filtered to per-study *_MAGs.tar archives only."
 
@@ -450,6 +451,8 @@ def command_download(args: argparse.Namespace) -> int:
     )
     if not records:
         raise SystemExit("No SPIRE MAG archive URLs were found for the selected studies.")
+    if args.expected_count and len(records) != args.expected_count:
+        raise DownloadError(f"Unexpected SPIRE MAG archive URL count: {len(records)} != {args.expected_count}")
 
     root = Path(args.root).expanduser().resolve()
     return run_manifest_workflow(
@@ -562,6 +565,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     add_study_selection_arguments(download_parser)
     add_common_arguments(download_parser, jobs=4, connections=2)
+    download_parser.add_argument(
+        "--expected-count",
+        type=int,
+        default=EXPECTED_MAG_ARCHIVE_COUNT,
+        help="Expected number of page-listed SPIRE MAG tar archives. Defaults to 714.",
+    )
     add_downloads_page_argument(download_parser)
     download_parser.set_defaults(func=command_download)
 
