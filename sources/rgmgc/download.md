@@ -130,6 +130,19 @@ datasets download genome accession \
   --filename rgmgc_PRJNA657473_genomes.zip
 ```
 
+The corpus workflow uses a dependency-light E-utilities helper instead of requiring
+EDirect or NCBI Datasets CLI:
+
+```bash
+bash corpus/download_bash/part4_hard_datasets/rgmgc.sh --manifest-only
+bash corpus/download_bash/part4_hard_datasets/rgmgc.sh --downloader aria2c --jobs 8 --connections 2
+```
+
+The helper enumerates `PRJNA657473[BioProject]` with ESearch, resolves each
+Assembly document summary FTP path with ESummary, constructs the corresponding
+`*_genomic.fna.gz` URL, and writes the audit table
+`downloads/rgmgc/ncbi_assemblies_manifest.tsv`.
+
 ## Figshare Protein and ORF Bundles
 
 The article data availability section points to Figshare DOI:
@@ -157,16 +170,19 @@ The article page hosts supplementary files for figures, sample metadata, gene ca
 
 ## Automation Decision
 
-No source-specific script is currently needed.
+A source-specific script is now provided for the MAG sequence payload:
 
-The reproducible parts already have stable public routes:
+- `corpus/download_bash/part4_hard_datasets/rgmgc.sh`
+- `scripts/rgmgc/download.py`
+
+The reproducible parts have stable public routes:
 
 - RGMGC website direct `downloadFile?file=` endpoints for gene catalogs and profiles
 - NCBI SRA runinfo CSV for raw reads
-- NCBI Assembly/BioProject records for the 10,373 MAG assemblies
+- NCBI Assembly/BioProject records for the 10,373 MAG assemblies, used by the corpus downloader
 - Figshare DOI landing page for MAG/USG protein and ORF sequence bundles
 
-Do not add automation to work around Figshare API or browser restrictions.
+Do not add automation to work around Figshare API or browser restrictions for the protein/ORF bundles. They are not the genome FASTA payload needed for MAG-level RabbitTClust clustering.
 
 ## Verification
 
@@ -180,3 +196,8 @@ Checked on 2026-05-11:
 - NCBI ESearch reported 10,373 assembly records for `PRJNA657473`.
 - NCBI example assembly `GCA_017965065.1` loaded in the Datasets genome page.
 - Crossref DOI metadata confirmed Microbiome volume 9, article 137, published online 2021-06-12, with a 2022 correction DOI.
+
+Checked on 2026-05-18:
+
+- NCBI Assembly ESearch for `PRJNA657473[BioProject]` returned 10,373 records.
+- `scripts/rgmgc/download.py --manifest-only` successfully resolved 10,373 GenBank FTP paths into `*_genomic.fna.gz` URLs.

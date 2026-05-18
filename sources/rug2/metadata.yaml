@@ -25,7 +25,7 @@ updated_at: 2019-07-22
 license: unknown
 access:
   method: public-ena-ftp-plus-datashare-archive
-  automation: none
+  automation: corpus/download_bash/part4_hard_datasets/rug2.sh for ENA binned metagenome FASTA files
   restrictions:
     - ENA project PRJEB31266 is the primary accession for raw reads, primary assemblies, and RUG assemblies.
     - ENA project PRJEB21624 contains raw reads from the earlier Stewart et al. 2018 Illumina NextSeq rumen study reused by the 2019 paper.
@@ -33,6 +33,7 @@ access:
     - The DataShare record does not expose checksums on the landing page.
     - During curation on 2026-05-08, the DataShare bitstream URL returned HTTP 200 with a 31958778104 byte Content-Length, but the response can be slow.
     - The author bins page links to a relative CSV, but that CSV URL returned the site 404 page during curation on 2026-05-08.
+    - The corpus downloader uses the public ENA binned metagenome FASTA sequence superset. A stricter 4,941 final-RUG subset needs a reliable final RUG ID mapping before use.
 download:
   landing_page: https://vetgenomics.github.io/metagenomics/stewart2019/
   article: https://www.nature.com/articles/s41587-019-0202-3

@@ -6,7 +6,16 @@ RUG2 has three useful public access paths:
 - the Stewart et al. author pages for human-readable assembly/bin indexes
 - Edinburgh DataShare for the large protein, cluster, annotation, synteny, and table archive
 
-No source-specific script is needed because ENA exposes TSV reports and FTP paths through stable APIs.
+A source-specific corpus script is now provided to turn the ENA TSV report into a resumable MAG FASTA manifest:
+
+```bash
+bash corpus/download_bash/part4_hard_datasets/rug2.sh --manifest-only
+bash corpus/download_bash/part4_hard_datasets/rug2.sh --downloader aria2c --jobs 4 --connections 2
+```
+
+The script downloads only the ENA `binned metagenome` assembly FASTA files under
+`downloads/rug2/assemblies/`. It does not download raw reads, primary metagenome
+assemblies, or the Edinburgh DataShare protein/annotation companion archive.
 
 ## ENA Accessions
 
@@ -94,14 +103,19 @@ During curation on 2026-05-08, the DataShare landing page loaded and the bitstre
 
 ## Automation Decision
 
-Do not add a repository script unless this source grows beyond the current access pattern. The useful machine-readable paths are already:
+A source-specific script is provided for the MAG sequence payload:
+
+- `corpus/download_bash/part4_hard_datasets/rug2.sh`
+- `scripts/rug2/download.py`
+
+The useful machine-readable paths are:
 
 - ENA Portal API TSV reports
 - stable ENA FTP paths in the TSV reports
 - one DataShare bitstream URL
 - one author-maintained CSV for the primary metagenome assemblies
 
-If a helper is added later, it should only turn ENA TSV fields into plain URL lists and should not scrape browser state.
+The helper only turns ENA TSV fields into a plain URL manifest and does not scrape browser state.
 
 ## Verification
 
@@ -112,3 +126,7 @@ Checked on 2026-05-08:
 - ENA analysis search for `PRJEB31266` returned `primary metagenome` and `binned metagenome` `SEQUENCE_ASSEMBLY` records with FTP paths and MD5s.
 - `https://vetgenomics.github.io/metagenomics/stewart2019/metagenome_assemblies.csv` returned CSV.
 - DataShare landing page listed `rug2.tar.gz` as 29.76 Gb; the bitstream URL returned HTTP 200 with a 31,958,778,104 byte `Content-Length`.
+
+Checked on 2026-05-18:
+
+- `scripts/rug2/download.py --manifest-only` returned 20,567 ENA binned metagenome FASTA entries.

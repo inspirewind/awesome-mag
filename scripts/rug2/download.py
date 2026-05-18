@@ -24,6 +24,7 @@ from lib.corpus_download import (
 
 SLUG = "rug2"
 DATASET = "RUG2 Rumen MAGs"
+EXPECTED_FASTA_COUNT = 20_567
 SIZE = "20,567 ENA binned metagenome FASTA files; superset of the 4,941 final RUGs"
 NOTE = "ENA analysis report filtered to binned metagenome assembly FASTA links; this is the public sequence superset, while raw reads and DataShare protein archive are skipped."
 ENA_BINS_TSV = (
@@ -114,18 +115,27 @@ def build_items(root: Path) -> list[DownloadItem]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     add_common_arguments(parser, jobs=4, connections=2)
+    parser.add_argument(
+        "--expected-count",
+        type=int,
+        default=EXPECTED_FASTA_COUNT,
+        help="Expected number of ENA binned metagenome FASTA links. Defaults to 20,567.",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     root = Path(args.root).expanduser().resolve()
+    items = build_items(root)
+    if args.expected_count and len(items) != args.expected_count:
+        raise DownloadError(f"Unexpected RUG2 FASTA URL count: {len(items)} != {args.expected_count}")
     return run_manifest_workflow(
         root=root,
         slug=SLUG,
         dataset=DATASET,
         size=SIZE,
-        items=build_items(root),
+        items=items,
         downloader=args.downloader,
         jobs=args.jobs,
         connections=args.connections,
